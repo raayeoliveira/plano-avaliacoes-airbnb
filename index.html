@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plano de Ação — Nota Airbnb 4,80 | BackOffice Franquias Seazone</title>
+<style>
+/* ============================================================
+   TEMA: DOSSIÊ EDITORIAL CLARO — papel bege, tinta quente,
+   coral Seazone como acento funcional (nunca decorativo).
+   Sem gradientes, sem Inter/Roboto, sem cards aninhados.
+   Grid de 4pt. Números em tabular-nums, alinhados à direita.
+   ============================================================ */
+:root{
+  --paper:#F7F5F0;
+  --paper-2:#FFFFFF;
+  --ink:#191713;
+  --ink-2:#4A453D;
+  --ink-3:#7C7469;
+  --rule:#DED8CC;
+  --rule-2:#EDE8DE;
+  --coral:#EB615E;
+  --coral-deep:#C4483F;
+  --coral-wash:#FBEDEC;
+  --moss:#5B6E4A;
+  --moss-wash:#EEF1E9;
+  --amber:#A9743A;
+  --amber-wash:#F7EFE4;
+  --slate:#3F5A6B;
+  --slate-wash:#EBF0F3;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Helvetica Neue","Segoe UI","Source Sans 3",Calibri,sans-serif;
+  font-size:15px; line-height:1.62;
+  font-variant-numeric:tabular-nums;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px 96px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:2px solid var(--ink);padding:38px 0 26px;margin-bottom:0}
+.mast-row{display:flex;justify-content:space-between;align-items:flex-start;gap:40px}
+.brand{display:flex;align-items:center;gap:14px}
+.brand svg{width:38px;height:39px;display:block;flex:none}
+.brand-word{font-family:Georgia,"Times New Roman",serif;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.brand-sub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:3px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-deep);font-weight:700;margin:0 0 10px}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:clamp(30px,4.4vw,52px);line-height:1.06;letter-spacing:-.015em;margin:0 0 14px;max-width:17ch}
+.dek{font-size:16px;line-height:1.58;color:var(--ink-2);max-width:62ch;margin:0}
+.mast-meta{text-align:right;font-size:12px;color:var(--ink-3);line-height:1.85;flex:none}
+.mast-meta b{color:var(--ink);font-weight:600}
+
+/* ---------- gauge strip ---------- */
+.gauge{border-bottom:1px solid var(--rule);background:var(--paper-2)}
+.gauge-in{display:flex;flex-wrap:wrap;gap:0;max-width:1180px;margin:0 auto;padding:0 40px}
+.gcell{flex:1 1 168px;padding:22px 24px 22px 0;min-width:150px}
+.gcell + .gcell{border-left:1px solid var(--rule-2);padding-left:24px}
+.glabel{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:7px}
+.gval{font-family:Georgia,serif;font-size:34px;line-height:1;letter-spacing:-.02em}
+.gval small{font-size:14px;font-family:inherit;color:var(--ink-3);letter-spacing:0}
+.gnote{font-size:11.5px;color:var(--ink-3);margin-top:7px;line-height:1.45}
+.gval.coral{color:var(--coral-deep)}
+.gval.ok{color:var(--moss)}
+
+/* ---------- typography ---------- */
+h2{font-family:Georgia,serif;font-weight:400;font-size:29px;line-height:1.16;letter-spacing:-.012em;margin:0 0 6px}
+h2 .num{color:var(--coral);font-size:19px;vertical-align:super;margin-right:9px;font-family:Georgia,serif}
+h3{font-family:Georgia,serif;font-weight:400;font-size:19px;margin:34px 0 10px;letter-spacing:-.008em}
+h4{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:24px 0 9px}
+p{margin:0 0 13px;max-width:74ch}
+.sec{padding:52px 0 8px;border-bottom:1px solid var(--rule-2)}
+.sec:last-of-type{border-bottom:0}
+.sec-lede{font-size:15.5px;color:var(--ink-2);max-width:80ch;margin:0 0 22px}
+.lede-rule{width:44px;height:2px;background:var(--coral);margin:16px 0 20px}
+
+/* ---------- layout ---------- */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;align-items:start}
+.col-60{grid-column:span 6}
+@media(max-width:900px){.cols,.cols-3{grid-template-columns:1fr}}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 16px}
+caption{caption-side:top;text-align:left;font-size:11.5px;color:var(--ink-3);padding:0 0 9px;letter-spacing:.02em}
+caption b{color:var(--ink);font-weight:600}
+th{text-align:left;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700;
+   padding:0 10px 8px 0;border-bottom:1.5px solid var(--ink);vertical-align:bottom}
+td{padding:8px 10px 8px 0;border-bottom:1px solid var(--rule-2);vertical-align:top}
+td:last-child,th:last-child{padding-right:0}
+.num{text-align:right;white-space:nowrap}
+tr.tot td{border-top:1.5px solid var(--ink);border-bottom:none;font-weight:600;padding-top:9px}
+tr.sub td{color:var(--ink-2)}
+tr.hi td{background:var(--coral-wash)}
+.tick{color:var(--moss);font-weight:700}
+.cross{color:var(--coral-deep);font-weight:700}
+.muted{color:var(--ink-3)}
+.small{font-size:12px}
+
+/* ---------- callouts ---------- */
+.note{border-left:2px solid var(--coral);background:var(--coral-wash);padding:15px 18px;margin:18px 0;font-size:13.5px;line-height:1.58}
+.note b{color:var(--coral-deep)}
+.note.plain{border-left-color:var(--rule);background:var(--paper-2)}
+.note.green{border-left-color:var(--moss);background:var(--moss-wash)}
+.note.green b{color:#42522F}
+.note.amber{border-left-color:var(--amber);background:var(--amber-wash)}
+.note.amber b{color:#8A5D2A}
+
+/* ---------- findings ---------- */
+.find{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:17px 0;border-bottom:1px solid var(--rule-2)}
+.find:last-child{border-bottom:0}
+.find-i{font-family:Georgia,serif;font-size:26px;line-height:1;color:var(--coral);opacity:.55}
+.find h4{margin:0 0 5px;font-size:11px;letter-spacing:.1em;color:var(--ink);text-transform:uppercase}
+.find p{margin:0;font-size:14px;color:var(--ink-2);max-width:none}
+.find .fig{font-family:Georgia,serif;font-size:19px;color:var(--ink);display:block;margin-bottom:3px}
+
+/* ---------- charts ---------- */
+.chart{width:100%;margin:8px 0 6px;display:block;overflow:visible}
+.chart-title{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:26px 0 4px}
+.chart-cap{font-size:11.5px;color:var(--ink-3);margin:2px 0 20px;line-height:1.5}
+.axis-l{font-size:10px;fill:var(--ink-3)}
+.axis-t{font-size:10.5px;fill:var(--ink-3)}
+.val-l{font-size:11px;fill:var(--ink);font-weight:600}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-2);margin:4px 0 0}
+.legend span{display:flex;align-items:center;gap:6px}
+.sw{width:11px;height:11px;display:inline-block;flex:none}
+
+/* ---------- quotes ---------- */
+.quote{border-top:1px solid var(--rule);padding:14px 0 14px 0;font-size:13.5px;line-height:1.6;color:var(--ink-2)}
+.quote:first-of-type{border-top:0}
+.quote b{color:var(--ink);font-weight:600}
+.quote cite{display:block;font-style:normal;font-size:11px;color:var(--ink-3);margin-top:7px;letter-spacing:.03em}
+.quote .qt{color:var(--ink);font-family:Georgia,serif}
+
+/* ---------- plan table ---------- */
+.plan{font-size:12.5px}
+.plan th{vertical-align:bottom}
+.plan td{padding:11px 10px 11px 0}
+.plan .id{font-family:Georgia,serif;font-size:15px;color:var(--coral);width:26px}
+.pill{display:inline-block;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:3px 7px;border-radius:2px;font-weight:700;white-space:nowrap}
+.p15{background:var(--coral-wash);color:var(--coral-deep)}
+.p30{background:var(--amber-wash);color:#8A5D2A}
+.p90{background:var(--slate-wash);color:var(--slate)}
+.eff-M{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--rule)}
+.eff-G{background:var(--ink);color:var(--paper-2)}
+.eff-P{background:var(--paper-2);color:var(--ink-3);border:1px solid var(--rule-2)}
+.imp{font-family:Georgia,serif;font-size:16px;color:var(--moss)}
+.imp.zero{color:var(--ink-3)}
+.owner{font-size:12px;line-height:1.45}
+.owner span{color:var(--ink-3);display:block;font-size:11px}
+
+/* ---------- footer ---------- */
+footer{border-top:2px solid var(--ink);margin-top:56px;padding-top:26px;font-size:12px;color:var(--ink-3);line-height:1.62}
+footer h4{color:var(--ink);margin-top:22px}
+footer ul{margin:6px 0 14px;padding-left:18px}
+footer li{margin-bottom:4px}
+footer code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11px;background:var(--paper-2);padding:1px 4px;border:1px solid var(--rule-2);color:var(--ink-2)}
+pre{background:var(--paper-2);border:1px solid var(--rule);padding:13px 15px;overflow-x:auto;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:11px;line-height:1.6;color:var(--ink-2);margin:8px 0 16px}
+.tag{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;border:1px solid var(--rule);color:var(--ink-3);margin-right:5px}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap" style="padding-bottom:26px">
+    <div class="mast-row">
+      <div style="flex:1 1 auto;min-width:0">
+        <div class="brand">
+          <svg viewBox="0 0 564 575" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Seazone"><path d="M543.226 178.172L442.93 119.392C443.194 117.952 443.72 116.643 443.72 115.203V26.5752C443.72 11.913 431.743 0 417.001 0H363.562C348.821 0 336.843 11.913 336.843 26.5752V57.6015L300.516 36.3936C285.774 27.6225 266.294 29.0626 252.605 39.1428C252.342 39.2737 252.079 39.2737 251.947 39.4046L20.951 172.543C1.73419 183.932 -6.29474 210.507 5.55122 230.406C17.9237 251.09 45.301 256.588 64.5178 245.199L78.3381 237.213C62.017 269.025 51.7505 305.026 51.7505 344.169C51.7505 406.221 75.7056 467.226 119.799 511.344C137.173 528.624 157.443 543.156 179.555 553.759C196.666 562.007 214.567 568.814 233.257 572.218C258.002 576.669 283.8 574.444 308.808 574.444C335.922 574.444 363.036 574.444 390.018 574.444C414.5 574.444 439.113 574.575 463.99 574.575C470.176 574.575 476.231 573.004 481.759 570.254C488.866 566.72 492.947 562.792 497.685 556.509C502.95 549.57 506.635 541.061 506.635 532.159V252.923C525.062 259.599 547.306 253.839 558.363 235.511C570.34 215.613 562.311 189.038 542.963 177.648L543.226 178.172ZM427.794 348.751C427.794 433.582 370.012 502.573 282.878 502.573C195.745 502.573 131.777 429.131 131.777 344.3C131.777 259.468 195.745 188.776 282.878 188.776C370.012 188.776 427.794 254.232 427.794 338.147V348.751Z" fill="#EB615E"></path></svg>
+          <div>
+            <div class="brand-word">Seazone</div>
+            <div class="brand-sub">BackOffice Franquias</div>
+          </div>
+        </div>
+        <p class="kicker" style="margin-top:26px">Análise executiva &amp; plano de ação</p>
+        <h1>Subir a nota do Airbnb a 4,80 sem regredir</h1>
+        <p class="dek">Onde estão os 0,03 de nota que faltam, o que a cauda de avaliações de 1 e 2 estrelas está dizendo sobre limpeza, manutenção, check-in e preço, e quais ações fecham a meta em 15, 30 e 90 dias. O gap é pequeno — por isso o plano é cirúrgico e cada ação carrega o cálculo do seu efeito, não uma estimativa.</p>
+      </div>
+      <div class="mast-meta">
+        <div><b>Janela analisada</b><br>jul/2026 – out/2026</div>
+        <div><b>Contexto</b><br>nov/2026 parcial (68 reviews)</div>
+        <div><b>Meta operacional</b><br>4,80</div>
+        <div><b>Gerado em</b><br>03/11/2026</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="gauge">
+  <div class="gauge-in">
+    <div class="gcell">
+      <div class="glabel">Meta</div>
+      <div class="gval">4,80</div>
+      <div class="gnote">Nota geral do Airbnb</div>
+    </div>
+    <div class="gcell">
+      <div class="glabel">Reportado pela operação</div>
+      <div class="gval coral">4,77</div>
+      <div class="gnote">Média <b>bruta</b> de out/2026 (5.571 reviews, incluindo as removidas do ar)</div>
+    </div>
+    <div class="gcell">
+      <div class="glabel">Corte canônico</div>
+      <div class="gval">4,783</div>
+      <div class="gnote">Média com <code>entra_no_calculo = true</code> (5.550 reviews) — <b>número de acompanhamento</b></div>
+    </div>
+    <div class="gcell">
+      <div class="glabel">Gap real</div>
+      <div class="gval ok">0,017</div>
+      <div class="gnote">Equivale a <b>94 pontos</b> de soma em 5.550 reviews</div>
+    </div>
+    <div class="gcell">
+      <div class="glabel">Janela 4m</div>
+      <div class="gval">4,790</div>
+      <div class="gnote">20.517 reviews · <b>melhor</b> que a média dos 8m anteriores (4,768)</div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<!-- ===================== RESUMO ===================== -->
+<section class="sec">
+  <h2><span class="num">00</span>Resumo executivo</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">A nota não está caindo: a janela de 4 meses é <b>melhor</b> que os 8 meses anteriores em todas as dimensões. O problema é um platô em ~4,78 e uma cauda de 258 avaliações de 1 a 3 estrelas que segura a média. Fechar 4,80 exige sanar uma fração pequena e bem delimitada da cauda — cerca de 100 reviews por mês.</p>
+
+  <div class="find"><div class="find-i">1</div><div>
+    <h4>A cauda, não a média, é o gargalo</h4>
+    <span class="fig">258 reviews de nota ≤ 3 = 4,6% da base, mas 8,3% da soma de pontos</span>
+    <p>Em out/2026: 55 notas 1, 46 notas 2, 157 notas 3 sobre 5.550 reviews. A nota 5 responde por 86% das avaliações. Para subir 0,017 <b>basta 94 das 157 notas 3 subirem para 4</b> — ou, de forma equivalente, <b>as 101 reviews de nota 1–2 subirem um único ponto</b> (+0,0182 → 4,8013). O gap é estreito e está concentrado na cauda.</p>
+  </div></div>
+
+  <div class="find"><div class="find-i">2</div><div>
+    <h4>Comunicação é o que separa 1 estrela de 5</h4>
+    <span class="fig">Comunicação ≤ 3 em 80% das notas 1 (44/55) e 63% das notas 2 (29/46)</span>
+    <p>Check-in ≤ 3 aparece em 56% das notas 1; limpeza ≤ 3 em 65%. Mas comunicação baixa aparece junto com check-in baixo em <b>51% das notas 1</b> (28/55). A sequência "ninguém responde → ninguém assume → hóspede liga para o Airbnb" é o caminho mais curto de 5 para 1 estrela. Corrigir só a cauda de comunicação fecha 78% do gap.</p>
+  </div></div>
+
+  <div class="find"><div class="find-i">3</div><div>
+    <h4>"Valor" é a sub-nota mais fraca em toda a distribuição</h4>
+    <span class="fig">4,770 no período · só 84,8% dão 5 estrelas (as outras: 88,4–91,2%)</span>
+    <p>Valor (relação preço × o que foi entregue) é a única dimensão que nunca chega a 5 estrelas em bloco, e 95% das notas 1 a têm ≤ 3. Ela cai de forma sazonal: 4,621 em jan/2026 e 4,674 em fev/2026 contra 4,782 em ago/2026 — degradação de 0,16 exatamente na alta temporada de férias. Nos comentários isso aparece como taxa surprise e como "cobrava R$ 100 por pessoa no balcão".</p>
+  </div></div>
+
+  <div class="find"><div class="find-i">4</div><div>
+    <h4>Quase 80% das reservas Airbnb concluídas não deixam avaliação</h4>
+    <span class="fig">~45.425 reservas Airbnb com check-in em jul–out/2026 contra 20.517 reviews</span>
+    <p>Cobertura de ~45%. O app <b>Nota Máxima</b>, que existe justamente para pedir avaliação, está ativo em <b>2 de 178 franquias</b> (185 cards, 53 imóveis). É o maior volume ocioso do problema — e o de maior alavancagem, desde que o pedido seja dirigido a hóspedes com stay positivo (ver "o que não fazer").</p>
+  </div></div>
+
+  <div class="find"><div class="find-i">5</div><div>
+    <h4>É problema pulverizado — nenhum imóvel isolado explica o gap</h4>
+    <span class="fig">Nenhum imóvel passa de 8 reviews na janela · só 18 imóveis têm ≥ 3 notas ≤ 3</span>
+    <p>Os 18 imóveis com 3+ avaliações baixas somam 38 reviews de nota ≤ 3 sobre 20.517 — 0,18% da base. Não existe "10 franquias que concentram" o problema. O padrão é sistêmico de execução: limpeza, vistoria de saída, check-in e preço. Isso muda a resposta: o plano precisa padronizar, não perseguir uma lista.</p>
+  </div></div>
+
+  <div class="find"><div class="find-i">6</div><div>
+    <h4>A série que a operação acompanha é coorte de checkout, não de publicação</h4>
+    <span class="fig">Join 1:1 de 20.517 linhas com defasagem exatamente 0,0 dia</span>
+    <p>Verificado: <code>review_date</code> ≡ <code>data_checkout</code>. A série mensal é o resultado de Stay, não de quando a review foi publicada. A coorte de out/2026 ainda tem 12 reviews sem publicação e <b>com sub-notas piores</b> (limpeza 3,83 · comunicação 3,33 · valor 3,42 contra 4,78/4,84/4,77 das publicadas). Quando essas entrarem, out/2026 piora um pouco — e a nota exibida no Airbnb já está pior do que a nossa.</p>
+  </div></div>
+
+  <div class="note plain" style="margin-top:26px">
+    <b>Atribuição do gap em uma frase:</b> o 0,017 que falta é_owned pela cauda de 1–3 estrelas — majoritariamente stay ruim de check-in/comunicação (80% das notas 1 têm comunicação ≤ 3) — e não por uma deterioração geral: a janela de 4 meses está <em>melhor</em> que a de 8 meses em todas as cinco sub-notas do Airbnb.
+  </div>
+</section>
+
+<!-- ===================== 1. SÉRIE ===================== -->
+<section class="sec">
+  <h2><span class="num">01</span> Série e tendência: 12 meses</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">A série canônica (Airbnb apenas, <code>entra_no_calculo = true</code>) mostra dois regimes: um vale entre jan e mar/2026 e um platô em 4,78–4,80 desde abr. Ago/2026 é o único mês dos últimos 12 acima da meta. Out/2026 é o pior dos últimos 4.</p>
+
+  <div class="chart-title">Nota média mensal do Airbnb — 12 meses</div>
+  <div id="c-serie" class="chart"></div>
+  <div class="chart-cap">Corte canônico <code>entra_no_calculo = true</code>. nov/2026 aparece parcial (68 reviews, 4,838) e está sinalizado — não entra em média nem em tendência.</div>
+
+  <table>
+    <caption><b>Tabela 1</b> — Série canônica mensal, com sub-notas do Airbnb. Variação = diferença contra o mês imediatamente anterior.</caption>
+    <thead><tr>
+      <th>Mês (coorte de checkout)</th><th class="num">Reviews</th><th class="num">Imóveis</th><th class="num">Nota geral</th><th class="num">Δ mês</th>
+      <th class="num">Limpeza</th><th class="num">Check-in</th><th class="num">Comunicação</th><th class="num">Localização</th><th class="num">Valor</th>
+    </tr></thead>
+    <tbody>
+      <tr class="sub"><td>nov/2025</td><td class="num">3.731</td><td class="num">1.593</td><td class="num">4,801</td><td class="num muted">—</td><td class="num">4,824</td><td class="num">4,840</td><td class="num">4,846</td><td class="num">4,886</td><td class="num">4,772</td></tr>
+      <tr class="sub"><td>dez/2025</td><td class="num">4.008</td><td class="num">1.738</td><td class="num">4,774</td><td class="num">−0,027</td><td class="num">4,792</td><td class="num">4,818</td><td class="num">4,810</td><td class="num">4,858</td><td class="num">4,734</td></tr>
+      <tr><td>jan/2026</td><td class="num">5.458</td><td class="num">2.094</td><td class="num">4,705</td><td class="num cross">−0,069</td><td class="num">4,756</td><td class="num">4,759</td><td class="num">4,750</td><td class="num">4,804</td><td class="num cross">4,621</td></tr>
+      <tr><td>fev/2026</td><td class="num">4.722</td><td class="num">2.029</td><td class="num">4,742</td><td class="num">+0,037</td><td class="num">4,759</td><td class="num">4,779</td><td class="num">4,769</td><td class="num">4,825</td><td class="num cross">4,682</td></tr>
+      <tr><td>mar/2026</td><td class="num">4.941</td><td class="num">2.018</td><td class="num">4,768</td><td class="num">+0,026</td><td class="num">4,779</td><td class="num">4,828</td><td class="num">4,809</td><td class="num">4,862</td><td class="num">4,747</td></tr>
+      <tr><td>abr/2026</td><td class="num">5.232</td><td class="num">2.172</td><td class="num">4,793</td><td class="num">+0,025</td><td class="num">4,814</td><td class="num">4,830</td><td class="num">4,830</td><td class="num">4,875</td><td class="num">4,769</td></tr>
+      <tr><td>mai/2026</td><td class="num">4.183</td><td class="num">1.946</td><td class="num">4,791</td><td class="num">−0,002</td><td class="num">4,827</td><td class="num">4,856</td><td class="num">4,852</td><td class="num">4,884</td><td class="num">4,770</td></tr>
+      <tr><td>jun/2026</td><td class="num">3.600</td><td class="num">1.807</td><td class="num">4,796</td><td class="num">+0,005</td><td class="num">4,833</td><td class="num">4,860</td><td class="num">4,856</td><td class="num">4,896</td><td class="num">4,766</td></tr>
+      <tr class="hi"><td>jul/2026</td><td class="num">4.476</td><td class="num">1.994</td><td class="num">4,786</td><td class="num">−0,010</td><td class="num">4,817</td><td class="num">4,843</td><td class="num">4,837</td><td class="num">4,885</td><td class="num">4,764</td></tr>
+      <tr class="hi"><td>ago/2026</td><td class="num">4.716</td><td class="num">2.051</td><td class="num"><b>4,804</b></td><td class="num tick">+0,018</td><td class="num">4,834</td><td class="num">4,842</td><td class="num">4,850</td><td class="num">4,891</td><td class="num">4,782</td></tr>
+      <tr class="hi"><td>set/2026</td><td class="num">5.775</td><td class="num">2.547</td><td class="num">4,788</td><td class="num">−0,016</td><td class="num">4,817</td><td class="num">4,849</td><td class="num">4,834</td><td class="num">4,886</td><td class="num">4,767</td></tr>
+      <tr class="hi"><td>out/2026</td><td class="num">5.550</td><td class="num">2.548</td><td class="num">4,783</td><td class="num cross">−0,005</td><td class="num">4,818</td><td class="num">4,837</td><td class="num">4,838</td><td class="num">4,879</td><td class="num">4,768</td></tr>
+      <tr class="sub"><td>nov/2026 <span class="muted small">(parcial)</span></td><td class="num">68</td><td class="num">68</td><td class="num">4,838</td><td class="num muted">n/a</td><td class="num">4,721</td><td class="num">4,926</td><td class="num">4,956</td><td class="num">4,824</td><td class="num">4,779</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:22px">
+    <div>
+      <h4>Onde foi o pior mês — e por quê</h4>
+      <p><b>jan/2026 (4,705)</b> é o piso dos 12 meses, e a causa não é sorte: é o único mês em que <b>valor</b> despencou (4,621, contra 4,770 do período atual). Todas as outras dimensões também estão no seu pior nível do ano, mas a queda de 0,12 em "valor" sozinha responde por mais da metade dos 0,096 de queda da nota geral. Fevereiro é o segundo pior (4,742) pelo mesmo mecanismo (4,682). A partir de março o valor se recupera e a nota geral trava em 4,78–4,80.</p>
+      <p class="small muted">Hipótese a confirmar com Precificação: a degradação de jan–fev pode ser (a) tarifação de limpeza/pacote no pico de férias que empurra o preço-total para fora da expectativa, ou (b) mudança de composição do portfólio ativo nesses meses. As duas hipóteses são testáveis com <code>fact_reservations.gross_daily_value</code> + taxa de limpeza por cidade; a análise de review não as separa sozinha.</p>
+    </div>
+    <div>
+      <h4>Sazonalidade: alta vs. baixa temporada</h4>
+      <p>O efeito de alta temporada <b>não</b> aparece como queda de nota em jul–ago — ago/2026 é o mês de 4,804, o único acima da meta nos últimos 12. O que aparece é o oposto do esperado em jan–fev, que são meses de alta ocupação e de pior "valor". Ou seja: <b>a pressão sobre a nota não vem do pico de ocupação, vem do preço percebido no pico de férias</b>.</p>
+      <p>Em compensação, jul–ago é onde o volume de reviews e de stay de baixa qualidade é maior (4.476 e 4.716 reviews), e é onde a cauda de 1 estrela aparece com mais força no volume absoluto. O mesmo número de_reviews reflete mais oportunidades de errar.</p>
+      <div class="note amber" style="margin-top:16px">
+        <b>Cuidado com a leitura de sazonalidade:</b> a série é <b>coorte de checkout</b>, então a coorte de out/2026 é a mais imatura (maturidade média de 18 dias até 03/11). O número de out/2026 ainda vai receber reviews de stays que saíram em novembro e não aparecem nesta base.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 2. RECONCILIAÇÃO ===================== -->
+<section class="sec">
+  <h2><span class="num">02</span> Reconciliação: por que 4,77 e não 4,783</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">A divergência não é ruído de arredondamento nem erro de coleta — é um <b>corte diferente</b>. Reexecutando os dois caminhos sobre out/2026, o número da operação (4,77) é a média <b>bruta</b>: ela mantém no cálculo as reviews que o Airbnb retirou do ar por contestação aceita. O corte canônico (4,783) remove essas 21 linhas.</p>
+
+  <table>
+    <caption><b>Tabela 2</b> — Os quatro cortes possíveis sobre out/2026, com a mesma base de dados. O número reportado pela operação (4,77) é o corte B.</caption>
+    <thead><tr>
+      <th>Corte</th><th>Regra</th><th class="num">Reviews</th><th class="num">Soma de pontos</th><th class="num">Nota</th><th class="num">Arredondado</th><th>É o número da operação?</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><b>A — canônico</b></td><td><code>entra_no_calculo = true</code> (exclui contestação aceita e nota não utilizável)</td><td class="num">5.550</td><td class="num">26.546</td><td class="num">4,7831</td><td class="num">4,78</td><td><span class="cross">Não</span></td></tr>
+      <tr class="hi"><td><b>B — bruto</b></td><td>Todas as linhas com review_date no mês, <b>inclusive</b> as 21 removidas do ar</td><td class="num">5.571</td><td class="num">26.633</td><td class="num">4,7672</td><td class="num"><b>4,77</b></td><td><span class="tick">Sim</span></td></tr>
+      <tr><td>C — bruto, só com nota</td><td>Todas as linhas, excluindo as de nota nula</td><td class="num">5.571</td><td class="num">26.633</td><td class="num">4,7672</td><td class="num">4,77</td><td>Sim (idêntico ao B neste mês)</td></tr>
+      <tr><td>D — sem removidas, incl. inválidas</td><td>Exclui só contestação aceita, mantém nota nula</td><td class="num">5.550</td><td class="num">26.546</td><td class="num">4,7831</td><td class="num">4,78</td><td>Não</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:20px">
+    <div>
+      <h4>A anatomia da diferença</h4>
+      <p>Na janela jul–out/2026 são <b>20.607</b> linhas no total; <b>20.517</b> entram no cálculo canônico. As 90 excluídas se dividem em:</p>
+      <ul style="font-size:13.5px;margin:0 0 13px;padding-left:18px;line-height:1.6">
+        <li><b>67</b> com contestação <b>aceita</b> pelo Airbnb — a review saiu do ar e, portanto, não aparece para o hóspede. São as piores do lote: nota média 1,0 a 2,25 por mês.</li>
+        <li><b>37</b> com nota geral não utilizável (<code>nota_valida = false</code>).</li>
+        <li><b>14</b> demais com ambos os predicados.</li>
+      </ul>
+      <p>Como as contestações aceitas concentram as notas piores, mantê-las no cálculo <b>rebaixa</b> a média e é por isso que o número reportado (4,77) fica abaixo do canônico (4,78). A diferença mensal é de 0,010 a 0,016 — pequena, mas suficiente para mudar o Signal de "atingiu a meta".</p>
+    </div>
+    <div>
+      <h4>Qual é o número certo de acompanhamento</h4>
+      <div class="note green">
+        <b>Recomendação: acompanhar 4,783 (corte canônico) como número de gestão, e publicar 4,77 (bruto) como número de perceptual do mercado.</b> São coisas diferentes e hoje estão misturadas:
+      </div>
+      <ul style="font-size:13.5px;margin:0 0 13px;padding-left:18px;line-height:1.6">
+        <li><b>Bruto (4,77)</b> = o que o Airbnb saw antes de remover contestado. É o número de <b>experiência percebida</b> e o número de <b>governança</b>.</li>
+        <li><b>Canônico (4,783)</b> = o que está <b>no ar hoje</b> na página do anúncio. É o número de <b>reputação</b> e o número de <b>conversão</b>.</li>
+      </ul>
+      <p class="small muted">A meta de 4,80 precisa ser declarada sobre um dos dois. Este documento assume <b>canônico</b>, porque é o que o hóspede lê no Airbnb e o que determina reserva. Se a intenção for a de <b>bruto</b>, o gap é de 0,033 e todas as ações abaixo dobram de eficiência exigida.</p>
+      <div class="note amber">
+        <b>Não "acertar" o dado.</b> A divergência foi documentada, não corrigida. A regra de exclusão por contestação aceita é a decisão vigente e está escrita no comentário da coluna <code>entra_no_calculo</code>; alterá-la é decisão de política, não de análise.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. ATRIBUIÇÃO ===================== -->
+<section class="sec">
+  <h2><span class="num">03</span> Atribuição do gap por dimensão</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">O Airbnb publica cinco sub-notas: limpeza, check-in, comunicação, localização e valor. As outras cinco dimensões que o modelo interno tem (atendimento, manutenção, instalações, processo de reserva, tratamento ao cliente) são <b>100% nulas no canal Airbnb</b> — elas existem só em Booking e no canal sem nome. Por isso a decomposição abaixo trabalha com cinco dimensões, e as dimensões de manutenção e atendimento entram pela via qualitativa (§6).</p>
+
+  <div class="cols-3">
+    <div style="grid-column:span 2">
+      <div class="chart-title">Sub-notas do Airbnb — últimos 4 meses vs. 8 meses anteriores</div>
+      <div id="c-sub" class="chart"></div>
+      <div class="chart-cap">Barras: média da sub-nota. Delta à direita: diferença em décimos. <b>Todas as cinco dimensões melhoraram</b> na janela de 4 meses — o gap não é de deterioração.</div>
+    </div>
+    <div>
+      <table>
+        <caption><b>Tabela 3</b> — Sub-notas e taxa de respostas baixas (≤ 3).</caption>
+        <thead><tr><th>Dimensão</th><th class="num">4m</th><th class="num">8m</th><th class="num">Δ</th><th class="num">% ≤ 3 (4m)</th><th class="num">% = 5</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td>Valor</td><td class="num">4,770</td><td class="num">4,728</td><td class="num tick">+0,042</td><td class="num cross">5,12%</td><td class="num">84,8%</td></tr>
+          <tr><td>Limpeza</td><td class="num">4,821</td><td class="num">4,795</td><td class="num tick">+0,026</td><td class="num">4,26%</td><td class="num">88,4%</td></tr>
+          <tr><td>Check-in</td><td class="num">4,843</td><td class="num">4,818</td><td class="num tick">+0,025</td><td class="num">3,49%</td><td class="num">90,2%</td></tr>
+          <tr><td>Comunicação</td><td class="num">4,840</td><td class="num">4,812</td><td class="num tick">+0,028</td><td class="num">3,57%</td><td class="num">89,8%</td></tr>
+          <tr><td>Localização</td><td class="num">4,885</td><td class="num">4,858</td><td class="num tick">+0,027</td><td class="num">1,92%</td><td class="num">91,2%</td></tr>
+          <tr class="tot"><td>Nota geral</td><td class="num">4,790</td><td class="num">4,768</td><td class="num tick">+0,022</td><td class="num">4,51%</td><td class="num">86,3%</td></tr>
+        </tbody>
+      </table>
+      <div class="note plain" style="font-size:12.5px">
+        <b>Localização é a mais estável</b> (91,2% de 5 estrelas) — não é alavanca. <b>Valor é a mais fraca em toda a distribuição</b>: é a única que não chega a 90% de 5 estrelas, e é a que mais se degrada entre jan e fev.
+      </div>
+    </div>
+  </div>
+
+  <h3>Como cada dimensão se comporta dentro da cauda (out/2026)</h3>
+  <p class="sec-lede" style="margin-bottom:14px">A tabela abaixo cruza a nota geral com as sub-notas. É aqui que aparece a atribuição: <b>comunicação é a dimensão que mais separa as notas 1 das notas 5</b>.</p>
+
+  <table>
+    <caption><b>Tabela 4</b> — Sub-notas por faixa de nota geral (out/2026, corte canônico, 5.550 reviews).</caption>
+    <thead><tr>
+      <th>Nota geral</th><th class="num">n</th><th class="num">% da base</th><th class="num">Limpeza</th><th class="num">Check-in</th><th class="num">Comunicação</th><th class="num">Localização</th><th class="num">Valor</th>
+      <th class="num">com ≤ 3</th><th class="num">valor ≤ 3</th><th class="num">limpeza ≤ 3</th><th class="num">check-in ≤ 3</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>1,0</td><td class="num">55</td><td class="num">0,99%</td><td class="num">2,679</td><td class="num">2,614</td><td class="num cross">2,130</td><td class="num">3,462</td><td class="num cross">1,370</td><td class="num cross">80,0%</td><td class="num cross">94,5%</td><td class="num">65,5%</td><td class="num">56,4%</td></tr>
+      <tr><td>2,0</td><td class="num">46</td><td class="num">0,83%</td><td class="num">3,256</td><td class="num">3,554</td><td class="num cross">3,226</td><td class="num">4,154</td><td class="num cross">2,321</td><td class="num cross">63,0%</td><td class="num cross">91,3%</td><td class="num">67,4%</td><td class="num">34,8%</td></tr>
+      <tr><td>3,0</td><td class="num">157</td><td class="num">2,83%</td><td class="num">3,793</td><td class="num">4,005</td><td class="num">3,958</td><td class="num">4,530</td><td class="num">3,309</td><td class="num">29,8%</td><td class="num">62,4%</td><td class="num">33,1%</td><td class="num">31,2%</td></tr>
+      <tr><td>4,0</td><td class="num">532</td><td class="num">9,59%</td><td class="num">4,389</td><td class="num">4,496</td><td class="num">4,494</td><td class="num">4,661</td><td class="num">4,286</td><td class="num">9,8%</td><td class="num">11,1%</td><td class="num">14,1%</td><td class="num">9,7%</td></tr>
+      <tr><td>5,0</td><td class="num">4.760</td><td class="num">85,77%</td><td class="num">4,939</td><td class="num">4,944</td><td class="num">4,950</td><td class="num">4,943</td><td class="num">4,929</td><td class="num">0,8%</td><td class="num">0,7%</td><td class="num">0,9%</td><td class="num">1,0%</td></tr>
+      <tr class="tot"><td>Total</td><td class="num">5.550</td><td class="num">100%</td><td class="num">4,818</td><td class="num">4,837</td><td class="num">4,838</td><td class="num">4,879</td><td class="num">4,768</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:18px">
+    <div>
+      <h4>Leitura da atribuição</h4>
+      <p><b>Comunicação é o discriminador.</b> Ela cai de 4,950 (nota 5) para 2,130 (nota 1) — uma queda de 2,82 pontos, contra 2,26 de limpeza, 2,33 de check-in e 1,37 de localização. Ou seja: quando o hóspede dá 1 estrela, a coisa que ele maisouching continua muito baixa é <b>o atendimento</b>, não o imóvel.</p>
+      <p><b>Valor é a constante.</b> Está ≤ 3 em 94,5% das notas 1 e 91,3% das notas 2, mas também é a única dimensão que fica abaixo de 4 em reviews de nota 4 (4,286). Ela nunca desaparece — acompanha o hóspede do 5 ao 1.</p>
+      <p><b>Localização nunca é o problema.</b> Nota 3,462 mesmo nas notas 1. Não é alavanca.</p>
+    </div>
+    <div>
+      <h4>Onde está o 0,017 — em números de out/2026</h4>
+      <p>Dentro das 258 reviews de nota ≤ 3 de out/2026:</p>
+      <ul style="font-size:13.5px;margin:0 0 13px;padding-left:18px;line-height:1.6">
+        <li><b>73</b> (nota 1–2) têm comunicação ≤ 3 → subir <b>1 ponto</b> nestas rende <b>+0,0132</b> (73/5.550).</li>
+        <li><b>94</b> (nota 1–2) têm valor ≤ 3 → subir 1 ponto nestas rende <b>+0,0169</b> — exatamente o gap.</li>
+        <li><b>67</b> (nota 1–2) têm limpeza ≤ 3 → <b>+0,0121</b>.</li>
+        <li><b>47</b> (nota 1–2) têm check-in ≤ 3 → <b>+0,0085</b>.</li>
+        <li><b>42</b> (nota 1–2) têm check-in <b>e</b> comunicação ≤ 3 simultaneamente → <b>+0,0076</b>. É a assinatura do caso de sistema: acesso mal resolvido + ninguém responde.</li>
+      </ul>
+      <p class="small muted">Os quatro primeiros itens se sobrepõem (uma review pode ter comunicação e valor baixos). O número que fecha o gap sem dupla contagem é o da §9.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. DISTRIBUIÇÃO ===================== -->
+<section class="sec">
+  <h2><span class="num">04</span> Distribuição e o caminho do gap</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">A distribuição é extremamente concentrada: 86% das reviews são 5 estrelas. Isso é bom para a nota exibida e ruim para a sensibilidade — significa que a nota só se move quando a cauda se move. Nenhum volume de reviews medíocres substitui a ausência de reviews ruins.</p>
+
+  <div class="cols">
+    <div>
+      <div class="chart-title">Distribuição das notas — out/2026 (5.550 reviews)</div>
+      <div id="c-hist" class="chart"></div>
+      <div class="chart-cap">Barras em escala linear. A cauda de 1–2 estrelas (101 reviews, 1,8% da base) responde por 0,55% da soma de pontos — e é ela que segura a média.</div>
+    </div>
+    <div>
+      <div class="chart-title">Caminho de 4,783 até 4,800</div>
+      <div id="c-wf" class="chart"></div>
+      <div class="chart-cap">Waterfall em out/2026. Duas alavancas fecham o gap; qualquer uma das duas isolada deixa 0,004 em aberto.</div>
+    </div>
+  </div>
+
+  <table>
+    <caption><b>Tabela 5</b> — Distribuição e sensibilidade. Base: out/2026, corte canônico.</caption>
+    <thead><tr>
+      <th>Faixa</th><th class="num">Reviews</th><th class="num">% da base</th><th class="num">% da soma de pontos</th><th class="num">Soma</th>
+      <th class="num">Efeito se +1 ponto em cada</th><th class="num">Efeito se sair da base</th>
+    </tr></thead>
+    <tbody>
+      <tr class="hi"><td>Nota 1</td><td class="num">55</td><td class="num">0,99%</td><td class="num">0,21%</td><td class="num">55</td><td class="num">+0,0099</td><td class="num">+0,0379</td></tr>
+      <tr class="hi"><td>Nota 2</td><td class="num">46</td><td class="num">0,83%</td><td class="num">0,35%</td><td class="num">92</td><td class="num">+0,0083</td><td class="num">+0,0127</td></tr>
+      <tr><td>Nota 3</td><td class="num">157</td><td class="num">2,83%</td><td class="num">1,77%</td><td class="num">471</td><td class="num">+0,0283</td><td class="num">+0,0286</td></tr>
+      <tr><td>Nota 4</td><td class="num">532</td><td class="num">9,59%</td><td class="num">8,02%</td><td class="num">2.128</td><td class="num">+0,0959</td><td class="num">+0,0383</td></tr>
+      <tr><td>Nota 5</td><td class="num">4.760</td><td class="num">85,77%</td><td class="num">89,66%</td><td class="num">23.800</td><td class="num">+0,8577</td><td class="num">+0,0742</td></tr>
+      <tr class="tot"><td>Total</td><td class="num">5.550</td><td class="num">100%</td><td class="num">100%</td><td class="num">26.546</td><td class="num">—</td><td class="num">—</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <b>O cálculo que a liderança pediu, explicitado:</b> para subir de <b>4,783</b> para <b>4,800</b> com volume mensal de ~5.550 reviews, são precisos <b>+94 pontos de soma</b> (4,800 × 5.550 − 26.546 = 94,0). Isso equivale a qualquer um destes: (a) <b>94 das 157 reviews de nota 3</b> subirem para 4; (b) <b>as 101 reviews de nota 1–2</b> subirem <b>um único ponto</b>; (c) <b>55 reviews de nota 1</b> saírem do cálculo (contestação legítima) — mas essa via distorce a métrica; ou (d) <b>+500 reviews de nota 5</b> entrando no mês (recuperação de avaliação de hóspedes com stay positivo). Em qualquer cenário, a meta exige mexer em ~1,8% do volume mensal.
+  </div>
+</section>
+
+<!-- ===================== 5. CONCENTRAÇÃO ===================== -->
+<section class="sec">
+  <h2><span class="num">05</span> Concentração: onde a nota baixa se concentra</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">Há duas respostas possíveis ao "onde está o problema": concentração em poucos atores, ou pulverização. <b>Aqui a resposta é pulverização com clusters geográficos.</b> Nenhum imóvel isolado carrega o gap; mas 7 cidades concentram 60% das avaliações de 1–2 estrelas.</p>
+
+  <div class="cols">
+    <div>
+      <div class="chart-title">Cidades por número de reviews de nota ≤ 2 (jul–out/2026)</div>
+      <div id="c-city" class="chart"></div>
+      <div class="chart-cap">Mapeamento por cidade via <code>airbnb_listings_qgis</code> (state/city) atravessando a ponte <code>id_seazone → airbnb_listing_id</code>. 95,4% dos imóveis com review foram mapeados.</div>
+    </div>
+    <div>
+      <table>
+        <caption><b>Tabela 6</b> — Cidades com maior volume de notas ≤ 2 e as que combinam volume com taxa alta.</caption>
+        <thead><tr><th>Cidade/UF</th><th class="num">Reviews</th><th class="num">Imóveis</th><th class="num">Nota</th><th class="num">≤ 2</th><th class="num">% ≤ 3</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Florianópolis / SC</td><td class="num">4.147</td><td class="num">630</td><td class="num">4,769</td><td class="num">93</td><td class="num">5,21%</td><td class="num">4,758</td></tr>
+          <tr><td>Salvador / BA</td><td class="num">1.443</td><td class="num">207</td><td class="num">4,746</td><td class="num">37</td><td class="num">5,41%</td><td class="num cross">4,708</td></tr>
+          <tr><td>São Paulo / SP</td><td class="num">1.445</td><td class="num">176</td><td class="num">4,810</td><td class="num">27</td><td class="num">3,46%</td><td class="num">4,774</td></tr>
+          <tr><td>Penha / SC</td><td class="num">1.226</td><td class="num">125</td><td class="num">4,814</td><td class="num">19</td><td class="num">3,67%</td><td class="num">4,797</td></tr>
+          <tr><td>Itapema / SC</td><td class="num">1.544</td><td class="num">229</td><td class="num">4,820</td><td class="num">19</td><td class="num">3,56%</td><td class="num">4,826</td></tr>
+          <tr><td>Balneário Camboriú / SC</td><td class="num">955</td><td class="num">116</td><td class="num">4,759</td><td class="num">18</td><td class="num cross">5,24%</td><td class="num">4,778</td></tr>
+          <tr><td>Maceió / AL</td><td class="num">659</td><td class="num">92</td><td class="num">4,824</td><td class="num">11</td><td class="num">4,25%</td><td class="num">4,786</td></tr>
+          <tr class="hi"><td><b>Blumenau / SC</b></td><td class="num">200</td><td class="num">39</td><td class="num cross">4,580</td><td class="num">7</td><td class="num cross">9,50%</td><td class="num cross">4,595</td></tr>
+          <tr class="hi"><td><b>Cabo Frio / RJ</b></td><td class="num">229</td><td class="num">36</td><td class="num">4,699</td><td class="num">6</td><td class="num cross">7,42%</td><td class="num">4,725</td></tr>
+          <tr class="hi"><td><b>Guarapari / ES</b></td><td class="num">148</td><td class="num">26</td><td class="num cross">4,649</td><td class="num">4</td><td class="num cross">6,08%</td><td class="num cross">4,622</td></tr>
+          <tr><td>Barra Velha / SC</td><td class="num">175</td><td class="num">30</td><td class="num">4,743</td><td class="num">6</td><td class="num">5,71%</td><td class="num">4,731</td></tr>
+          <tr><td>Campos do Jordão / SP</td><td class="num">207</td><td class="num">35</td><td class="num">4,734</td><td class="num">6</td><td class="num">5,31%</td><td class="num cross">4,623</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:20px">
+    <div>
+      <h4>Os piores imóveis (ranking por perda potencial)</h4>
+      <table style="font-size:12.5px">
+        <caption><b>Tabela 7</b> — Imóveis com ≥ 3 reviews de nota ≤ 3 na janela.</caption>
+        <thead><tr><th>Imóvel</th><th class="num">Reviews</th><th class="num">Nota</th><th class="num">≤ 3</th><th class="num">% baixas</th></tr></thead>
+        <tbody>
+          <tr><td>DPA210</td><td class="num">8</td><td class="num cross">3,625</td><td class="num">3</td><td class="num">37,5%</td></tr>
+          <tr><td>HBA0108</td><td class="num">20</td><td class="num">4,250</td><td class="num">6</td><td class="num cross">30,0%</td></tr>
+          <tr><td>BAO0040</td><td class="num">7</td><td class="num cross">3,429</td><td class="num">3</td><td class="num cross">42,9%</td></tr>
+          <tr><td>VIL0001</td><td class="num">5</td><td class="num cross">3,200</td><td class="num">3</td><td class="num cross">60,0%</td></tr>
+          <tr><td>SOV0002</td><td class="num">11</td><td class="num">4,273</td><td class="num">3</td><td class="num">27,3%</td></tr>
+          <tr><td>CNB004</td><td class="num">3</td><td class="num cross">2,333</td><td class="num">3</td><td class="num cross">100%</td></tr>
+          <tr><td>TRS0001</td><td class="num">9</td><td class="num">3,778</td><td class="num">4</td><td class="num">44,4%</td></tr>
+          <tr><td>JBV142</td><td class="num">18</td><td class="num">4,278</td><td class="num">4</td><td class="num">22,2%</td></tr>
+          <tr><td>EDG402</td><td class="num">16</td><td class="num">4,313</td><td class="num">4</td><td class="num">25,0%</td></tr>
+          <tr><td>NWT1009</td><td class="num">11</td><td class="num">4,364</td><td class="num">3</td><td class="num">27,3%</td></tr>
+          <tr><td>BLB0507</td><td class="num">5</td><td class="num cross">3,400</td><td class="num">3</td><td class="num cross">60,0%</td></tr>
+          <tr><td>CLA0000</td><td class="num">12</td><td class="num">4,417</td><td class="num">3</td><td class="num">25,0%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>Concentração: "poucos imóveis" ou "problema pulverizado"?</h4>
+      <p><b>Pulverizado — com efeito de cauda longa.</b> Os 18 imóveis listados somam 38 reviews de nota ≤ 3 sobre 20.517 (0,18% da base). Nenhum imóvel isolado tem mais de 8 reviews no período. Se esses 18 imóveis fossem sanados e suas 38 reviews subissem para 4, o efeito total seria +0,0068 — menos de 40% do gap.</p>
+      <p>Portanto a ação "priorizar os piores imóveis" é <b>insuficiente como estratégia e cara como operação</b>. O que funciona é reduzir a <b>probabilidade</b> de review ruim — padronizar vistoria de saída, SLA de resposta e Preis/Kommunikation.</p>
+      <div class="note amber" style="font-size:12.5px">
+        <b>Limitação de granularidade:</b> não existe nas tabelas consultadas um mapeamento confiável de <b>imóvel → franquia</b> (a coluna <code>contestacao_franquia</code> só cobre as 207 reviews contestadas, de 79 franquias). Por isso a análise de franquia aqui é <b>proxy por cidade</b> — o sinal geográfico é robusto, o sinal de franquia não é. Confirmar o dono por franquia exige cruzar o Sapron (ex.: <code>property_property.code</code> → franquia) ou o <code>nota_maxima_fila_diaria.franquia_nome</code>, que hoje cobre só 53 imóveis.
+      </div>
+      <p class="small muted"><b>Onde a geografia ajuda:</b> Florianópolis concentra 93 das 232 reviews de nota ≤ 2 mapeadas (40%) e é o maior cluster absoluto — mas a taxa (5,21%) está perto da média. Já Blumenau (9,50%), Cabo Frio (7,42%) e Guarapari (6,08%) têm <b>taxa</b> alta em volume pequeno: são’alvos de auditoria de qualidade, não de volume.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 6. QUALITATIVA ===================== -->
+<section class="sec">
+  <h2><span class="num">06</span> Leitura qualitativa: os motivos, contados</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">622 reviews de nota ≤ 3 têm texto no período (67% das 926 reviews de nota ≤ 3; as demais são nota sem comentário). Cada review foi classificada por <b>regex de tema</b> — multi-rótulo, então as porcentagens somam mais de 100%. A separação que importa para o plano é <b>de quem é o problema</b>: da franquia (execução) ou do anúncio (promessa).</p>
+
+  <div class="cols-3">
+    <div style="grid-column:span 2">
+      <div class="chart-title">Temas recorrentes nas reviews de nota ≤ 3 (622 com texto)</div>
+      <div id="c-themes" class="chart"></div>
+      <div class="chart-cap">Barras empilhadas: reviews de nota 1 (150) e de nota 2–3 (472). Total de reviews por tema entre parênteses.</div>
+    </div>
+    <div>
+      <h4>Responsabilidade: quem paga a conta</h4>
+      <table style="font-size:12.5px">
+        <thead><tr><th>Tema</th><th class="num">n</th><th>Dono</th></tr></thead>
+        <tbody>
+          <tr><td>Limpeza / estado</td><td class="num">177</td><td>Henry Yudi (enxoval, lavanderia) + Victória Magri</td></tr>
+          <tr><td>Manutenção / equipamento</td><td class="num">161</td><td>Vinicius Satores</td></tr>
+          <tr><td>Anúncio / fotos / informação</td><td class="num">146</td><td>Time de Anúncios <span class="muted small">(a confirmar)</span></td></tr>
+          <tr><td>Barulho / condomínio</td><td class="num">133</td><td>Vinicius Satores + coordenadores</td></tr>
+          <tr><td>Check-in / acesso</td><td class="num">81</td><td>Victória Magri</td></tr>
+          <tr><td>Comunicação / suporte</td><td class="num">79</td><td>Victória Magri + coordenadores</td></tr>
+          <tr><td>Cobrança / valor</td><td class="num">49</td><td>David (Precificação)</td></tr>
+          <tr><td>Cancelamento / relocação</td><td class="num">22</td><td>Rayanne + coordenadores</td></tr>
+        </tbody>
+      </table>
+      <div class="note plain" style="font-size:12.5px">
+        <b>Leitura cruzada:</b> o tema "Anúncio / fotos / informação" aparece em <b>23,5%</b> das reviews negativas — é o terceiro maior tema e o único que é <b>responsabilidade de quem publica</b>, não de quem opera. Ele é também o que mais gera review de 1 estrela por quebra de expectativa.
+      </div>
+    </div>
+  </div>
+
+  <h3>Evidência — trechos reais, anonimizados</h3>
+  <div class="cols-3">
+    <div>
+      <div class="quote">
+        <span class="qt">"A geladeira não funcionava, o local estava cheio de baratas. Abri a geladeira uma vez e encontrei DUAS BARATAS dentro da geladeira, passando. Fora outra que estava na mesinha ao lado da cama."</span>
+        <cite>Manutenção / equipamento — nota 1,01 — review #1 de 150 (nota 1)</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"Mofo absurdo em todos os cômodos! Cheiro de mofo no apartamento inteiro! Chão grudando, cheio de dedos."</span>
+        <cite>Limpeza / estado — nota 1</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"Apartamento não estava como na foto, ao chegar notei a base da cama quebrada e mandei msg para o contato que disponibilizaram… pararam de me responder quando sinalizei que queria ser realocado."</span>
+        <cite>Anúncio / fotos — nota 1</cite>
+      </div>
+    </div>
+    <div>
+      <div class="quote">
+        <span class="qt">"Cheguei no apartamento e a fechadura não funcionou porque a senha estava errada e simplesmente o contato de emergência não me atendeu."</span>
+        <cite>Check-in / acesso — nota 1</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"Existe uma central que recebe as mensagens do Airbnb e depois vários anfitriões diferentes. Quando surge um problema, ninguém quer assumir a responsabilidade e pedem para você falar com outra pessoa."</span>
+        <cite>Comunicação / suporte — nota 1</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"descobri que precisava pagar taxa extra pra uma amenidade que foi decisiva para a escolha, sendo que fui pego de surpresa, pois estava como incluída… R$ 100 por pessoa é uma informação relevante e deveria estar clara antes do hóspede efetuar a reserva."</span>
+        <cite>Cobrança / valor — nota 1</cite>
+      </div>
+    </div>
+    <div>
+      <div class="quote">
+        <span class="qt">"O apartamento fica embaixo da área de pesos da academia do prédio, então você ouve o barulho dos pesos retumbando desde de manhã até a noite. A cada troca de turno da portaria é necessário se registrar novamente para poder entrar no prédio."</span>
+        <cite>Barulho / condomínio — nota 1</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"O anfitrião cancelou a reserva em cima da hora, sem apresentar nenhum motivo plausível. Além disso, não recebemos a assistência necessária diante da situação."</span>
+        <cite>Cancelamento / relocação — nota 1</cite>
+      </div>
+      <div class="quote">
+        <span class="qt">"Fiquei na chuva para entrar, prédio com problema no sistema não conseguia entrar, se saía do prédio uma complicação pra entrar e pra sair. Me arrependi, paguei um valor caro pra passar trabalho."</span>
+        <cite>Check-in / portaria — nota 1</cite>
+      </div>
+    </div>
+  </div>
+
+  <div class="note plain" style="margin-top:18px">
+    <b>Leitura de padrão (o que os trechos mostram junto):</b> a maioria das notas 1 não é "o imóvel era ruim" — é <b>"o imóvel tinha um problema e ninguém resolveu"</b>. Isso muda o dono da ação: não é só manutenção, é manutenção <b>com SLA de resposta e resolution</b>. Em paralelo, o terceiro maior tema (fotos e descrição) é de <b>promessa</b> — o anúncio mostrava algo que não existia (piscina em reforma, jacuzzi,-microapartamento, comidinidade cobrada).
+  </div>
+</section>
+
+<!-- ===================== 7. MECÂNICA ===================== -->
+<section class="sec">
+  <h2><span class="num">07</span> Mecânica da nota: o que distorce a medição</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">Quatro mecanismos estruturais alteram o número sem que a qualidade do serviço tenha mudado. Todos foram medidos, e três deles precisam virar decisão de governança — não ação de campo.</p>
+
+  <h3>7.1 · Anúncio recriado: o Airbnb zera a contagem</h3>
+  <div class="cols">
+    <div>
+      <p>Quando o anúncio é recriado, o Airbnb zera a contagem e a nota exibida. As reviews do anúncio antigo <b>continuam sendo do imóvel</b> — mas saem da nota exibida e, na nossa base, ficam marcadas como <code>conta_no_anuncio_atual = false</code>.</p>
+      <table style="font-size:12.5px">
+        <thead><tr><th>Grupo</th><th class="num">Imóveis</th><th class="num">Reviews nossas</th><th class="num">Nota média nossa</th><th class="num">Reviews exibidas no Airbnb</th><th class="num">Nota exibida (simples)</th><th class="num">Nota exibida (ponderada)</th></tr></thead>
+        <tbody>
+          <tr><td>Anúncio em pé</td><td class="num">2.971</td><td class="num">19.531</td><td class="num">—</td><td class="num">29,5</td><td class="num">4,793</td><td class="num">4,811</td></tr>
+          <tr class="hi"><td><b>Anúncio novo (recriado)</b></td><td class="num">249</td><td class="num">464</td><td class="num cross">—</td><td class="num">1,1</td><td class="num cross">3,641</td><td class="num">4,815</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Nenhum imóvel passa de 8 reviews na janela — o volume por imóvel é baixo, então uma review ruins pesa muito na média exibida do anúncio. A simples é a que importa para a percepção de quem está decidindo.</p>
+    </div>
+    <div>
+      <p><b>O achado mais forte aqui é o do portfolio inteiro:</b> dos 3.694 anúncios vivos, <b>494 são novos</b> (13,4%), com média de <b>0,56 reviews</b> — e <b>todos os 494 têm ≤ 2 reviews</b>. A nota exibida simples média desse grupo é <b>1,896</b>, e <b>324 deles exibem nota abaixo de 4,5 com base em 1 ou 2 avaliações</b>.</p>
+      <div class="note amber">
+        <b>Por que isso importa mesmo sem afetar a média canônica:</b> um anúncio com uma única review de 3,0 exibe "3,0" e compete com anúncios de 4,8. Isso é problema de <b>conversão</b> e de <b>percepção</b>, não do corte canônico. Tratar recriação como se fosse "nota ruim" é erro de leitura — é announcement hygiene.
+      </div>
+      <p class="small muted">Nota: <code>is_new_listing</code> tem três estados na tabela — <code>true</code> (494), <code>false</code> (1.961) e string vazia (1.239). O grupo vazio é o de maior volume de reviews (33,25 por anúncio) e nota simples 4,907; provavelmente representa anúncios anteriores à marcação do campo. Isso é limitação do campo, não da operação.</p>
+    </div>
+  </div>
+
+  <h3>7.2 · Divergência entre o que o Airbnb mostra e o que medimos</h3>
+  <div class="cols">
+    <div>
+      <table style="font-size:12.5px">
+        <thead><tr><th>Métrica (jul–out/2026)</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Reviews na base canônica</td><td class="num">20.517</td></tr>
+          <tr><td>Imóveis distintos</td><td class="num">3.373</td></tr>
+          <tr><td>Média de <code>reviews_no_airbnb</code></td><td class="num">34,40</td></tr>
+          <tr><td>Média da nossa contagem bruta</td><td class="num">34,00</td></tr>
+          <tr><td>Média da nossa contagem ajustada</td><td class="num">33,89</td></tr>
+          <tr class="hi"><td>Reviews com contagem divergente</td><td class="num">1.737 (8,47%)</td></tr>
+          <tr><td>Delta médio (nossa ajustada − Airbnb)</td><td class="num">−3,42</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">O Airbnb exibe, em média, <b>3,42 reviews a mais</b> do que medimos por imóvel — ou seja, nossa contagem ajustada está <b>abaixo</b> do exibido, não acima. Isso é o inverso do receio usual (conferir review a mais) e é consistente com dois mecanismos: (a) anúncios recriados, em que a nossa contagem herda do anúncio antigo enquanto o Airbnb zera; e (b) reviews que o Airbnb recebeu e nossa coleta ainda não capturou. <b>8,47% de divergência por imóvel é alto e merece reconciliação antes de qualquer meta de volume.</b></p>
+    </div>
+    <div>
+      <h4>Contestações: 67 reviews removidas do ar em 4 meses</h4>
+      <table style="font-size:12.5px">
+        <thead><tr><th>Mês</th><th class="num">Total</th><th class="num">Contestadas</th><th class="num">Aceitas</th><th class="num">Em aberto</th><th class="num">Nota das contestadas</th><th class="num">Nota das aceitas</th><th class="num">Nota das não contestadas</th></tr></thead>
+        <tbody>
+          <tr><td>jul/2026</td><td class="num">4.499</td><td class="num">31</td><td class="num">17</td><td class="num">14</td><td class="num">1,871</td><td class="num">1,588</td><td class="num">4,788</td></tr>
+          <tr><td>ago/2026</td><td class="num">4.738</td><td class="num">46</td><td class="num">18</td><td class="num">28</td><td class="num">1,978</td><td class="num">1,278</td><td class="num">4,814</td></tr>
+          <tr><td>set/2026</td><td class="num">5.799</td><td class="num">71</td><td class="num">20</td><td class="num">51</td><td class="num">2,944</td><td class="num">2,250</td><td class="num">4,799</td></tr>
+          <tr><td>out/2026</td><td class="num">5.571</td><td class="num">59</td><td class="num">12</td><td class="num">47</td><td class="num">3,051</td><td class="num">1,000</td><td class="num">4,786</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><b>Achado de governança.</b> As reviews contestadas são sistematicamente as piores (1,87–3,05 contra 4,79 das não contestadas) e 67 delas saíram do ar em 4 meses — o que <b>infla</b> a nota canônica. Note também o crescimento das contestações em aberto: 14 → 28 → 51 → 47. E o motivo mais comum está mal preenchido: <b>43 contestações com motivo vazio</b> e 22 por "IRRELEVÂNCIA"; a totalidade dos motivos restantes é texto-livre da skill de contestação, sem categorização estruturada.</p>
+    </div>
+  </div>
+
+  <h3>7.3 · Defasagem e coorte: a série mede stay, não publicação</h3>
+  <div class="cols">
+    <div>
+      <p>Verificado por join 1:1 entre <code>reviews_airbnb_ajustada</code> e <code>reviews_comentarios</code> via <code>external_reserve_id = reserva</code>: <b>20.517 linhas, defasagem exatamente 0,0 dia</b>. Ou seja, <code>review_date</code> é a <b>data de checkout</b>. A série mensal é uma coorte de stay.</p>
+      <p>Isso tem duas consequências operacionais:</p>
+      <ul style="font-size:13.5px;margin:0 0 13px;padding-left:18px;line-height:1.6">
+        <li>A coorte mais recente é a mais imatura. A maturidade média (hoje − checkout) em 03/11/2026 é de <b>106 dias</b> para a coorte de jul/2026, 79 para ago, 48 para set e <b>18 para out</b>.</li>
+        <li>A review não publicada ainda não entra em lugar nenhum — e as pendentes são <b>piores</b>: na coorte de out/2026, as 12 reviews sem publicação têm limpeza 3,833, comunicação 3,333, valor 3,417, check-in 3,667 — contra 4,783 / 4,838 / 4,768 / 4,837 das publicadas. Quando entrarem, out/2026 piora cerca de 0,003.</li>
+      </ul>
+      <p class="small muted">Volume pendente é pequeno (12–14 por mês, ~0,25% da base), então o efeito direto é marginal — mas o <b>sinal</b> é inequívoco: o que está chegando agora é pior do que o que já entrou.</p>
+    </div>
+    <div>
+      <h4>Onde há sazonalidade de "nota que ainda não entrou"</h4>
+      <p>A coorte de jan/2026 tem 106 dias de maturação e ainda assim é a pior da série. A de out/2026 tem 18 dias e está em 4,783. Ou seja: <b>a maturidade da coorte não explica o pior mês</b> — jan/2026 é uma coorte madura e ruim. Isso reforça que o problema de jan–fev é de <b>preço percebido</b>, não de defasagem de dados.</p>
+      <div class="note plain" style="font-size:12.5px">
+        <b>Correção de leitura:</b> o campo <code>dias_desde_checkout</code> <b>não</b> é defasagem de publicação — é a idade da coorte (hoje menos checkout), e por isso varia mecanicamente por mês (106/79/48/18). A defasagem real de publicação não está disponível nas fontes consultadas; a tentativa de medi-la por join de review com reserva devolveu fan-out e foi descartada. Registrado aqui como limitação, não como número.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. COBERTURA ===================== -->
+<section class="sec">
+  <h2><span class="num">08</span> Cobertura de avaliação</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">A nota é uma média sobre quem avalia. Se a base não for representativa das estadias, a nota mede outra coisa. Este é o maior volume ocioso do problema — e o de maior alavancagem.</p>
+
+  <div class="cols">
+    <div>
+      <table>
+        <caption><b>Tabela 8</b> — Reservas Airbnb concluídas × reviews publicadas (janela jul–out/2026).</caption>
+        <thead><tr><th>Coorte (check-in)</th><th class="num">Reservas Airbnb</th><th class="num">Reviews</th><th class="num">Cobertura</th></tr></thead>
+        <tbody>
+          <tr><td>jul/2026</td><td class="num">10.208</td><td class="num">4.476</td><td class="num">43,8%</td></tr>
+          <tr><td>ago/2026</td><td class="num">10.208</td><td class="num">4.716</td><td class="num">46,2%</td></tr>
+          <tr><td>set/2026</td><td class="num">11.833</td><td class="num">5.775</td><td class="num">48,8%</td></tr>
+          <tr><td>out/2026</td><td class="num">13.176</td><td class="num">5.550</td><td class="num">42,1%</td></tr>
+          <tr class="tot"><td>jul–out/2026</td><td class="num">45.425</td><td class="num">20.517</td><td class="num">45,2%</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><b>Denominador:</b> <code>fact_reservations</code> com <code>channel_ota_key</code> de <code>ota_id = 1</code> (Airbnb), <code>import_source = webhook</code>, por data de check-in. <b>Numerador:</b> reviews Airbnb com corte canônico, por data de checkout. Janelas e âncoras diferentes (check-in vs checkout) — em reservas de 1 a 3 noites a diferença é de alguns dias nas bordas do mês. Leitura: <b>cerca de 55% das estadias Airbnb concluídas não deixam review</b>.</p>
+    </div>
+    <div>
+      <h4>O app Nota Máxima está praticamente parado</h4>
+      <table style="font-size:12.5px">
+        <thead><tr><th>Métrica</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Cards na fila (histórico)</td><td class="num">185</td></tr>
+          <tr><td>Imóveis cobertos</td><td class="num">53</td></tr>
+          <tr class="hi"><td><b>Franquias ativas</b></td><td class="num cross">2 (de 178 com franchise_code)</td></tr>
+          <tr><td>Hóspede já contatado</td><td class="num">178 (96%)</td></tr>
+          <tr><td>Hóspede que efetivamente avaliou</td><td class="num">47 (25%)</td></tr>
+          <tr><td>Janela coberta</td><td class="num">05/10/2026 a 03/11/2026</td></tr>
+          <tr><td>Nota média dos que avaliaram</td><td class="num">5,00 e 4,83</td></tr>
+        </tbody>
+      </table>
+      <div class="note green">
+        <b>Leitura dupla, e ela importa.</b> (a) <b>Enorme ociosidade de cobertura:</b> 2 de 178 franquias. Se o app rodasse nas 178, com os mesmos 25% de conversão de contato em avaliação, e cada avaliação extra fosse de hóspede com stay positivo, o volume adicional de reviews de nota 5 seria de centenas por mês — suficiente para fechar o gap. (b) <b>Mas a conversão é de 25%, e as duas franquias ativas têm notas 5,00 e 4,83</b> — ou seja, o viés de auto-seleção está ativo: <b>só hóspede satisfeito avalia</b>. É por isso que a campanha de recuperação precisa ser filtrada por stay positivo, e nunca addressada a hóspede insatisfeito.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 9. SENSIBILIDADE ===================== -->
+<section class="sec">
+  <h2><span class="num">09</span> Sensibilidade: quanto cada alavanca move a nota</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">Todos os cenários abaixo partem do mesmo ponto: out/2026, corte canônico, <b>n = 5.550</b>, soma 26.546 pontos, nota <b>4,7831</b>. A meta exige <b>+94,0 pontos</b>.</p>
+
+  <table>
+    <caption><b>Tabela 9</b> — Cenários de intervenção. Efeito = (soma alterada / n) − 4,7831. Os cenários não são somáveis entre si quando recaem sobre as mesmas reviews.</caption>
+    <thead><tr>
+      <th>#</th><th>Cenário</th><th>Hipótese</th><th>Cálculo</th><th class="num">Nota resultante</th><th class="num">Δ</th><th class="num">Chega a 4,80?</th>
+    </tr></thead>
+    <tbody>
+      <tr class="hi"><td><b>A</b></td><td><b>Sanear a cauda 1–2</b></td><td>As 101 reviews de nota 1–2 sobem 1 ponto (hóspede evaluate como 2 em vez de 1)</td><td>(26.546 + 101) / 5.550</td><td class="num">4,8013</td><td class="num tick">+0,0182</td><td class="num tick">Sim</td></tr>
+      <tr><td>B</td><td>Converter nota 3 → 4</td><td>94 das 157 reviews de nota 3 sobem para 4</td><td>(26.546 + 94) / 5.550</td><td class="num">4,8000</td><td class="num tick">+0,0169</td><td class="num tick">Sim (exato)</td></tr>
+      <tr><td>C</td><td>Foco em comunicação</td><td>As 73 reviews de nota 1–2 com comunicação ≤ 3 sobem 1 ponto</td><td>(26.546 + 73) / 5.550</td><td class="num">4,7962</td><td class="num">+0,0132</td><td class="num">Não (falta 0,004)</td></tr>
+      <tr><td>D</td><td>Foco em check-in</td><td>As 47 reviews de nota 1–2 com check-in ≤ 3 sobem 1 ponto</td><td>(26.546 + 47) / 5.550</td><td class="num">4,7916</td><td class="num">+0,0085</td><td class="num">Não</td></tr>
+      <tr><td>E</td><td>Foco em limpeza</td><td>As 67 reviews de nota 1–2 com limpeza ≤ 3 sobem 1 ponto</td><td>(26.546 + 67) / 5.550</td><td class="num">4,7952</td><td class="num">+0,0121</td><td class="num">Não</td></tr>
+      <tr><td>F</td><td>Foco em valor/preço</td><td>As 94 reviews de nota 1–2 com valor ≤ 3 sobem 1 ponto</td><td>(26.546 + 94) / 5.550</td><td class="num">4,8000</td><td class="num tick">+0,0169</td><td class="num tick">Sim (exato)</td></tr>
+      <tr class="hi"><td><b>G</b></td><td><b>Recuperação de avaliação (stay positivo)</b></td><td>+500 reviews de hóspedes com stay positivo, todas nota 5</td><td>(26.546 + 2.500) / 6.050</td><td class="num">4,8010</td><td class="num tick">+0,0179</td><td class="num tick">Sim</td></tr>
+      <tr><td>H</td><td>Recuperação ampliada</td><td>+1.000 reviews de stay positivo, nota 5</td><td>(26.546 + 5.000) / 6.550</td><td class="num">4,8162</td><td class="num tick">+0,0331</td><td class="num tick">Sim, com folga</td></tr>
+      <tr><td>I</td><td>Zero das 55 notas 1 por contestação</td><td>As 55 reviews de nota 1 saem do cálculo (contestação aceita)</td><td>(26.546 − 55) / 5.495</td><td class="num">4,8209</td><td class="num tick">+0,0379</td><td class="num tick">Sim — <b>mas distorce</b></td></tr>
+      <tr><td>J</td><td>Excluir reviews de anúncio recriado</td><td>Retira as 23 reviews de out/2026 fora do anúncio atual (18 imóveis, nota 4,13)</td><td>(26.546 − 95) / 5.527</td><td class="num">4,7858</td><td class="num">+0,0027</td><td class="num">Não</td></tr>
+      <tr><td>K</td><td>Sanear os 18 piores imóveis</td><td>As 38 reviews ≤ 3 desses imóveis sobem para 4</td><td>(26.546 + 38) / 5.550</td><td class="num">4,7900</td><td class="num">+0,0068</td><td class="num">Não</td></tr>
+      <tr><td>L</td><td>Cobertura: +25% de reviews</td><td>+1.375 reviews de stay positivo, nota 5</td><td>(26.546 + 6.875) / 6.925</td><td class="num">4,8150</td><td class="num tick">+0,0319</td><td class="num tick">Sim</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <b>Leitura dos cenários:</b> os cenários <b>A, B e G</b> fecham o gap; <b>C, D, E, J e K não fecham sozinhos</b>. O ponto que importa é que <b>A</b> (101 reviews), <b>B</b> (94 reviews) e <b>G</b> (~500 reviews) são <b>mutuamente exclusivos</b> no volume total de reviews — mas <b>C, D, E e F se sobrepõem entre si</b>, porque uma review de 1 estrela com problema de check-in quase sempre tem também problema de comunicação e de valor. <b>Por isso as ações do plano não somam impactos: elas atacam a mesma cauda por caminhos diferentes.</b> O número de corte é 4.783 → 4.800; o que muda é a probabilidade de a cauda existir.
+  </div>
+</section>
+
+<!-- ===================== 10. PLANO ===================== -->
+<section class="sec">
+  <h2><span class="num">10</span> Plano de ação</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">12 ações, ordenadas por impacto sobre esforço. As três primeiras atacam a mesma cauda por caminhos diferentes — <b>seu impacto não é somável</b>; o objetivo é que a cauda de 1–2 estrelas caia o suficiente para que o platô se mova. Cada linha traz o cálculo do efeito, não uma estimativa.</p>
+
+  <table class="plan">
+    <caption><b>Tabela 10</b> — Plano de ação. Esforço: P = até 1 semana-homem, M = 2–4 semanas-homem, G = programa com mais de um mês de ciclo. Impacto expresso em décimos de nota sobre a base de out/2026 (5.550 reviews, meta 4,800).</caption>
+    <thead><tr>
+      <th></th><th style="min-width:210px">Ação</th><th style="min-width:170px">Causa raiz atacada (achado)</th><th>Dimensão</th><th style="min-width:150px">Dono(s)</th><th>Prazo</th><th>Esf.</th><th class="num">Impacto</th><th style="min-width:190px">Como medimos</th><th>Dependências</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="id">1</td>
+        <td><b>SLA de resposta em 15 min no chat do Airbnb, com dono nomeado por mensagem</b><br><span class="muted small">Regra: uma pessoa responde; se não resolve em 2 h, escala para o coordenador. Template de abertura padronizado. Fim do repasse "fale com outro anfitrião".</span></td>
+        <td>Comunicação ≤ 3 em 80% das notas 1 (44/55) e 63% das notas 2 (29/46); 42 reviews de nota 1–2 com check-in <b>e</b> comunicação ≤ 3 simultaneamente</td>
+        <td>Comunicação</td>
+        <td class="owner">Victória Magri (Qualidade)<span>+ coordenadores de franquia</span></td>
+        <td><span class="pill p15">15 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0132</span></td>
+        <td><code>reviews_airbnb_ajustada</code>: <code>avaliacao ≤ 2 AND comunicacao ≤ 3</code>, mensal</td>
+        <td>Escala de sobreaviso; permissão de acesso ao chat Airbnb</td>
+      </tr>
+      <tr>
+        <td class="id">2</td>
+        <td><b>Checklist de vistoria de saída com foto e vídeo + 6 itens críticos</b><br><span class="muted small">Chuveiro, tomada/teste de Wi-Fi, geladeira, ar-condicionado, fechadura e senha, kit de enxoval completo. Bloqueio de check-in sem checklist assinado.</span></td>
+        <td>Manutenção/equipamento em 25,9% das reviews negativas (161 de 622); check-in ≤ 3 em 56% das notas 1; 67 reviews de nota 1–2 com limpeza ≤ 3</td>
+        <td>Check-in + Limpeza + Manutenção</td>
+        <td class="owner">Victória Magri (Qualidade)<span>+ Vinicius Satores (Manutenção)</span></td>
+        <td><span class="pill p15">15 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0085</span><span class="muted small"> a +0,0121</span></td>
+        <td><code>reviews_airbnb_ajustada</code>: <code>avaliacao ≤ 2 AND (checkin ≤ 3 OR limpeza ≤ 3)</code></td>
+        <td>Protocolo já existente no Pipefy de implantação — adaptar, não criar</td>
+      </tr>
+      <tr>
+        <td class="id">3</td>
+        <td><b>Recuperação ativa do stay ruim antes da avaliação</b><br><span class="muted small">Monitorar toda review ≤ 3 em até 48 h, contatar o hóspede, resolver o problema e, só depois, pedir avaliação. Com o stay corrigido, parte das 1–2 estrelas vira 3–4.</span></td>
+        <td>258 reviews ≤ 3 em out/2026 concentradas em stay ruim com problema não resolvido; a review é publicada sem chance de correção</td>
+        <td>Geral (todas)</td>
+        <td class="owner">Rayanne (BackOffice)<span>+ coordenadores de franquia</span></td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0182</span></td>
+        <td><code>reviews_airbnb_ajustada</code>: média de <code>avaliacao ≤ 2</code> no mês; nº de recovereds</td>
+        <td>Regra de contato pós-hospedagem (LGPD/consentimento); canal do hóspede</td>
+      </tr>
+      <tr>
+        <td class="id">4</td>
+        <td><b>Escalar o app Nota Máxima para as 178 franquias, com pedido filtrado por stay positivo</b><br><span class="muted small">Hoje são 2 franquias e 53 imóveis. Pedir avaliação apenas a hóspedes com stay ≥ 4,8 no app — nunca a quem teve problema aberto.</span></td>
+        <td>Cobertura de ~45%: 45.425 reservas Airbnb contra 20.517 reviews; 55% das estadias concluídas não deixam review; app ativo em 1,1% das franquias</td>
+        <td>Cobertura (denominador)</td>
+        <td class="owner">Rayanne (BackOffice)<span>+ coordenadores de franquia</span></td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0179</span><span class="muted small"> a +0,0319</span></td>
+        <td><code>nota_maxima_fila_diaria</code>: nº de franquias ativas, host contatado, taxa de conversão; <code>reviews_airbnb_ajustada</code>: volume mensal</td>
+        <td>Capacitação das 178 franquias; definição da nota de stay que libera o pedido</td>
+      </tr>
+      <tr>
+        <td class="id">5</td>
+        <td><b>Publicar taxa de limpeza e de occupancy antes da reserva, e alertar value_rating baixo</b><br><span class="muted small">Nenhum hóspede descobre preço no balcão. Alerta no espelho de anúncios para value_rating abaixo de 4,6.</span></td>
+        <td>"Valor" é a sub-nota mais fraca (4,770; só 84,8% dão 5); 95% das notas 1 e 91% das notas 2 têm valor ≤ 3; 49 reviews negativas citam cobrança/taxa</td>
+        <td>Valor</td>
+        <td class="owner">David (Precificação)</td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0169</span><span class="muted small">*</span></td>
+        <td><code>internal_airbnb_details.value_rating</code>; <code>reviews_airbnb_ajustada</code>: média de <code>valor</code> e % ≤ 3</td>
+        <td>Regra de markup de limpeza por cidade; conversa com a Stays sobre o que é exibido</td>
+      </tr>
+      <tr>
+        <td class="id">6</td>
+        <td><b>Auditoria de qualidade nos 7 clusters de cidade e nos 18 piores imóveis</b><br><span class="muted small">Florianópolis, Salvador, São Paulo, Penha, Itapema, BC, Maceió (volume) + Blumenau, Cabo Frio, Guarapari (taxa alta).</span></td>
+        <td>232 reviews de nota ≤ 2 mapeadas por cidade; 93 só em Florianópolis; Blumenau 9,5% e Cabo Frio 7,4% de taxa de nota baixa</td>
+        <td>Geral (todas)</td>
+        <td class="owner">Victória Magri (Qualidade)<span>+ coordenadores locais</span></td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0068</span><span class="muted small"> (só os 18 imóveis)</span></td>
+        <td><code>airbnb_listings_qgis</code> (cidade) cruzado com <code>reviews_airbnb_ajustada</code></td>
+        <td>Mapeamento imóvel → franquia via Sapron (pendente)</td>
+      </tr>
+      <tr>
+        <td class="id">7</td>
+        <td><b>Revisão de fotos e descrição contra o estado real do imóvel</b><br><span class="muted small">Prioridade: imóveis com "piscina em reforma", jacuzzi, comidinidade cobrada e microapartamento no título — os quatro desvios que mais aparecem nos comentários.</span></td>
+        <td>"Anúncio / fotos / desvio de informação" em 23,5% das reviews negativas (146 de 622) — o terceiro maior tema e o único de responsabilidade do publicador</td>
+        <td>Localização/expectativa + Valor</td>
+        <td class="owner">Time de Anúncios <span>(a confirmar)</span><span>+ Rayanne</span></td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp zero">não quantificado</span></td>
+        <td><code>internal_airbnb_details.picture_count</code>, <code>ad_description</code>; <code>reviews_comentarios.comentario</code> (tema)</td>
+        <td>Confirmar o dono da publicação de anúncios</td>
+      </tr>
+      <tr>
+        <td class="id">8</td>
+        <td><b>Enquadrar anúncios recriados: 494 anúncios novos, 324 exibindo nota &lt; 4,5</b><br><span class="muted small">Não publicar o anúncio novo com 1 review; ou usar "Novo anúncio" com nota do anúncio anterior como argumento de reputação.</span></td>
+        <td>494 anúncios com <code>is_new_listing</code>, média de 0,56 review, nota exibida simples 1,896; 249 imóveis com reviews em anúncio antigo (nota média 4,251 contra 4,795 dos demais)</td>
+        <td>Exibição (não a média canônica)</td>
+        <td class="owner">Time de Anúncios <span>(a confirmar)</span><span>+ Vinicius Satores</span></td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp zero">+0,0027</span><span class="muted small"> na média; alto em conversão</span></td>
+        <td><code>internal_airbnb_details.is_new_listing</code>, <code>number_of_reviews</code>, <code>star_rating</code></td>
+        <td>Regra do Airbnb sobre exibição sem volume; guard de recriação</td>
+      </tr>
+      <tr>
+        <td class="id">9</td>
+        <td><b>Blindar check-in contra acesso e portaria</b><br><span class="muted small">Senha enviada com antecedência, falha de portaria com plano B, confirmação de chegada na véspera. 42 reviews de nota 1–2 têm check-in e comunicação ≤ 3.</span></td>
+        <td>Check-in ≤ 3 em 56% das notas 1 (31/55); 47 reviews de nota 1–2 com check-in ≤ 3; 29 reviews negativas citam acesso/portaria</td>
+        <td>Check-in</td>
+        <td class="owner">Victória Magri (Qualidade)</td>
+        <td><span class="pill p30">30 dias</span></td>
+        <td><span class="pill eff-M">M</span></td>
+        <td class="num"><span class="imp">+0,0085</span></td>
+        <td><code>reviews_airbnb_ajustada</code>: <code>checkin ≤ 3</code> em <code>avaliacao ≤ 2</code></td>
+        <td>Coordenação com síndicos e convenções dos condomínios</td>
+      </tr>
+      <tr>
+        <td class="id">10</td>
+        <td><b>Tratar barulho e estado de áreas comuns nos 7 clusters</b><br><span class="muted small">Academia, rua movimentada, lavanderia compartilhada, ar-condicionado de vizinho. Registrar no cadastro do imóvel.</span></td>
+        <td>Barulho/condomínio em 21,4% das reviews negativas (133 de 622), com peso maior nas notas 1</td>
+        <td>Check-in / Geral</td>
+        <td class="owner">Vinicius Satores (Manutenção)<span>+ coordenadores</span></td>
+        <td><span class="pill p90">90 dias</span></td>
+        <td><span class="pill eff-G">G</span></td>
+        <td class="num"><span class="imp">+0,006</span><span class="muted small"> (estimativa)</span></td>
+        <td><code>reviews_comentarios.comentario</code> (tema barulho); reincidência por imóvel</td>
+        <td>Interlocução comкола/condomínio — fora do alcance da Seazone</td>
+      </tr>
+      <tr>
+        <td class="id">11</td>
+        <td><b>Blindar cancelamento de última hora e relocação forçada</b><br><span class="muted small">Política de overbooking, oferta de troca de data/imovel sem custo, compensation automático quando a Seazone cancela.</span></td>
+        <td>18 das 150 notas 1 (12%) citam cancelamento ou relocação; 22 reviews negativas no total</td>
+        <td>Geral</td>
+        <td class="owner">Rayanne (BackOffice)<span>+ coordenadores</span></td>
+        <td><span class="pill p90">90 dias</span></td>
+        <td><span class="pill eff-G">G</span></td>
+        <td class="num"><span class="imp">+0,005</span><span class="muted small"> (estimativa)</span></td>
+        <td><code>reviews_comentarios.comentario</code> (tema cancelamento); taxa de cancelamento</td>
+        <td>Política comercial de overbooking e compensação</td>
+      </tr>
+      <tr class="hi">
+        <td class="id">12</td>
+        <td><b>Publicar as duas métricas e padronizar a régua de contestação</b><br><span class="muted small">Painel com bruto (4,77) e canônico (4,783) lado a lado, meta declarada sobre o canônico. Categorizar o motivo de contestação em taxonomia fechada e revisar as 43 contestações com motivo vazio.</span></td>
+        <td>Divergência de 0,010–0,016 entre o número reportado e o canônico; 43 contestações com motivo vazio e 22 por "IRRELEVÂNCIA"; 67 reviews removidas do ar em 4 meses</td>
+        <td>Medição</td>
+        <td class="owner">Rayanne (BackOffice)</td>
+        <td><span class="pill p15">15 dias</span></td>
+        <td><span class="pill eff-P">P</span></td>
+        <td class="num"><span class="imp zero">não move a nota</span></td>
+        <td>Painel próprio com as duas séries; <code>reviews_airbnb_ajustada.contestacao_motivo</code> categorizado</td>
+        <td>Decisão de política do comitê: qual é o número oficial</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:26px">
+    <div>
+      <h4>Como as ações se encaixam no tempo</h4>
+      <p><b>15 dias — visível no próximo corte de out/nov.</b> Ações 1, 2 e 12. As duas primeiras atacam 80% das notas 1 e 63% das notas 2 no ponto exato em que a nota é escrita; a terceira elimina a confusão de medição que hoje impede a operação de saber se está perto ou longe.</p>
+      <p><b>30 dias — o corte que fecha o gap.</b> Ações 3, 4, 5, 6, 7, 8 e 9. As três de maior efeito (3, 4 e 5) são as que atacam a cauda de 1–2 estrelas e a cobertura. Se ao menos duas funcionarem, out/2026 fechado vira nov/2026 acima de 4,80.</p>
+      <p><b>90 dias — estrutural.</b> Ações 10 e 11, mais o amadurecimento de 3 a 8. São as que mudam o platô de 4,78 em vez de raspar o gap.</p>
+      <div class="note green">
+        <b>Leitura de risco:</b> a nota é um platão com <b>86% de 5 estrelas</b>. Isso significa que a reversão é fácil e o avanço é difícil: uma única semana ruim em uma cidade grande move mais a nota do que um mês inteiro de execução exemplar. As ações 1 e 2 são, por isso, as de melhor relação impacto/risco do plano — protegem a cauda exatamente onde ela nasce.
+      </div>
+    </div>
+    <div>
+      <h4>Indicador único de acompanhamento</h4>
+      <p>Um número só, medido na coorte de checkout, no corte canônico, publicado semanalmente:</p>
+      <div class="note plain" style="font-size:13px">
+        <b>Count de reviews de nota ≤ 2 na coorte de checkout do mês, divided by 5.550.</b><br>
+        Base out/2026: <b>101 / 5.550 = 1,82%</b>. Meta: <b>≤ 1,64%</b> (que equivale a nota ≥ 4,800 no mês).
+      </div>
+      <p>Por que este e não a nota: a nota é uma média sobre uma cauda que se move em degraus — ela esconde o trabalho de uma semana e denuncia a falha de uma. O count de notas ≤ 2 é o indicador que dá <b>sinal no mesmo dia</b> em que a ação começa, e ele é direto de um único campo.</p>
+      <p class="small muted"><b>Regra de leitura:</b> se o count de ≤ 2 cair mas a nota não subir, o problema deixou de ser a cauda e passou a ser o volume de reviews (cobertura) — nesse caso o caminho é a ação 4, não as ações 1 e 2. Se os dois subirem, subiram porPUBLICAÇÃO indevida de reviews antigas: verificar <code>contestacao_aceita</code>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 11. O QUE NÃO FAZER ===================== -->
+<section class="sec">
+  <h2><span class="num">11</span> O que não fazer</h2>
+  <div class="lede-rule"></div>
+  <p class="sec-lede">Quatro ações que parecem boas e não são — duas delas ativas no plano de mercado e com efeito <b>negativo</b> na nota.</p>
+
+  <table>
+    <caption><b>Tabela 11</b> — Armadilhas com custo real.</caption>
+    <thead><tr><th style="min-width:280px">Ação que parece boa</th><th>Por que não fazer</th><th style="min-width:210px">O que fazer em vez disso</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><b>Campanha de recuperação de avaliação para hóspedes insatisfeitos</b></td>
+        <td><b>Efeito negativo garantido.</b> Hóspede insatisfeito que é pressionado a avaliar responde "1". Hoje 96% dos que avaliam o Nota Máxima o fazem com nota 5,00 ou 4,83 — a base de respondentes é <b>já selecionada</b> para o positivo. Adicionar hóspedes ruins à base derruba a média. Pior: cria assimetria de informação entre a nota exibida e a experiência real.</td>
+        <td>Pedir avaliação apenas a hóspedes com stay positivo (ação 4) e usar a recuperação do stay ruim (ação 3) para <b>melhorar a experiência antes</b>, não para puxar review.</td>
+      </tr>
+      <tr>
+        <td><b>Usar contestação para "melhorar" o número</b></td>
+        <td>As reviews contestadas são as piores (nota 1,87–3,05) e 67 saíram do ar em 4 meses. Removê-las sobe a métrica <b>sem melhorar nada</b> que o hóspede vai sentir — e o número reported já está 0,01–0,02 <em>abaixo</em> do canônico justamente por causa dessa lógica. Contestação com motivo vazio (43 casos) é risco de contestação indevida contra a Seazone.</td>
+        <td>Usar contestação só para review genuinamente improcedente (hóspede que não se hospedou, comentário em branco), com taxonomia fechada de motivo e revisão de casos com motivo vazio (ação 12). Reportar as duas métricas.</td>
+      </tr>
+      <tr>
+        <td><b>Meta de nota por anúncio novo ou por imóvel individual</b></td>
+        <td>494 anúncios têm média de <b>0,56 review</b> e nota exibida simples de <b>1,896</b>. Com 1 ou 2 avaliações, a nota exibida é um número sem estatística: um único 3,0 derruba o anúncio para "3,0" e um único 5,0 o salva. Fixar meta de nota nesse grupo é fabricar ruído.</td>
+        <td>Tratar recriação como <b>higiene de anúncio</b> (ação 8): não publicar com 1 review, ou exibir o histórico do anúncio anterior. A meta de nota é do <b>portfólio</b>, nunca do anúncio individual.</td>
+      </tr>
+      <tr>
+        <td><b>"Melhorar tudo" — programa nacional de qualidade</b></td>
+        <td>O gap é de <b>0,017</b>. Programas de grande porte (campanha nacional, reforma de portfólio, padronização de acabamento em todas as franquias) têm ciclo de 2 a 3 trimestres e efeito diluído sobre a cauda. Enquanto isso, 55 reviews de nota 1 em um mês continuam custando 0,010 de nota. O tempo de ciclo é incompatível com o tamanho do gap.</td>
+        <td>As 12 ações deste plano, com prazo de 15 dias nas três primeiras. Se o programa nacional for fait, ele deve ser <b>depois</b> da estabilização da cauda — não no lugar dela.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===================== RODAPÉ ===================== -->
+<footer>
+  <h4>Fontes consultadas</h4>
+  <ul>
+    <li><code>nekt_operacional_gold.reviews_airbnb_ajustada</code> — 123.708 linhas; grão 1 review, Airbnb-only. Série mensal, sub-notas, histograma, contestações, contagem de reviews, <code>conta_no_anuncio_atual</code>. <b>É a fonte de praticamente todos os números deste documento.</b></li>
+    <li><code>nekt_operacional_gold.reviews_comentarios</code> — 167.817 linhas; grão 1 review, todos os canais. Usada para a leitura qualitativa (campo <code>comentario</code>), para a checagem de cobertura das sub-notas por canal e para a coorte de checkout.</li>
+    <li><code>nekt_operacional_gold.nota_maxima_fila_diaria</code> — 185 linhas. Fila de pedido de avaliação do app Nota Máxima (cobertura).</li>
+    <li><code>nekt_operacional_gold.fact_reservations</code> + <code>nekt_operacional_silver.dim_channel_ota</code> — denominador de reservas Airbnb (<code>ota_id = 1</code>, <code>import_source = webhook</code>).</li>
+    <li><code>nekt_operacional_bronze.stays_reservations_export</code> — 571.440 linhas. Usada só para cross-check de volume de reservas; o campo <code>hasreview</code> está 100% nulo e <b>não foi usado</b> para cobertura.</li>
+    <li><code>nekt_mercado_gold.internal_airbnb_details</code> — 3.694 anúncios. <code>is_new_listing</code>, <code>number_of_reviews</code>, <code>star_rating</code>, <code>picture_count</code>, sub-notas do anúncio.</li>
+    <li><code>nekt_mercado_gold.airbnb_listings_qgis</code> — 399.379 linhas. <code>city</code>/<code>state</code>/<code>suburb</code> por <code>airbnb_listing_id</code> (dimensão geográfica). Usada via <code>ANY_VALUE</code> sem filtro de <code>mes_referencia</code>.</li>
+    <li><code>nekt_operacional_silver.stays_reviews_sem_ajuste_fusohorario</code> — 150.561 linhas. Usada só para confirmar a nomenclatura de canal (<code>external_channel_name</code>: Airbnb / Booking.com / Expedia / Stays).</li>
+  </ul>
+
+  <h4>Consultas principais (SQL)</h4>
+  <pre>-- Série canônica mensal (Tabela 1)
+SELECT DATE_TRUNC('month', "review_date") AS "mes",
+       COUNT(*) AS "total_avaliacoes",
+       COUNT(DISTINCT "imovel") AS "total_imoveis",
+       ROUND(AVG("avaliacao"), 3) AS "nota_media",
+       ROUND(AVG("limpeza"),3) AS "limpeza", ROUND(AVG("checkin"),3) AS "checkin",
+       ROUND(AVG("comunicacao"),3) AS "comunicacao", ROUND(AVG("localizacao"),3) AS "localizacao",
+       ROUND(AVG("valor"),3) AS "valor"
+FROM "nekt_operacional_gold"."reviews_airbnb_ajustada"
+WHERE "entra_no_calculo" = true
+  AND "review_date" &gt;= TIMESTAMP '2026-07-01' AND "review_date" &lt; TIMESTAMP '2026-11-01'
+GROUP BY 1 ORDER BY 1;
+
+-- Reconciliação bruto vs canônico (Tabela 2)
+SELECT DATE_TRUNC('month',"review_date") AS "mes",
+       COUNT(*) AS "todas_linhas",
+       ROUND(AVG("avaliacao"),4) AS "bruta",
+       COUNT(CASE WHEN "entra_no_calculo" THEN 1 END) AS "n_canonico",
+       ROUND(AVG(CASE WHEN "entra_no_calculo" THEN "avaliacao" END),4) AS "canonica"
+FROM "nekt_operacional_gold"."reviews_airbnb_ajustada"
+WHERE "review_date" &gt;= TIMESTAMP '2026-07-01' AND "review_date" &lt; TIMESTAMP '2026-11-01'
+GROUP BY 1 ORDER BY 1;
+
+-- Distribuição + sub-notas por faixa (Tabelas 4 e 5)
+SELECT "avaliacao" AS "nota", COUNT(*) AS "n",
+       ROUND(AVG("limpeza"),3) AS "limpeza", ROUND(AVG("checkin"),3) AS "checkin",
+       ROUND(AVG("comunicacao"),3) AS "comunicacao", ROUND(AVG("localizacao"),3) AS "localizacao",
+       ROUND(AVG("valor"),3) AS "valor",
+       ROUND(AVG(CASE WHEN "comunicacao"&lt;=3 THEN 1.0 ELSE 0.0 END)*100,1) AS "p_com_baixa",
+       ROUND(AVG(CASE WHEN "valor"<=3 THEN 1.0 ELSE 0.0 END)*100,1) AS "p_val_baixa"
+FROM "nekt_operacional_gold"."reviews_airbnb_ajustada"
+WHERE "entra_no_calculo" = true
+  AND "review_date" &gt;= TIMESTAMP '2026-10-01' AND "review_date" &lt; TIMESTAMP '2026-11-01'
+GROUP BY 1 ORDER BY 1;
+
+-- Anúncio recriado x em pé (§7.1)
+WITH rev AS (SELECT "imovel", COUNT(*) AS "n_rev_nossa",
+       SUM(CASE WHEN "conta_no_anuncio_atual"=false THEN 1 ELSE 0 END) AS "n_fora_anuncio"
+   FROM "nekt_operacional_gold"."reviews_airbnb_ajustada"
+   WHERE "entra_no_calculo"=true AND "review_date"&gt;=TIMESTAMP '2026-07-01'
+     AND "review_date"&lt;TIMESTAMP '2026-11-01' GROUP BY 1)
+SELECT CASE WHEN d."is_new_listing" THEN 'novo (recriado)' ELSE 'em_pe' END AS "status_anuncio",
+       COUNT(*) AS "n_imoveis", SUM(rev."n_rev_nossa") AS "n_reviews_nossas",
+       ROUND(AVG(d."number_of_reviews"),1) AS "media_reviews_airbnb",
+       ROUND(AVG(d."star_rating"),3) AS "nota_exibida",
+       ROUND(SUM(d."star_rating"*d."number_of_reviews")/NULLIF(SUM(d."number_of_reviews"),0),3) AS "nota_ponderada",
+       SUM(rev."n_fora_anuncio") AS "reviews_de_anuncio_antigo"
+FROM rev JOIN "nekt_mercado_gold"."internal_airbnb_details" d ON d."id_seazone"=rev."imovel"
+GROUP BY 1;
+
+-- Cobertura: reservas Airbnb x reviews (Tabela 8)
+SELECT DATE_TRUNC('month', f."check_in_date") AS "mes_checkin", COUNT(*) AS "reservas"
+FROM "nekt_operacional_gold"."fact_reservations" f
+JOIN "nekt_operacional_silver"."dim_channel_ota" c ON c."channel_ota_key"=f."channel_ota_key"
+WHERE f."check_in_date" &gt;= TIMESTAMP '2026-07-01' AND f."check_in_date" &lt; TIMESTAMP '2026-11-01'
+  AND c."ota_id"='1' AND c."import_source"='webhook'
+GROUP BY 1 ORDER BY 1;
+
+-- Verificação de que review_date é a data de checkout (§7.3): join 1:1, defasagem 0,0
+SELECT DATE_TRUNC('month', a."review_date") AS "mes_pub", COUNT(*) AS "n",
+       ROUND(AVG(date_diff('day', c."data_checkout", a."review_date")),1) AS "lag_medio_d"
+FROM "nekt_operacional_gold"."reviews_airbnb_ajustada" a
+JOIN "nekt_operacional_gold"."reviews_comentarios" c
+  ON c."reserva" = a."external_reserve_id" AND c."canal"='Airbnb'
+WHERE a."entra_no_calculo"=true AND a."review_date"&gt;=TIMESTAMP '2026-07-01'
+  AND a."review_date"&lt;TIMESTAMP '2026-11-01'
+GROUP BY 1 ORDER BY 1;</pre>
+
+  <h4>Limitações metodológicas</h4>
+  <ul>
+    <li><b>A série é coorte de checkout, não de publicação.</b> Verificado por join 1:1 (20.517 linhas, defasagem 0,0 dia). A coorte mais recente é a mais imatura (18 dias em out/2026 contra 106 em jul/2026). O número exibido no Airbnb ao vivo é sempre mais recente que o corte canônico.</li>
+    <li><b>Cinco sub-notas não existem no Airbnb.</b> <code>nota_atendimento</code>, <code>nota_manutencao</code>, <code>nota_instalacoes</code>, <code>nota_processo_reserva</code> e <code>nota_tratamento_cliente</code> são 100% nulas para <code>canal = 'Airbnb'</code> em <code>reviews_comentarios</code> (36.773 preenchidas em Booking.com, 4.568 no canal sem nome). A decomposição por dimensão cobre apenas as 5 sub-notas do Airbnb; manutenção e atendimento entram pela via qualitativa.</li>
+    <li><b>A sub-nota <code>checkout</code> é 100% nula no Airbnb</b> (preenchida só em 6 linhas da Expedia e no canal sem nome).</li>
+    <li><b>Não há mapeamento confiável de imóvel para franquia</b> nas tabelas consultadas. <code>contestacao_franquia</code> cobre apenas as 207 reviews contestadas (79 franquias, 203 imóveis) e <code>nota_maxima_fila_diaria</code> cobre 53 imóveis. A dimensão de franquia é <b>proxy por cidade</b>; a cobertura de cidade por imóvel é de 95,4% (3.217 de 3.373).</li>
+    <li><code>airbnb_listings_qgis</code> foi consultada com <code>ANY_VALUE</code> sem filtro de <code>mes_referencia</code> — a cidade e o estado são estáveis, mas o snapshot é misturado.</li>
+    <li><b>Cobertura de avaliação usa bases diferentes:</b> numerador por data de checkout (reviews) e denominador por data de check-in (reservas). Em reservas de 1 a 3 noites a diferença é de dias nas bordas do mês. O número de ~45% deve ser lido como ordem de grandeza, não como precisão.</li>
+    <li><code>stays_reservations_export.hasreview</code> está 100% nulo — não foi usado. A cobertura foi calculada por <code>fact_reservations</code> + <code>dim_channel_ota</code>, e essa dimensão não tem coluna descritiva de nome de canal (<code>channel_name</code> é cópia de <code>ota_id</code>); a identificação de <code>ota_id = 1</code> como Airbnb veio de <code>stays_reviews_sem_ajuste_fusohorario.external_channel_name</code>.</li>
+    <li><b>Cobertura de contestação é só de 2026</b> (<code>cobertura_contestacao</code>). Para o histórico, a ausência de contestação não significa ausência de contestação.</li>
+    <li><b>O campo <code>dias_desde_checkout</code> é maturidade da coorte</b> (hoje menos checkout), não defasagem de publicação. A defasagem real de publicação não está disponível nas fontes consultadas.</li>
+    <li><b>Classificação de temas por regex, multi-rótulo</b>, sobre 622 de 926 reviews de nota ≤ 3 com texto (67%). Não é leitura semântica: temas como "manutenção" podem coexistir com "limpeza" na mesma review. 29 reviews de nota 1 (19,3%) e 130 de nota 2–3 (27,5%) não casaram em nenhum tema.</li>
+    <li><b>Viés de auto-seleção.</b> Quem avalia não é amostra aleatória das estadias: as duas franquias com app ativo têm nota média 5,00 e 4,83 entre os respondentes. Recuperação de avaliação só mejora a nota se o pedido for dirigido a hóspedes com stay positivo.</li>
+    <li><b>Correlação não é causalidade nas sub-notas.</b> Guest que dá 1 estrela tende a dar sub-nota baixa em tudo. A decomposição da Tabela 4 identifica <b>onde</b> o problema está, não o que o causaria isoladamente. O plano trata as dimensões com mecanismo de campo (ação 2, vistoria) e com evidência textual convergente, não com correlação pura.</li>
+    <li><b>Os impactos das ações não são somáveis.</b> Ações 1, 2, 9 atacam as mesmas 101 reviews de nota 1–2 por caminhos diferentes. A Tabela 9 traz o efeito máximo de cada uma isoladamente.</li>
+    <li><b>Falta reconciliação entre a contagem do Airbnb e a nossa</b>: 8,47% dos imóveis divergem, com o Airbnb exibindo em média 3,42 reviews a mais. A causa (anúncio recriado, review ainda não capturada, revisão de coleta) não foi decomposta — é pré-requisito para qualquer meta de volume.</li>
+    <li><b>Donos de ação</b> foram atribuídos pela estrutura conhecida da área BackOffice Franquias. "Time de Anúncios" está marcado como <span class="muted">(a confirmar)</span> porque o responsável pela publicação não foi verificado nas fontes de dados consultadas.</li>
+  </ul>
+
+  <p style="margin-top:22px;color:var(--ink-3);font-size:11.5px">
+    Documento gerado em 03/11/2026 · BackOffice Franquias Seazone · análise local, sem envio a Slack ou e-mail · todos os números reproduzíveis a partir do SQL acima, executado via MCP Nekt (Athena).
+  </p>
+</footer>
+
+</main>
+
+<script>
+/* ============================================================
+   Gráficos em SVG puro, inline, sem CDN. Dados embutidos.
+   Paleta: coral #EB615E, ink #191713, moss #5B6E4A, amber #A9743A,
+   slate #3F5A6B, greys derivados de #DED8CC.
+   ============================================================ */
+(function(){
+  var NS="http://www.w3.org/2000/svg";
+  function E(t,a){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function mk(id){var el=document.getElementById(id);el.innerHTML="";return el;}
+  function txt(x,y,s,cls,anchor,fill){var t=E("text",{x:x,y:y,class:cls||"axis-t"});if(anchor)t.setAttribute("text-anchor",anchor);if(fill)t.setAttribute("fill",fill);t.textContent=s;return t;}
+  function fmt(v,d){return v.toFixed(d===undefined?3:d).replace(".",",");}
+
+  /* ---------- 1. série 12m ---------- */
+  (function(){
+    var el=mk("c-serie");
+    var D=[["nov/25",4.801],["dez/25",4.774],["jan/26",4.705],["fev/26",4.742],["mar/26",4.768],
+           ["abr/26",4.793],["mai/26",4.791],["jun/26",4.796],["jul/26",4.786],["ago/26",4.804],
+           ["set/26",4.788],["out/26",4.783]];
+    var W=760,H=250,ml=46,mr=16,mt=18,mb=42;
+    var x0=ml,x1=W-mr,y0=H-mb,y1=mt;
+    var lo=4.66,hi=4.84;
+    var xs=function(i){return x0+(x1-x0)*i/(D.length-1);};
+    var ys=function(v){return y1+(y0-y1)*((hi-v)/(hi-lo));};
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart",role:"img","aria-label":"Série mensal de nota do Airbnb"});
+    // banda meta
+    svg.appendChild(E("rect",{x:x0,y:ys(4.80),width:x1-x0,height:Math.max(2,y0-ys(4.80)),fill:"#EB615E","fill-opacity":"0.055"}));
+    // grade
+    [4.68,4.72,4.76,4.80,4.84].forEach(function(v){
+      svg.appendChild(E("line",{x1:x0,y1:ys(v),x2:x1,y2:ys(v),stroke:v===4.80?"#EB615E":"#E4DED2","stroke-width":v===4.80?1.4:1,"stroke-dasharray":v===4.80?"0":"3 3"}));
+      svg.appendChild(txt(x0-8,ys(v)+3.5,fmt(v,2),"axis-t","end",v===4.80?"#C4483F":"#7C7469"));
+    });
+    // linha meta
+    svg.appendChild(txt(x1,ys(4.80)-7,"meta 4,80","axis-t","end","#C4483F"));
+    // área + linha
+    var ar="M"+xs(0)+","+ys(D[0][1]);
+    D.forEach(function(d,i){ar+=" L"+xs(i)+","+ys(d[1]);});
+    svg.appendChild(E("path",{d:ar,fill:"none",stroke:"#191713","stroke-width":1.8,"stroke-linejoin":"round","stroke-linecap":"round"}));
+    // zona dos 4m
+    svg.appendChild(E("rect",{x:xs(8)-14,y:y1,width:(x1-xs(8))+14,height:y0-y1,fill:"#EB615E","fill-opacity":"0.035"}));
+    // pontos
+    D.forEach(function(d,i){
+      var c=(i>=8)?"#EB615E":"#191713";
+      svg.appendChild(E("circle",{cx:xs(i),cy:ys(d[1]),r:(i>=8)?4.2:3.2,fill:c,stroke:"#F7F5F0","stroke-width":1.6}));
+      if(i===11||i===8||i===2){
+        svg.appendChild(txt(xs(i),ys(d[1])-11,fmt(d[1],3),"val-l","middle",c));
+      }
+    });
+    // eixo x
+    D.forEach(function(d,i){svg.appendChild(txt(xs(i),y0+18,d[0],"axis-t","middle",i>=8?"#4A453D":"#7C7469"));});
+    svg.appendChild(txt(xs(8)-4,y0+32,"janela de 4 meses","axis-t","middle","#C4483F"));
+    // nov parcial
+    var nxp=xs(11)+ (x1-xs(11))/(D.length);
+    svg.appendChild(E("line",{x1:nxp,y1:y0,x2:nxp,y2:y1,stroke:"#C9C2B5","stroke-width":1,"stroke-dasharray":"2 3"}));
+    svg.appendChild(txt(nxp+5,y1+10,"nov/26 parcial (n=68)","axis-t","start","#9A9387"));
+    el.appendChild(svg);
+  })();
+
+  /* ---------- 2. sub-notas 4m vs 8m ---------- */
+  (function(){
+    var el=mk("c-sub");
+    var D=[["Localização",4.885,4.858],["Check-in",4.843,4.818],["Comunicação",4.840,4.812],
+           ["Limpeza",4.821,4.795],["Valor",4.770,4.728]];
+    var W=560,H=280,ml=96,mr=74,mt=10,mb=34;
+    var y0=H-mb, y1=mt;
+    var lo=4.70,hi=4.90;
+    var xs=function(v){return ml+(W-ml-mr)*((v-lo)/(hi-lo));};
+    var bh=17, gap=13;
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart"});
+    svg.appendChild(E("line",{x1:xs(4.80),y1:y1,x2:xs(4.80),y2:y0,stroke:"#EB615E","stroke-width":1.4,"stroke-dasharray":"3 3"}));
+    svg.appendChild(txt(xs(4.80),y1-1,"4,80","axis-t","middle","#C4483F"));
+    D.forEach(function(d,i){
+      var yt=y1+8+i*(bh*2+gap);
+      svg.appendChild(txt(ml-10,yt+bh-3,d[0],"axis-t","end","#4A453D"));
+      svg.appendChild(E("rect",{x:ml,y:yt,width:xs(d[1])-ml,height:bh,fill:"#EB615E"}));
+      svg.appendChild(txt(xs(d[1])+6,yt+bh-3,fmt(d[1],3),"val-l","start","#191713"));
+      var yb=yt+bh+4;
+      svg.appendChild(E("rect",{x:ml,y:yb,width:xs(d[2])-ml,height:bh,fill:"#D8D2C5"}));
+      svg.appendChild(txt(xs(d[2])+6,yb+bh-3,fmt(d[2],3),"val-l","start","#7C7469"));
+      var dl=d[1]-d[2];
+      svg.appendChild(txt(W-mr+6,yt+bh+6,"+"+fmt(dl,3),"val-l","start","#5B6E4A"));
+    });
+    svg.appendChild(txt(ml,y0+14,"■ últimos 4 meses","axis-t","start","#C4483F"));
+    svg.appendChild(txt(ml+118,y0+14,"■ 8 meses anteriores","axis-t","start","#7C7469"));
+    svg.appendChild(txt(W-mr+6,y0+14,"Δ","axis-t","start","#7C7469"));
+    el.appendChild(svg);
+  })();
+
+  /* ---------- 3. histograma ---------- */
+  (function(){
+    var el=mk("c-hist");
+    var D=[["1",55],["2",46],["3",157],["4",532],["5",4760]];
+    var W=520,H=262,ml=42,mr=14,mt=24,mb=50;
+    var x0=ml,x1=W-mr,y0=H-mb,y1=mt;
+    var mx=4900;
+    var bw=(x1-x0)/D.length*0.56;
+    var ys=function(v){return y0-(y0-y1)*(v/mx);};
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart"});
+    [0,1000,2000,3000,4000].forEach(function(v){
+      svg.appendChild(E("line",{x1:x0,y1:ys(v),x2:x1,y2:ys(v),stroke:"#E4DED2","stroke-width":1}));
+      svg.appendChild(txt(x0-8,ys(v)+3.5,v.toLocaleString("pt-BR"),"axis-t","end"));
+    });
+    D.forEach(function(d,i){
+      var cx=x0+(x1-x0)*(i+0.5)/D.length;
+      var col=(i<=1)?"#C4483F":(i===2)?"#A9743A":"#191713";
+      svg.appendChild(E("rect",{x:cx-bw/2,y:ys(d[1]),width:bw,height:y0-ys(d[1]),fill:col}));
+      svg.appendChild(txt(cx,ys(d[1])-7,d[1].toLocaleString("pt-BR"),"val-l","middle",col));
+      svg.appendChild(txt(cx,y0+18,d[0],"axis-t","middle"));
+      svg.appendChild(txt(cx,y0+31,(d[1]/5550*100).toFixed(2).replace(".",",")+"%","axis-t","middle"));
+    });
+    svg.appendChild(txt(x0-8,y1-8,"reviews","axis-t","end"));
+    svg.appendChild(txt(x0+(x1-x0)*0.5,y0+46,"nota geral","axis-t","middle"));
+    el.appendChild(svg);
+  })();
+
+  /* ---------- 4. waterfall ---------- */
+  (function(){
+    var el=mk("c-wf");
+    var D=[
+      {l:"out/2026\ncanônico",v:4.7831,type:"base"},
+      {l:"73 reviews 1–2\ncomunicação ≤ 3",v:0.0132,type:"up"},
+      {l:"21 reviews 1–2\nrestantes",v:0.0037,type:"up"},
+      {l:"meta",v:4.8000,type:"meta"}
+    ];
+    var W=560,H=250,ml=56,mr=14,mt=30,mb=56;
+    var x0=ml,x1=W-mr,y0=H-mb,y1=mt;
+    var lo=4.770,hi=4.808;
+    var ys=function(v){return y1+(y0-y1)*((hi-v)/(hi-lo));};
+    var bw=(x1-x0)/D.length*0.5;
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart"});
+    svg.appendChild(E("line",{x1:x0,y1:ys(4.80),x2:x1,y2:ys(4.80),stroke:"#EB615E","stroke-width":1.4,"stroke-dasharray":"3 3"}));
+    svg.appendChild(txt(x0-8,ys(4.80)+3.5,"4,80","axis-t","end","#C4483F"));
+    var acc=4.7831, prev=null;
+    D.forEach(function(d,i){
+      var cx=x0+(x1-x0)*(i+0.5)/D.length;
+      if(d.type==="base"){
+        var y=ys(d.v);
+        svg.appendChild(E("rect",{x:cx-bw/2,y:y,width:bw,height:y0-y,fill:"#191713"}));
+        svg.appendChild(txt(cx,y-8,fmt(d.v,4),"val-l","middle","#191713"));
+        acc=d.v;
+      } else if(d.type==="up"){
+        var yT=ys(acc+d.v), yB=ys(acc);
+        svg.appendChild(E("rect",{x:cx-bw/2,y:yT,width:bw,height:Math.max(2,yB-yT),fill:"#5B6E4A"}));
+        svg.appendChild(txt(cx,yT-8,"+"+fmt(d.v,4),"val-l","middle","#42522F"));
+        if(prev!==null)svg.appendChild(E("line",{x1:prev,y1:yB,x2:cx-bw/2,y2:yB,stroke:"#B9B2A4","stroke-width":1,"stroke-dasharray":"2 2"}));
+        prev=cx+bw/2; acc=acc+d.v;
+      } else {
+        var ym=ys(d.v);
+        svg.appendChild(E("rect",{x:cx-bw/2,y:ym,width:bw,height:y0-ym,fill:"none",stroke:"#EB615E","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+        svg.appendChild(txt(cx,ym-8,fmt(d.v,4),"val-l","middle","#C4483F"));
+      }
+      d.l.split("\n").forEach(function(ln,k){
+        svg.appendChild(txt(cx,y0+16+k*12,ln,"axis-t","middle",d.type==="meta"?"#C4483F":"#4A453D"));
+      });
+    });
+    svg.appendChild(txt(x0-8,y1-12,"nota","axis-t","end"));
+    el.appendChild(svg);
+  })();
+
+  /* ---------- 5. cidades ---------- */
+  (function(){
+    var el=mk("c-city");
+    var D=[["Florianópolis",93],["Salvador",37],["São Paulo",27],["Penha",19],["Itapema",19],
+           ["Balneário Camboriú",18],["Maceió",11],["Blumenau",7],["Cabo Frio",6],["Barra Velha",6],
+           ["Campos do Jordão",6],["Curitiba",6],["Bombinhas",5]];
+    var W=560,H=312,ml=132,mr=44,mt=8,mb=42;
+    var bh=12, gap=6;
+    var mx=95;
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart"});
+    D.forEach(function(d,i){
+      var yt=mt+i*(bh+gap);
+      var w=(W-ml-mr)*d[1]/mx;
+      var hi=(d[0]==="Blumenau"||d[0]==="Cabo Frio"||d[0]==="Barra Velha");
+      svg.appendChild(txt(ml-10,yt+bh-2,d[0],"axis-t","end",hi?"#C4483F":"#4A453D"));
+      svg.appendChild(E("rect",{x:ml,y:yt,width:w,height:bh,fill:hi?"#A9743A":"#EB615E","fill-opacity":hi?0.95:0.82}));
+      svg.appendChild(txt(ml+w+7,yt+bh-2,String(d[1]),"val-l","start","#191713"));
+    });
+    svg.appendChild(txt(ml,H-22,"reviews de nota 1 ou 2 (jul–out/2026)","axis-t","start","#7C7469"));
+    el.appendChild(svg);
+    var lg=document.createElement("div");
+    lg.className="legend";
+    lg.innerHTML='<span><i class="sw" style="background:#EB615E"></i> maior volume absoluto</span><span><i class="sw" style="background:#A9743A"></i> taxa de nota baixa acima de 6% (volume menor)</span>';
+    el.parentNode.insertBefore(lg,el.nextSibling);
+  })();
+
+  /* ---------- 6. temas ---------- */
+  (function(){
+    var el=mk("c-themes");
+    var D=[
+      ["Limpeza / estado do imóvel",31,146],
+      ["Manutenção / equipamento",34,127],
+      ["Anúncio / fotos / informação",34,112],
+      ["Barulho / condomínio",34,99],
+      ["Check-in / acesso / portaria",29,52],
+      ["Comunicação / suporte",24,55],
+      ["Cobrança / valor / taxas",22,27],
+      ["Cancelamento / relocação",18,4]
+    ];
+    var W=620,H=290,ml=196,mr=56,mt=6,mb=34;
+    var bh=14, gap=8;
+    var mx=190;
+    var svg=E("svg",{viewBox:"0 0 "+W+" "+H,class:"chart"});
+    D.forEach(function(d,i){
+      var yt=mt+i*(bh+gap);
+      var w1=(W-ml-mr)*d[1]/mx, w2=(W-ml-mr)*d[2]/mx;
+      svg.appendChild(txt(ml-10,yt+bh-2,d[0],"axis-t","end","#4A453D"));
+      svg.appendChild(E("rect",{x:ml,y:yt,width:w1,height:bh,fill:"#C4483F"}));
+      svg.appendChild(E("rect",{x:ml+w1,y:yt,width:w2,height:bh,fill:"#EB615E"}));
+      svg.appendChild(txt(ml+w1+w2+7,yt+bh-2,String(d[1]+d[2]),"val-l","start","#191713"));
+    });
+    svg.appendChild(txt(ml,H-8,"nota 1 (150)   ■   nota 2–3 (472)   ■   n = reviews com o tema","axis-t","start","#7C7469"));
+    el.appendChild(svg);
+  })();
+
+})();
+</script>
+</body>
+</html>
