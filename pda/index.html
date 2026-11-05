@@ -528,6 +528,12 @@
   .obs.slate .obs-head{color:var(--muted)}
   .obs.slate .obs-body b{color:var(--text)}
   .obs.slate .obs-cell .oc-v{color:var(--muted)}
+  .obs.teal{background:rgba(45,156,143,.09);border-color:rgba(45,156,143,.35)}
+  .obs.teal .obs-head{color:#57C4B8}
+  .obs.teal .obs-body b{color:#57C4B8}
+  .obs.teal .obs-cell .oc-v{color:#57C4B8}
+  .obs.teal .obs-toggle{border-color:rgba(45,156,143,.4);color:#57C4B8}
+  .obs.teal .obs-toggle:hover{background:rgba(45,156,143,.12)}
 
   /* ============ BLOCOS DE DADOS ============ */
   .obs-h{
@@ -621,12 +627,11 @@
     <span class="title-badge">Plano de Ação · Airbnb</span>
   </div>
   <p class="objective">
-    Duas frentes para elevar a nota e o volume de avaliações do Airbnb.
-    <b>Frente de nota</b> (cards <b>1.1.x</b>): plano de ação de 14 ações com donos nomeados, prazos curtos (15d), médios (30d) e estruturais (90d),
-    atacando a cauda de 1–3 estrelas, as 10 franquias que respondem por 61% do gap e os portfólios próprios JBV e ILC (Jurerê), com 41% do gap.
-    <b>Frente de estrutura e monitoramento</b> (cards <b>2.x.y</b>, Victória Magri · Qualidade de Operação): ciclo mensal que elimina as causas apontadas pelos detratores
-    e transforma estadias satisfatórias em avaliações 5 — meta trimestral <b>4,82</b> com <b>piso interno 4,80</b>, 15 franquias premium de terceiros em 4,80,
-    e as três operações Seazone fora da premium (JBV, Il Campanário e IAM Consultoria) retirando <b>~0,015</b> da nota geral.
+    Duas diretrizes para a virada de <b>01/01/2027</b> — novembro/2026 já é o primeiro mês.
+    <b>Frente de nota Airbnb</b> (cards <b>1.1.x</b> e <b>2.x.y</b>): plano de ação de 14 ações com donos nomeados e prazos curtos (15d), médios (30d) e estruturais (90d),
+    ciclo operacional mensal da Victória Magri (Qualidade) e programa das 15 franquias premium — meta trimestral <b>4,82</b> com <b>piso interno 4,80</b>.
+    <b>Nova frente de automação</b> (cards <b>3.1.x</b>, diretriz da Carol em 05/11): a capacidade da operação de franquias na v3 vem de <b>IA, não de contratação nem realocação</b> —
+    para cada faixa do score e cada etapa da Pré-UTI e da UTI, mapear o que ainda é manual e qual agente assume, deixando rodando o que der antes das férias.
   </p>
   <div class="metrics">
     <div class="metric">
@@ -660,6 +665,14 @@
     <div class="metric gap">
       <div class="mlabel">Seazone fora da premium</div>
       <div class="mvalue">−0,015<small>JBV 4,24 · Il Campanário 4,65 · IAM 4,52</small></div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">Virada da v3</div>
+      <div class="mvalue">01/01/2027<small>nov/26 = 1º mês</small></div>
+    </div>
+    <div class="metric gap">
+      <div class="mlabel">Aprovação UTI</div>
+      <div class="mvalue">18 paradas<small>17 fora do prazo</small></div>
     </div>
   </div>
 </header>
@@ -1109,6 +1122,51 @@
   </div>
 </section>
 
+<!-- ================= DIRETRIZ DE AUTOMAÇÃO — CAROL (05/11/2026) ================= -->
+<section class="obs teal" id="obsAutomacao">
+  <div class="obs-head">
+    Diretriz de automação · Carol (05/11) — capacidade da v3 é IA
+    <span class="obs-tag">05/11/2026 · resposta à proposta de reforço de time (v3)</span>
+  </div>
+  <div class="obs-body">
+    <b>"Não foi feita nenhuma ação de reforço e não vai ser. Não existe possibilidade de contratação nem de realocação em Franquias.
+    A capacidade para a v3 é com IA, então o foco do seu PDA precisa ser esse."</b> — Carol, 05/11/2026.
+    <ul class="obs-list">
+      <li><b>Sem reforço de time:</b> o time é o que está aí. A conta certa não é quem acompanha as franquias, e sim <b>o que ainda depende de alguém</b>.</li>
+      <li><b>Fila UTI:</b> já é automática até a decisão. O que falta é a etapa de <b>aprovação</b> — hoje <b>18 franquias paradas, 17 fora do prazo</b>.</li>
+      <li><b>Visitas automáticas:</b> a UTI já alimenta o hub; agora o mesmo com o <b>score</b> — o alerta da faixa vai para o <b>hub da Consultoria</b> para gerar os agendamentos de viagem. O processo de Consultoria Regional é da Vivi (Vivianny) — esse ponto Ray vê direto com ela.</li>
+      <li><b>Virada:</b> <b>01/01/2027</b>, com novembro/2026 já como primeiro mês.</li>
+      <li><b>Execução:</b> o PDA de duas semanas segue, com este foco — para cada faixa do score e cada etapa da Pré-UTI e da UTI, <b>o que ainda é manual e qual agente assume</b>, deixando rodando o que der antes das férias. O que precisar de decisão da Carol, <b>subir com a proposta pronta</b>.</li>
+    </ul>
+
+    <div class="obs-h">O que ainda é manual → qual agente assume</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Frente</th><th>Etapa ainda manual</th><th>Agente</th></tr></thead>
+        <tbody>
+          <tr><td class="muted">Pré-UTI</td><td>Lembrete D-2 ao dono + D-1 às aprovadoras (hoje feito manualmente pela Isabella)</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Pré-UTI</td><td>Encaixe automático na turma quinzenal da Rose</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Pré-UTI</td><td>Dispatch D0 aos donos de trilha (Vinicius, Victória, Rose, Rayanne, David)</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Pré-UTI</td><td>Fechamento compound: presença no treinamento + 14 dias sem ocorrência</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Pré-UTI</td><td>Dossiê exportável para a transição ao Distrato</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">UTI</td><td>Aprovação da fila (automática até a decisão; 18 paradas, 17 fora do prazo)</td><td class="muted">agente de aprovação (a definir)</td></tr>
+          <tr><td class="muted">UTI</td><td>Alerta que não sai da ferramenta quando o card chega em "Aguardando aprovação" (G00)</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">UTI</td><td>Modelos de Plano Pré-UTI por área (G0A) e modelo de execução do plano de 30 dias (G0B)</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Score</td><td>Alerta da faixa → hub da Consultoria para agendamento de viagem (processo da Vivi)</td><td class="muted">agente a definir</td></tr>
+          <tr><td class="muted">Score</td><td>Penalidade mensal pelo catálogo REV03 — o que conta é a ocorrência registrada na Central</td><td class="muted">agente a definir</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>Ressalva de dados:</b> os números anteriores são de antes dos ajustes da Iara; com eles as franquias que pedem ação passam das 46 —
+      não usar 46 como definitivo, a versão ajustada sai com o número final.
+    </div>
+    <div class="note">
+      <b>Regra de decisão:</b> o que precisar de decisão da Carol, subir com a proposta pronta (ver card 3.1.6).
+    </div>
+  </div>
+</section>
+
 <div class="toolbar">
   <button class="tab active" data-status="all">Todos<span class="count" id="countAll">0</span></button>
   <button class="tab" data-status="todo">A fazer<span class="count" id="countTodo">0</span></button>
@@ -1194,7 +1252,8 @@ const PEOPLE = {
   CF:{name:"Coordenadores de franquia", ini:"CF", color:"#5F8D9E"},
   CE:{name:"Carol Espindola", ini:"CE", color:"#B85C8A"},
   IM:{name:"Time de Implantação", ini:"IM", color:"#7A9E5F"},
-  TA:{name:"Time de Anúncios",ini:"TA", color:"#9E7A5F"}
+  TA:{name:"Time de Anúncios",ini:"TA", color:"#9E7A5F"},
+  VV:{name:"Vivianny",        ini:"VV", color:"#6B8E7A"}
 };
 
 const STATUS_LABEL = {todo:"A fazer", doing:"Em andamento", done:"Concluído"};
@@ -1740,6 +1799,111 @@ const INITIAL_CARDS = [
       {t:"Registrar a data no cronograma do PDA"}
     ]
   },
+
+  /* ================= DIRETRIZ DE AUTOMAÇÃO — CAROL (05/11/2026) =================
+     Fonte: resposta da Carol à proposta de reforço de time para a v3 (05/11/2026).
+     Prefixo 3.1.x = frente de automação da operação de franquias (capacidade com IA). */
+
+  {
+    id:"3.1.1", num:301,
+    title:"Mapear o que ainda é manual por faixa do score e por etapa da Pré-UTI/UTI",
+    owners:["RO","VM"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Automação · Score",
+    impact:"base do plano de 2 semanas",
+    impactNum:0,
+    impactUnit:"na diretriz da Carol",
+    franquia:null,
+    desc:"Diretriz da Carol (05/11): a capacidade da v3 é com IA — a conta certa não é quem acompanha as franquias, e sim o que ainda depende de alguém. Este card levanta o inventário: para cada faixa do score e cada etapa da Pré-UTI e da UTI, o que hoje é manual e quem executa. É a base do PDA de duas semanas solicitado pela Carol.",
+    subs:[
+      {t:"Levantar as etapas da Pré-UTI a partir do check v1.0 (21/10): lembretes D-2/D-1, encaixe na turma quinzenal, dispatch D0, fechamento compound, dossiê"},
+      {t:"Levantar as etapas da UTI a partir do check v2.4 (20/10): aprovação da fila, alerta G00, modelos G0A/G0B"},
+      {t:"Cruzar com as 3 frentes do Score v2 (Uso do Host, Aderência–Manutenções, ocorrências REV03)"},
+      {t:"Marcar o que depende de pessoa hoje (Isabella, donos de trilha, aprovadores) vs. o que já é automático"}
+    ]
+  },
+  {
+    id:"3.1.2", num:302,
+    title:"Automatizar a etapa de aprovação da fila UTI — 18 paradas, 17 fora do prazo",
+    owners:["VM","RO"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Automação · UTI",
+    impact:"remove gargalo de aprovação",
+    impactNum:0,
+    impactUnit:"na fila UTI",
+    franquia:null,
+    desc:"A fila UTI já é automática até a decisão; o que falta é a etapa de aprovação — hoje 18 franquias paradas, 17 fora do prazo (diretriz da Carol, 05/11). Medir o gargalo real antes de propor o agente de aprovação com a regra de decisão.",
+    subs:[
+      {t:"Medir o gargalo real: tempo médio que um card fica aguardando aprovação"},
+      {t:"Propor o agente de aprovação com a regra de decisão (o que aprova sozinho, o que sobe)"},
+      {t:"Subir proposta pronta para a Carol se houver decisão de política", dep:"Dependência: decisão da Carol"},
+      {t:"Conectar o alerta G00 (card chega em Aguardando aprovação) à saída da ferramenta"}
+    ]
+  },
+  {
+    id:"3.1.3", num:303,
+    title:"Score → hub da Consultoria: alerta de faixa gera agendamento de viagem automático",
+    owners:["RO","VV"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Automação · Score",
+    impact:"destrava a v3",
+    impactNum:0,
+    impactUnit:"nas visitas automáticas",
+    franquia:null,
+    desc:"As visitas serão automáticas: a UTI já alimenta o hub; agora o mesmo com o score — o alerta da faixa vai para o hub da Consultoria para gerar os agendamentos de viagem (diretriz da Carol, 05/11). O processo de Consultoria Regional é da Vivi (Vivianny) — esse ponto Ray vê direto com ela.",
+    subs:[
+      {t:"Alinhar com a Vivi o fluxo de Consultoria Regional", dep:"Dependência: processo de Consultoria Regional é da Vivi — ver direto com ela"},
+      {t:"Conectar o alerta de faixa do score ao hub da Consultoria"},
+      {t:"Medir agendamentos de viagem gerados a partir do alerta"}
+    ]
+  },
+  {
+    id:"3.1.4", num:304,
+    title:"Pré-UTI: atribuir agente para cada etapa manual identificada no 3.1.1",
+    owners:["VM"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Automação · Pré-UTI",
+    impact:"remove etapas manuais da Pré-UTI",
+    impactNum:0,
+    impactUnit:"no ciclo Pré-UTI",
+    franquia:null,
+    desc:"Para cada etapa manual da Pré-UTI levantada no card 3.1.1 (lembretes D-2/D-1 hoje feitos manualmente, encaixe na turma quinzenal da Rose, dispatch D0 aos donos de trilha, fechamento compound, dossiê de transição), atribuir o agente que assume — deixando rodando o que der antes das férias.",
+    subs:[
+      {t:"Priorizar as etapas manuais da Pré-UTI por volume e risco de atraso"},
+      {t:"Atribuir agente para cada etapa (o que não tiver dono, marcar como agente a definir)"},
+      {t:"Deixar rodando em novembro o que der antes das férias"},
+      {t:"Reportar o que precisar de decisão da Carol com proposta pronta"}
+    ]
+  },
+  {
+    id:"3.1.5", num:305,
+    title:"Deixar rodando antes das férias o que der — virada 01/01, novembro como 1º mês",
+    owners:["RO"], status:"todo", stars:4, phase:1, prazo:D_15,
+    area:"Gestão",
+    impact:"virada 01/01 com nov/26 como 1º mês",
+    impactNum:0,
+    impactUnit:"no cronograma",
+    franquia:null,
+    desc:"A virada da operação de franquias para a v3 é 01/01/2027, com novembro/2026 já como primeiro mês (diretriz da Carol, 05/11). Garantir que o que puder rodar autonomamente em novembro já esteja rodando antes das férias, com supervisão mínima e checkpoint semanal.",
+    subs:[
+      {t:"Listar o que pode rodar sozinho em novembro (skills, agentes e automações já no ar)"},
+      {t:"Listar o que precisa de supervisão mínima e quem cobre durante as férias"},
+      {t:"Instalar checkpoint semanal até as férias"},
+      {t:"Confirmar com a Carol o que fica rodando autonomamente", dep:"Dependência: validação da Carol"}
+    ]
+  },
+  {
+    id:"3.1.6", num:306,
+    title:"Compilar as decisões que precisam da Carol com proposta pronta",
+    owners:["RO"], status:"todo", stars:3, phase:1, prazo:D_15,
+    area:"Gestão",
+    impact:"decisões sobem com proposta pronta",
+    impactNum:0,
+    impactUnit:"na governança",
+    franquia:null,
+    desc:"Regra da diretriz: o que precisar de decisão da Carol, subir com a proposta pronta. Consolida a fila de decisões pendentes da frente de automação (aprovação da UTI, agentes da Pré-UTI, fluxo do hub da Consultoria) já com recomendação e impacto, para a Carol decidir em uma única leitura.",
+    subs:[
+      {t:"Listar as decisões pendentes da Carol na frente de automação"},
+      {t:"Anexar a proposta pronta a cada decisão (recomendação, impacto e alternativa)"},
+      {t:"Enviar a compilação única para a Carol"}
+    ]
+  }
 
 ];;
 
