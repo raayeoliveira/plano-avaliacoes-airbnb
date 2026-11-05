@@ -1,0 +1,2142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDA de Avaliações — Board de Ação</title>
+<style>
+  :root{
+    --bg:#17191F;
+    --bg2:#1A1D24;
+    --card:#21242C;
+    --border:#2C3038;
+    --border-soft:#262A32;
+    --text:#E6E8EB;
+    --muted:#9AA0A8;
+    --faint:#6B7280;
+    --todo:#8B919B;
+    --doing:#E5B94E;
+    --done:#4CAF7D;
+    --phase:#6D7FD3;
+    --star:#E5B94E;
+    --accent:#EB615E;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:14px;
+    line-height:1.45;
+  }
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:var(--bg2)}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:6px}
+
+  /* ============ CABECALHO ============ */
+  header{padding:28px 32px 0;border-bottom:1px solid var(--border-soft);background:var(--bg2);}
+  .title-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  h1{font-size:26px;font-weight:700;letter-spacing:-0.3px;}
+  .title-badge{
+    font-size:11px;
+    font-weight:600;
+    color:var(--accent);
+    border:1px solid rgba(235,97,94,.4);
+    border-radius:20px;
+    padding:3px 10px;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+  }
+  .objective{
+    margin-top:10px;
+    max-width:980px;
+    color:var(--muted);
+    font-size:13.5px;
+  }
+  .objective b{color:var(--text);font-weight:600}
+
+  /* strip de métricas */
+  .metrics{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:18px 0 0;
+  }
+  .metric{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:10px 16px;
+    min-width:150px;
+  }
+  .metric .mlabel{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px}
+  .metric .mvalue{font-size:20px;font-weight:700;margin-top:2px}
+  .metric .mvalue small{font-size:12px;font-weight:500;color:var(--muted);margin-left:4px}
+  .metric.gap .mvalue{color:var(--accent)}
+
+  /* ============ BARRA DE FERRAMENTAS ============ */
+  .toolbar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    padding:14px 32px;
+    background:var(--bg2);
+    position:sticky;
+    top:0;
+    z-index:20;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .tab{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--muted);
+    border-radius:8px;
+    padding:7px 14px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition:background .12s,color .12s,border-color .12s;
+  }
+  .tab:hover{color:var(--text)}
+  .tab.active{background:var(--card);color:var(--text);border-color:var(--border)}
+  .tab .count{
+    display:inline-block;
+    margin-left:6px;
+    background:var(--bg);
+    border-radius:10px;
+    padding:1px 7px;
+    font-size:11px;
+    color:var(--muted);
+  }
+  .tab.active .count{color:var(--text)}
+  .search-wrap{position:relative;flex:1;min-width:180px;max-width:340px}
+  .search-wrap svg{
+    position:absolute;left:10px;top:50%;transform:translateY(-50%);
+    width:14px;height:14px;stroke:var(--faint);fill:none;stroke-width:2;
+  }
+  #search{
+    width:100%;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text);
+    padding:7px 12px 7px 32px;
+    font-size:13px;
+    outline:none;
+  }
+  #search:focus{border-color:var(--phase)}
+  #search::placeholder{color:var(--faint)}
+  select#phaseFilter{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text);
+    padding:7px 12px;
+    font-size:13px;
+    outline:none;
+    cursor:pointer;
+  }
+  select#phaseFilter:focus{border-color:var(--phase)}
+  .btn{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text);
+    padding:7px 14px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .12s,border-color .12s;
+  }
+  .btn:hover{border-color:var(--muted)}
+  .btn-primary{background:var(--phase);border-color:var(--phase);color:#fff}
+  .btn-primary:hover{filter:brightness(1.1);border-color:var(--phase)}
+
+  /* ============ BOARD ============ */
+  .board{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    padding:20px 32px 40px;
+    align-items:start;
+  }
+  @media (max-width:1100px){.board{grid-template-columns:1fr}}
+  .column{
+    background:var(--bg2);
+    border:1px solid var(--border-soft);
+    border-radius:12px;
+    min-height:300px;
+    display:flex;
+    flex-direction:column;
+  }
+  .col-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:14px 16px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .col-dot{width:8px;height:8px;border-radius:50%}
+  .col-todo .col-dot{background:var(--todo)}
+  .col-doing .col-dot{background:var(--doing)}
+  .col-done .col-dot{background:var(--done)}
+  .col-header h2{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+  .col-count{
+    background:var(--card);
+    border:1px solid var(--border);
+    color:var(--muted);
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+    padding:1px 8px;
+  }
+  .col-cards{
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+  .col-empty{
+    color:var(--faint);
+    font-size:12px;
+    text-align:center;
+    padding:24px 10px;
+    border:1px dashed var(--border);
+    border-radius:8px;
+  }
+
+  /* ============ CARD ============ */
+  .kcard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:12px 14px;
+    cursor:pointer;
+    transition:border-color .12s,transform .12s;
+  }
+  .kcard:hover{border-color:var(--muted);transform:translateY(-1px)}
+  .kcard-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:6px;
+  }
+  .kcard-id{
+    font-family:"SF Mono",Menlo,Consolas,monospace;
+    font-size:11px;
+    color:var(--faint);
+    letter-spacing:.3px;
+  }
+  .kcard-stars{color:var(--star);font-size:12px;letter-spacing:1px}
+  .kcard-stars .off{color:var(--border)}
+  .kcard-title{
+    font-size:13.5px;
+    font-weight:600;
+    line-height:1.35;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    margin-bottom:10px;
+  }
+  .kcard-meta{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+    margin-bottom:8px;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    border-radius:20px;
+    padding:2px 9px;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.2px;
+  }
+  .pill-todo{background:rgba(139,145,155,.15);color:var(--todo);border:1px solid rgba(139,145,155,.3)}
+  .pill-doing{background:rgba(229,185,78,.14);color:var(--doing);border:1px solid rgba(229,185,78,.35)}
+  .pill-done{background:rgba(76,175,125,.14);color:var(--done);border:1px solid rgba(76,175,125,.35)}
+  .pill-phase{background:rgba(109,127,211,.15);color:var(--phase);border:1px solid rgba(109,127,211,.35)}
+  .kcard-foot{display:flex;align-items:center;justify-content:space-between;}
+  .kcard-progress{font-size:12px;color:var(--muted)}
+  .kcard-progress .bar{
+    display:inline-block;
+    width:56px;height:5px;
+    background:var(--border);
+    border-radius:3px;
+    margin-right:7px;
+    vertical-align:middle;
+    overflow:hidden;
+  }
+  .kcard-progress .bar i{display:block;height:100%;background:var(--done);border-radius:3px}
+  .avatars{display:flex}
+  .avatar{
+    width:26px;height:26px;
+    border-radius:50%;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-size:10px;
+    font-weight:700;
+    color:#fff;
+    border:2px solid var(--card);
+    margin-left:-6px;
+  }
+  .avatar:first-child{margin-left:0}
+
+  .add-card-btn{
+    margin:0 12px 12px;
+    background:transparent;
+    border:1px dashed var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    padding:9px;
+    font-size:13px;
+    cursor:pointer;
+    transition:border-color .12s,color .12s;
+  }
+  .add-card-btn:hover{border-color:var(--muted);color:var(--text)}
+  .add-card-form{
+    margin:0 12px 12px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:10px;
+    display:none;
+    flex-direction:column;
+    gap:8px;
+  }
+  .add-card-form.open{display:flex}
+  .add-card-form input,.add-card-form select{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:6px;
+    color:var(--text);
+    padding:7px 10px;
+    font-size:12.5px;
+    outline:none;
+    width:100%;
+  }
+  .add-card-form input:focus,.add-card-form select:focus{border-color:var(--phase)}
+
+  /* ============ MODAL ============ */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(10,11,14,.72);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    padding:40px 20px;
+    z-index:100;
+    overflow-y:auto;
+  }
+  .overlay.open{display:flex}
+  .modal{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:14px;
+    width:100%;
+    max-width:660px;
+    padding:24px 26px;
+    animation:fadeIn .15s ease-out;
+  }
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .modal-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+  .modal-id{
+    font-family:"SF Mono",Menlo,Consolas,monospace;
+    font-size:11px;color:var(--faint);
+    margin-bottom:6px;letter-spacing:.4px;
+  }
+  .modal-title{
+    font-size:18px;font-weight:700;line-height:1.3;
+    border:1px solid transparent;
+    border-radius:6px;
+    padding:2px 4px;
+    margin-left:-4px;
+  }
+  .modal-title[contenteditable]:hover{border-color:var(--border)}
+  .modal-title[contenteditable]:focus{border-color:var(--phase);outline:none}
+  .modal-close{
+    background:transparent;border:none;color:var(--muted);
+    font-size:22px;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;
+  }
+  .modal-close:hover{background:var(--card);color:var(--text)}
+
+  .modal-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 20px;
+    margin:20px 0;
+    padding:16px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+  }
+  @media (max-width:560px){.modal-grid{grid-template-columns:1fr}}
+  .field .flabel{font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  .field .fvalue{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .impact-value{font-family:"SF Mono",Menlo,Consolas,monospace;font-weight:700;color:var(--done)}
+  .impact-value.neg{color:var(--accent)}
+  .modal-stars{font-size:19px;cursor:pointer;letter-spacing:2px;color:var(--star)}
+  .modal-stars .off{color:var(--border)}
+  .status-select{
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:6px;
+    color:var(--text);
+    padding:4px 8px;
+    font-size:12.5px;
+    cursor:pointer;
+    outline:none;
+  }
+
+  .subs-section h3, .comments-section h3{
+    font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.6px;
+    color:var(--muted);
+    margin-bottom:10px;
+  }
+  .subs-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .subs-count{font-size:12px;color:var(--muted)}
+  .subs-bar{
+    height:6px;background:var(--card);
+    border:1px solid var(--border);
+    border-radius:4px;overflow:hidden;margin-bottom:12px;
+  }
+  .subs-bar i{display:block;height:100%;background:var(--done);transition:width .15s}
+  .sub-item{
+    display:flex;align-items:flex-start;gap:10px;
+    padding:8px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .1s;
+  }
+  .sub-item:hover{background:var(--card)}
+  .sub-check{
+    width:16px;height:16px;min-width:16px;
+    border:1.5px solid var(--muted);
+    border-radius:4px;
+    margin-top:1px;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:background .1s,border-color .1s;
+  }
+  .sub-item.done .sub-check{background:var(--done);border-color:var(--done)}
+  .sub-check svg{width:10px;height:10px;stroke:#fff;stroke-width:3;fill:none;opacity:0}
+  .sub-item.done .sub-check svg{opacity:1}
+  .sub-text{font-size:13px;color:var(--text)}
+  .sub-item.done .sub-text{color:var(--faint);text-decoration:line-through}
+  .sub-dep{font-size:11px;color:var(--accent);display:block;margin-top:2px}
+
+  .comments-section{margin-top:22px}
+  .comment{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:9px 12px;
+    margin-bottom:8px;
+  }
+  .comment .cdate{font-size:11px;color:var(--faint);margin-bottom:3px}
+  .comment .ctext{font-size:13px;color:var(--text)}
+  .comment-form{display:flex;gap:8px;margin-top:10px}
+  .comment-form input{
+    flex:1;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--text);
+    padding:8px 12px;
+    font-size:13px;
+    outline:none;
+  }
+  .comment-form input:focus{border-color:var(--phase)}
+
+  .franquia-box{
+    margin-top:20px;
+    background:rgba(109,127,211,.08);
+    border:1px solid rgba(109,127,211,.3);
+    border-radius:10px;
+    padding:12px 14px;
+  }
+  .franquia-box .flabel{font-size:11px;color:var(--phase);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+  .franquia-box .fvalue{font-size:13.5px;font-weight:600}
+
+  .obs{
+    margin-top:18px;
+    background:rgba(201,138,61,.08);
+    border:1px solid rgba(201,138,61,.32);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .obs-head{
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    font-size:12.5px;font-weight:700;color:#E0A85E;
+    letter-spacing:.3px;text-transform:uppercase;
+  }
+  .obs-head .obs-tag{
+    font-size:11px;font-weight:600;letter-spacing:.5px;
+    color:var(--faint);text-transform:uppercase;
+  }
+  .obs-body{
+    margin-top:9px;font-size:13.5px;line-height:1.62;color:var(--text);
+  }
+  .obs-body b{color:#E0A85E}
+  .obs-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;margin-top:12px;
+  }
+  .obs-cell{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:8px;padding:9px 11px;
+  }
+  .obs-cell .oc-l{font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.5px}
+  .obs-cell .oc-v{font-size:16px;font-weight:700;margin-top:3px;color:#E0A85E}
+  .obs-cell .oc-v small{font-size:11px;font-weight:500;color:var(--muted);display:block;margin-top:2px}
+  .obs-list{
+    margin:11px 0 0;padding-left:18px;font-size:13px;line-height:1.6;color:var(--muted);
+  }
+  .obs-list li{margin-bottom:5px}
+  .obs-toggle{
+    margin-top:11px;background:none;border:1px solid rgba(201,138,61,.35);
+    color:#E0A85E;border-radius:7px;padding:6px 12px;font-size:12px;
+    cursor:pointer;font-family:inherit;
+  }
+  .obs-toggle:hover{background:rgba(201,138,61,.1)}
+  .obs-more{display:none;margin-top:11px}
+  .obs-more.open{display:block}
+
+  /* ============ VARIANTES DE COR (frentes novas) ============ */
+  .obs.purple{background:rgba(109,127,211,.08);border-color:rgba(109,127,211,.32)}
+  .obs.purple .obs-head{color:#98A4E8}
+  .obs.purple .obs-body b{color:#98A4E8}
+  .obs.purple .obs-cell .oc-v{color:#98A4E8}
+  .obs.purple .obs-toggle{border-color:rgba(109,127,211,.4);color:#98A4E8}
+  .obs.purple .obs-toggle:hover{background:rgba(109,127,211,.12)}
+  .obs.blue{background:rgba(76,127,184,.09);border-color:rgba(76,127,184,.32)}
+  .obs.blue .obs-head{color:#7FA8D6}
+  .obs.blue .obs-body b{color:#7FA8D6}
+  .obs.blue .obs-cell .oc-v{color:#7FA8D6}
+  .obs.blue .obs-toggle{border-color:rgba(76,127,184,.4);color:#7FA8D6}
+  .obs.blue .obs-toggle:hover{background:rgba(76,127,184,.12)}
+  .obs.slate{background:rgba(154,160,168,.07);border-color:rgba(154,160,168,.28)}
+  .obs.slate .obs-head{color:var(--muted)}
+  .obs.slate .obs-body b{color:var(--text)}
+  .obs.slate .obs-cell .oc-v{color:var(--muted)}
+
+  /* ============ BLOCOS DE DADOS ============ */
+  .obs-h{
+    font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
+    color:var(--muted);margin:18px 0 0;padding-bottom:6px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .table-wrap{overflow-x:auto;margin-top:10px}
+  .obs-table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .obs-table th{
+    text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--faint);font-weight:700;padding:5px 10px;
+    border-bottom:1px solid var(--border);white-space:nowrap;
+  }
+  .obs-table td{
+    padding:6px 10px;border-bottom:1px solid var(--border-soft);
+    color:var(--text);vertical-align:top;
+  }
+  .obs-table tr:last-child td{border-bottom:none}
+  .obs-table td.muted{color:var(--muted)}
+  .obs-table .muted{color:var(--muted)}
+  .obs-table .num{
+    text-align:right;font-variant-numeric:tabular-nums;
+    font-family:"SF Mono",Menlo,Consolas,monospace;white-space:nowrap;
+  }
+  .obs-table th.num{text-align:right}
+  .sit{
+    display:inline-block;font-size:10px;font-weight:700;letter-spacing:.3px;
+    padding:2px 8px;border-radius:20px;white-space:nowrap;
+  }
+  .sit-ok{background:rgba(76,175,125,.14);color:var(--done);border:1px solid rgba(76,175,125,.35)}
+  .sit-floor{background:rgba(229,185,78,.14);color:var(--doing);border:1px solid rgba(229,185,78,.35)}
+  .sit-low{background:rgba(235,97,94,.14);color:var(--accent);border:1px solid rgba(235,97,94,.35)}
+  .sit-none{background:rgba(107,114,128,.15);color:var(--faint);border:1px solid rgba(107,114,128,.35)}
+  .timeline{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:10px;margin-top:12px;
+  }
+  .tl-step{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:8px;padding:10px 12px;
+  }
+  .tl-when{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--phase)}
+  .tl-what{font-size:13px;color:var(--text);margin-top:3px;line-height:1.4}
+  .tl-what small{display:block;color:var(--muted);font-size:11.5px;margin-top:4px}
+  .cal{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:12px;margin-top:12px;
+  }
+  .cal-block{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 13px}
+  .cal-when{font-size:11px;font-weight:700;color:var(--phase);letter-spacing:.4px;text-transform:uppercase}
+  .cal-block ul{margin:7px 0 0;padding-left:16px;font-size:12.5px;line-height:1.55;color:var(--muted)}
+  .cal-block li{margin-bottom:4px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  @media (max-width:820px){.split{grid-template-columns:1fr}}
+  .split-col{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+  .split-col h4{
+    margin:0 0 8px;font-size:11px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.6px;color:var(--muted);
+  }
+  .split-col ul{margin:0;padding-left:16px;font-size:12.5px;line-height:1.6;color:var(--muted)}
+  .split-col li{margin-bottom:4px}
+  .note{
+    margin:12px 0 0;padding:9px 12px;background:var(--card);
+    border:1px solid var(--border);border-radius:8px;
+    font-size:12.5px;line-height:1.55;color:var(--muted);
+  }
+  .note b{color:var(--text)}
+  .val-list{list-style:none;margin:10px 0 0;padding:0;counter-reset:val}
+  .val-list li{
+    counter-increment:val;position:relative;padding:8px 0 8px 32px;
+    font-size:13px;line-height:1.55;color:var(--muted);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .val-list li:last-child{border-bottom:none}
+  .val-list li::before{
+    content:counter(val);position:absolute;left:0;top:8px;
+    width:20px;height:20px;border-radius:50%;background:var(--card);
+    border:1px solid var(--border);color:var(--phase);
+    font-size:11px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .val-list b{color:var(--text)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-row">
+    <h1>PDA de Avaliações</h1>
+    <span class="title-badge">Plano de Ação · Airbnb</span>
+  </div>
+  <p class="objective">
+    Duas frentes para elevar a nota e o volume de avaliações do Airbnb.
+    <b>Frente de nota</b> (cards <b>1.1.x</b>): plano de ação de 14 ações com donos nomeados, prazos curtos (15d), médios (30d) e estruturais (90d),
+    atacando a cauda de 1–3 estrelas, as 10 franquias que respondem por 61% do gap e os portfólios próprios JBV e ILC (Jurerê), com 41% do gap.
+    <b>Frente de estrutura e monitoramento</b> (cards <b>2.x.y</b>, Victória Magri · Qualidade de Operação): ciclo mensal que elimina as causas apontadas pelos detratores
+    e transforma estadias satisfatórias em avaliações 5 — meta trimestral <b>4,82</b> com <b>piso interno 4,80</b>, 15 franquias premium de terceiros em 4,80,
+    e as três operações Seazone fora da premium (JBV, Il Campanário e IAM Consultoria) retirando <b>~0,015</b> da nota geral.
+  </p>
+  <div class="metrics">
+    <div class="metric">
+      <div class="mlabel">Nota atual</div>
+      <div class="mvalue">4,78<small>canônico out/2026</small></div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">Meta</div>
+      <div class="mvalue">4,80</div>
+    </div>
+    <div class="metric gap">
+      <div class="mlabel">Gap</div>
+      <div class="mvalue">−0,016</div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">Reviews / mês</div>
+      <div class="mvalue">~5,6 mil</div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">JBV + ILC (Jurerê)</div>
+      <div class="mvalue">4,59<small>587 reviews · 88 imóveis · 41% do gap</small></div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">Meta trimestral</div>
+      <div class="mvalue">4,82<small>piso interno 4,80 · KPI 550</small></div>
+    </div>
+    <div class="metric">
+      <div class="mlabel">Premium (15 de terceiros)</div>
+      <div class="mvalue">4,80<small>1.536 aval. · 5 de 15 abaixo do piso</small></div>
+    </div>
+    <div class="metric gap">
+      <div class="mlabel">Seazone fora da premium</div>
+      <div class="mvalue">−0,015<small>JBV 4,24 · Il Campanário 4,65 · IAM 4,52</small></div>
+    </div>
+  </div>
+</header>
+
+<section class="obs" id="obsContestadas">
+  <div class="obs-head">
+    Observação · Avaliações contestadas
+    <span class="obs-tag">jul–out/2026 · corte canônico</span>
+  </div>
+  <div class="obs-body">
+    <b>211 avaliações foram contestadas no período (71 aceitas, 140 recusadas, nenhuma em aberto).</b>
+    A média das contestadas é <b>2,88</b> — e a das aceitas é <b>1,52</b>: contestar funciona e remove justamente as
+    piores. Mas o efeito no indicador é de <b>empurrão para cima, não de qualidade</b>: o corte bruto de outubro é
+    <b>4,7678</b> (5.637 reviews) e o canônico é <b>4,7841</b> (5.615 reviews) — a diferença de 22 reviews
+    removidas do ar é justamente o que empurra a nota publicada para cima.
+    <b>Consequência de leitura:</b> parte do "4,77" da operação vem dessa remoção, e o número que deve ser declarado
+    é o canônico (4,784). Contestação não substitui a correção da causa — por isso a ação 1.1.12
+    (padronizar a régua e revisar as 43 contestações com motivo vazio) e a ação 1.1.3 (recuperar o stay ruim antes
+    da avaliação) são as que mexem na nota de verdade.
+    <div class="obs-grid">
+      <div class="obs-cell"><div class="oc-l">Contestadas</div><div class="oc-v">211<small>4,6% do volume do período</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Aceitas (removidas do ar)</div><div class="oc-v">71<small>nota média 1,52</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Recusadas</div><div class="oc-v">140<small>nota média 3,08 · 39 de nota ≤2</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Sem motivo registrado</div><div class="oc-v">44<small>20 aceitas — revisão pendente</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Motor principal</div><div class="oc-v">Irrelevância<small>22 contestações, 12 aceitas, nota 1,59</small></div></div>
+    </div>
+    <ul class="obs-list">
+      <li><b>Jul/2026:</b> 31 contestadas · 17 aceitas · nota média das contestadas 1,87 · 31 de nota ≤2 — o mês com a cauda mais pesada.</li>
+      <li><b>Ago/2026:</b> 46 · 18 aceitas · 1,98 — pico de volume de contestação (com 28 recusadas).</li>
+      <li><b>Set/2026:</b> 71 · 20 aceitas · 2,94 — maior volume; as recusadas puxam a média para cima.</li>
+      <li><b>Out/2026:</b> 63 · 16 aceitas · 2,87 — 47 recusadas; a cauda contestada que resta é a pior possível (nota ≤2).</li>
+      <li><b>Motivos registered:</b> 44 contestações sem motivo preenchido (o que impede auditoria de padrão) e 22 por "irrelevância" (comentário genérico sem detalhe de experiência).</li>
+      <li><b>Regra em uso:</b> a skill de contestação (CLA) roda por faixas R5 com readmissão e follow-up no Airbnb — 14 das 20 contestações registradas no recorte vieram da faixa R5.</li>
+    </ul>
+    <button class="obs-toggle" id="obsToggle" data-target="obsMore">Ver detalhamento por mês</button>
+    <div class="obs-more" id="obsMore">
+      <ul class="obs-list">
+        <li><b>Jul:</b> 31 contestadas (17 aceitas / 14 recusadas) · nota média 1,87 · 100% com nota ≤2.</li>
+        <li><b>Ago:</b> 46 contestadas (18 aceitas / 28 recusadas) · nota média 1,98 · 100% com nota ≤2.</li>
+        <li><b>Set:</b> 71 contestadas (20 aceitas / 51 recusadas) · nota média 2,94 · 100% com nota ≤2.</li>
+        <li><b>Out:</b> 63 contestadas (16 aceitas / 47 recusadas) · nota média 2,87 · 100% com nota ≤2.</li>
+      </ul>
+      <p style="margin:10px 0 0;font-size:12.5px;color:var(--faint)">
+        Fonte: <code>nekt_operacional_gold.reviews_airbnb_ajustada</code> (flags <code>contestada</code>,
+        <code>contestacao_aceita</code>, <code>contestacao_motivo</code>), review_date entre 2026-07-01 e 2026-10-31.
+        Recorte canônico = <code>entra_no_calculo = true</code>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FRENTE OPERACIONAL — VICTÓRIA MAGRI ================= -->
+<section class="obs purple" id="obsFrenteOperacional">
+  <div class="obs-head">
+    Frente operacional · Victória Magri
+    <span class="obs-tag">28/10/2026 · Qualidade de Operação</span>
+  </div>
+  <div class="obs-body">
+    <b>Objetivo: elevar nota e volume de avaliações por ciclo mensal</b>, em duas frentes — (1) eliminar as causas apontadas pelos detratores;
+    (2) transformar estadias satisfatórias em avaliações 5. Meta de referência <b>4,80</b>, igual à meta da task force.
+    Premissas acordadas com a Rayanne: periodicidade mensal (trimestral só para comparação); atividades repetitivas migram para skills, agentes e automação;
+    o time humano permanece com relacionamento e decisão junto às franquias; franquias de maior porte entram em monitoramento e reunião mensal desde novembro;
+    salas de dúvidas abertas também a franquias não inscritas, alinhamento combinado com Rose.
+    <div class="obs-grid">
+      <div class="obs-cell"><div class="oc-l">Nota trimestre</div><div class="oc-v">4,77<small>meta 4,80 · 4.705 aval.</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Nota 7 dias</div><div class="oc-v">4,77<small>meta 4,75 · 866 aval.</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Detratores</div><div class="oc-v">223<small>4,72% · 01 a 28/10</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Notas 5</div><div class="oc-v">4.015<small>85,04% do período</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Pedido de avaliação</div><div class="oc-v">13,04%<small>1.284 de 9.841 check-outs · 01 a 18/10</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Pedido em 18/10 (D−10)</div><div class="oc-v">10,73%<small>114 de 1.062 · 23 de 111 franquias</small></div></div>
+    </div>
+
+    <div class="obs-h">Notas por conta</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Conta</th><th class="num">Nota</th><th class="num">Avaliações</th></tr></thead>
+        <tbody>
+          <tr><td>Conta 1</td><td class="num">4,77</td><td class="num">4.663</td></tr>
+          <tr><td>Conta 3</td><td class="num">4,66</td><td class="num">3</td></tr>
+          <tr><td>Conta 2</td><td class="num">sem avaliação</td><td class="num">—</td></tr>
+          <tr><td>Sem conta</td><td class="num">4,58</td><td class="num">39</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="obs-h">Reclamações por tema — base task force 21/08</div>
+    <div class="split">
+      <div class="split-col">
+        <h4>Reclamações por tema</h4>
+        <div class="table-wrap">
+          <table class="obs-table">
+            <thead><tr><th>Tema</th><th class="num">Quantidade</th></tr></thead>
+            <tbody>
+              <tr><td>Limpeza</td><td class="num">442</td></tr>
+              <tr><td>Check-in</td><td class="num">330</td></tr>
+              <tr><td>Atendimento</td><td class="num">264</td></tr>
+              <tr><td>Anúncio</td><td class="num">135</td></tr>
+              <tr><td>Manutenção</td><td class="num">121</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="split-col">
+        <h4>Tema dominante por franquia — 90 franquias</h4>
+        <div class="table-wrap">
+          <table class="obs-table">
+            <thead><tr><th>Tema</th><th class="num">Franquias</th></tr></thead>
+            <tbody>
+              <tr><td>Limpeza</td><td class="num">39</td></tr>
+              <tr><td>Check-in</td><td class="num">22</td></tr>
+              <tr><td>Atendimento</td><td class="num">12</td></tr>
+              <tr><td>Manutenção</td><td class="num">6</td></tr>
+              <tr><td>Apenas cadência</td><td class="num">11</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Conclusões do processo:</b> a queda da nota não tem causa única — há falhas físicas sem card, fila de alteração de anúncios da Seazone parada e pedidos de avaliação não realizados.
+      O relatório de outubro revelou falhas de execução: <b>FTM0401</b> reincidente, piscina da <b>JBV</b> travada em revisão e <b>EEP1002</b> marcado como concluído sem execução.
+      Comentários com nota 4 também merecem atenção porque podem revelar defeitos físicos ainda sem manutenção.
+    </div>
+
+    <div class="obs-h">As duas frentes</div>
+    <div class="split">
+      <div class="split-col">
+        <h4>Frente 1 · Reduzir detratores</h4>
+        <ul>
+          <li><b>Regra geral:</b> todo comentário com nota até 3,5 recebe responsável e destinação em até 48 horas; a causa deve ser resolvida antes da chegada do próximo hóspede.</li>
+          <li><b>Processo F1-01 a F1-06:</b> capturar (automático, Nekt gold, diário) · triar (agente propõe, Victória aprova) · encaminhar (Sapron / app / Suporte de Anúncios) · contestar (`/contestar-airbnb`) · fechar o ciclo (conferência em 7 dias) · reincidência (2 detratores do mesmo tema em 30 dias).</li>
+          <li><b>Regras de classificação mantidas:</b> anúncio ou comunicação da Seazone não é ocorrência; cobrança de dano, barulho e obra não gera registro; item faltante sem falha de atendimento fica como manutenção.</li>
+          <li><b>Pendência fora da Qualidade:</b> a fila de alteração de anúncios precisa de responsável, prazo, conferência do status de conclusão e validação do status “concluído”. O ownership pertence ao Time de Anúncios.</li>
+        </ul>
+      </div>
+      <div class="split-col">
+        <h4>Frente 2 · Mais avaliações e mais notas 5</h4>
+        <ul>
+          <li>O volume aumenta quando o pedido ocorre no momento adequado e recebe lembrete; a nota melhora quando o hóspede satisfeito é incentivado a avaliar.</li>
+          <li><b>Processo F2-01 a F2-05:</b> véspera do check-out divulga a extensão da estadia pelo site (versão A sem vídeo, B com vídeo) · dia do check-out só agradecimento · D+1 às 10h o pedido de avaliação · D+5 a D+7 e D+10 lembretes · medição por check-outs de D−10 × pedidos enviados.</li>
+          <li><b>Condições:</b> Tecnologia/Host liberar o fluxo (o pedido trava depois do 1º envio) · franquias usar diariamente a tela Avaliações · anúncios com Photo Tour e self check-in · protocolo UTI para imóveis com menos de 6 avaliações.</li>
+          <li>A jornada de mensagens foi desenhada em <b>07/10</b> e ainda não foi implantada.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obs-h">Jornada de mensagens de saída — implantação pendente (desenhada em 07/10)</div>
+    <div class="timeline">
+      <div class="tl-step"><div class="tl-when">Véspera do check-out</div><div class="tl-what">Extensão da estadia pelo site<small>Versão A sem vídeo e versão B com vídeo</small></div></div>
+      <div class="tl-step"><div class="tl-when">Dia do check-out</div><div class="tl-what">Somente agradecimento</div></div>
+      <div class="tl-step"><div class="tl-when">D+1 · 10h</div><div class="tl-what">Pedido de avaliação</div></div>
+      <div class="tl-step"><div class="tl-when">D+5 a D+7</div><div class="tl-what">Lembretes</div></div>
+      <div class="tl-step"><div class="tl-when">D+10</div><div class="tl-what">Lembrete adicional<small>O Airbnb encerra o ciclo de avaliação em 14 dias</small></div></div>
+    </div>
+    <div class="note">
+      <b>Medição:</b> check-outs de D−10 × pedidos enviados no Sapron (`review_requested_at`), por franquia.
+      Entre 01 e 18/10 foram 1.284 pedidos em 9.841 check-outs (13,04%), com 64 de 122 franquias pedindo ao menos uma vez.
+    </div>
+
+    <div class="obs-h">Os 8 KPIs do PDA — 4 de resultado e 4 de processo</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>KPI</th><th>Tipo</th><th>Frequência</th><th>kpi-system</th></tr></thead>
+        <tbody>
+          <tr><td>Nota Airbnb nos últimos 7 dias e no trimestre</td><td class="muted">Resultado</td><td class="muted">Diária</td><td class="muted">Já existe: 549, 550</td></tr>
+          <tr><td>Nota por conta do Airbnb: Conta 1, Conta 2 e Conta 3</td><td class="muted">Resultado</td><td class="muted">Diária</td><td class="muted">A cadastrar</td></tr>
+          <tr><td>Avaliações recebidas ÷ check-outs</td><td class="muted">Resultado</td><td class="muted">Mensal</td><td class="muted">A criar</td></tr>
+          <tr><td>Percentual de detratores, nota até 3</td><td class="muted">Resultado</td><td class="muted">Mensal</td><td class="muted">A criar</td></tr>
+          <tr><td>Percentual de check-outs com pedido de avaliação, D−10</td><td class="muted">Processo</td><td class="muted">Diária</td><td class="muted">A cadastrar</td></tr>
+          <tr><td>Detratores triados em até 48 h</td><td class="muted">Processo</td><td class="muted">Semanal</td><td class="muted">A criar</td></tr>
+          <tr><td>Cards de manutenção originados por comentário concluídos em 7 dias</td><td class="muted">Processo</td><td class="muted">Semanal</td><td class="muted">A criar</td></tr>
+          <tr><td>Franquias premium com reunião mensal realizada</td><td class="muted">Processo</td><td class="muted">Mensal</td><td class="muted">A criar</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">Os prazos de <b>48 h</b> e <b>7 dias</b> são propostas que ainda precisam de validação. `/notas-avaliacao` e `/kpi-qualidade` já estão no ar, mas faltam <b>9 KPIs</b> sem cadastro.</div>
+
+    <div class="obs-h">Calendário de novembro</div>
+    <div class="cal">
+      <div class="cal-block">
+        <div class="cal-when">03 a 07/11</div>
+        <ul>
+          <li>Critério de premium definido e salas de dúvidas abertas para não inscritos.</li>
+          <li>Validação da lista e dos limites com a Rayanne.</li>
+          <li>Definição do dono da Franquia Seazone e início das ações urgentes.</li>
+        </ul>
+      </div>
+      <div class="cal-block">
+        <div class="cal-when">10 a 14/11</div>
+        <ul>
+          <li>Primeira reunião mensal com as premium, usando as perguntas fixas.</li>
+          <li>Cadastro dos KPIs pendentes.</li>
+          <li>Troca da meta para 4,82 após aprovação da Rayanne.</li>
+        </ul>
+      </div>
+      <div class="cal-block">
+        <div class="cal-when">17 a 21/11</div>
+        <ul>
+          <li>Skill de fechamento de ciclo no ar.</li>
+          <li>Pedido à Tecnologia do lembrete na tela Avaliações.</li>
+          <li>Conferência da operação de cards em 7 dias.</li>
+        </ul>
+      </div>
+      <div class="cal-block">
+        <div class="cal-when">24 a 28/11</div>
+        <ul>
+          <li>Skill de painel mensal no ar.</li>
+          <li>Primeiro fechamento mensal para a Rayanne.</li>
+          <li>Fechamento contra a meta de 4,82, avanços e reincidências.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obs-h">Divisão entre agentes e time humano</div>
+    <div class="split">
+      <div class="split-col">
+        <h4>Agentes e automações</h4>
+        <ul>
+          <li>Capturar e classificar as avaliações diárias.</li>
+          <li>Preparar pareceres de ocorrência, manutenção e contestação.</li>
+          <li>Gerar o painel mensal por franquia.</li>
+          <li>Preparar a lista de cards não concluídos após 7 dias.</li>
+          <li>Produzir rascunho de mensagem no padrão da Victória.</li>
+          <li>Sinalizar reincidências e outras alertas.</li>
+        </ul>
+      </div>
+      <div class="split-col">
+        <h4>Time humano</h4>
+        <ul>
+          <li>Aprovar os pareceres de triagem.</li>
+          <li>Conversar com a franquia sobre reincidência.</li>
+          <li>Lançar KPIs no kpi-system após validação.</li>
+          <li>Conduzir as reuniões mensais com as premium.</li>
+          <li>Combinar plano e prazo com cada franquia.</li>
+          <li>Cobrar cards não concluídos e áreas internas, sobretudo Anúncios e Tecnologia.</li>
+          <li>Decidir quais imóveis sobem para a UTI.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      <b>Regra de governança:</b> o agente lê, cruza, propõe e executa somente após aprovação; nenhuma comunicação à franquia é enviada sem validação humana.
+      <b>Novas soluções de IA, por impacto:</b> (1) skill de fechamento de ciclo — lê no Sapron os cards de manutenção abertos a partir de comentários e lista os que ultrapassaram 7 dias;
+      (2) skill de painel mensal — consolida nota, volume, detratores e pendências em HTML por franquia; (3) alerta de reincidência — 2 detratores do mesmo tema em 30 dias.
+    </div>
+    <div class="note">
+      <b>Componentes a reaproveitar:</b> `/triagem-comentarios-negativos` (no ar, execução manual) · `/contestar-airbnb` (no ar; 2ª tentativa: 0 de 33 em 19/10) ·
+      `/notas-avaliacao` e `/kpi-qualidade` (no ar; faltam 9 KPIs) · `/caca-ocorrencias` (no ar) · case-cheer: Casos da UTI (imóvel crítico com menos de 6 avaliações) ·
+      task force Airbnb e portal Colheita de Avaliações (rotina às 9h, mensagens por tema dominante) · Monitor das 30 franquias de outubro ·
+      jornada de mensagens de saída de 07/10 (desenhada, falta Tecnologia) · salas de dúvidas (abertura para não inscritos, definição com Rose).
+    </div>
+  </div>
+</section>
+
+<!-- ================= FRANQUIAS PREMIUM ================= -->
+<section class="obs blue" id="obsPremium">
+  <div class="obs-head">
+    Franquias premium · meta 4,82 (piso 4,80)
+    <span class="obs-tag">03/11/2026 · 15 franquias de terceiros</span>
+  </div>
+  <div class="obs-body">
+    <b>Meta trimestral 4,82 com piso interno 4,80</b> — a margem de 0,02 protege o resultado contra um período adverso.
+    Premium é definido pelo tamanho da carteira de imóveis ativos; para Spot e Vistas entra a franquia que opera o prédio, somente uma vez por franquia.
+    <div class="obs-grid">
+      <div class="obs-cell"><div class="oc-l">Premium de terceiros</div><div class="oc-v">15<small>3 Master · 6 Grandes · 6 Spot/Vistas</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Nota das premium</div><div class="oc-v">4,80<small>1.536 avaliações no trimestre</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Abaixo do piso</div><div class="oc-v">5 de 15<small>nota menor que 4,80</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Na meta</div><div class="oc-v">6 de 15<small>nota 4,82 ou mais</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Pedido de avaliação</div><div class="oc-v">11,1%<small>452 de 4.079 check-outs · 01 a 24/10</small></div></div>
+      <div class="obs-cell"><div class="oc-l">Para chegar a 4,82</div><div class="oc-v">~165<small>avaliações 5 consecutivas, sem nova nota baixa</small></div></div>
+    </div>
+
+    <div class="obs-h">Critério premium</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Faixa</th><th>Regra</th><th>Origem do dado</th><th>Situação atual</th></tr></thead>
+        <tbody>
+          <tr><td>Master</td><td>Mais de 100 imóveis ativos</td><td class="muted">KPI 2509 do kpi-system, via Sapron</td><td class="muted">3 franquias: 166, 147 e 123 imóveis</td></tr>
+          <tr><td>Grande</td><td>De 61 a 100 imóveis ativos</td><td class="muted">KPI 2508 do kpi-system, via Sapron</td><td class="muted">7 franquias: 6 de terceiros e IAM Consultoria, separada como Seazone</td></tr>
+          <tr><td>Spot</td><td>Franquia que opera prédio Spot da Seazone, independentemente do tamanho</td><td class="muted">Sapron, condomínio dos imóveis</td><td class="muted">6 franquias; Penha Spot já aparece como Master</td></tr>
+          <tr><td>Vistas</td><td>Franquia que opera o Vistas de Anitá</td><td class="muted">Sapron, condomínio dos imóveis</td><td class="muted">1 franquia</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="obs-h">Indicadores por grupo</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Segmento</th><th class="num">Nota</th><th class="num">Avaliações</th><th class="num">Pedido de avaliação</th></tr></thead>
+        <tbody>
+          <tr><td>Master</td><td class="num">4,81</td><td class="num">628</td><td class="num">15%</td></tr>
+          <tr><td>Grandes</td><td class="num">4,76</td><td class="num">661</td><td class="num">10%</td></tr>
+          <tr><td>Spot e Vistas</td><td class="num">4,89</td><td class="num">247</td><td class="num">3%</td></tr>
+          <tr><td>Somente prédios Spot e Vistas</td><td class="num">4,84</td><td class="num">326</td><td class="num">233 imóveis</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="obs-h">As 15 franquias premium</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr>
+          <th>Franquia</th><th>Faixa</th><th class="num">Imóveis ativos</th><th>Prédio</th>
+          <th class="num">Avaliações</th><th class="num">Nota</th><th class="num">Notas ≤3</th><th class="num">Pedido</th>
+          <th class="num">Notas 5 p/ 4,82</th><th>Situação</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>Katia Leite do Nascimento Emmel</td><td>Master</td><td class="num">123</td><td class="muted">—</td><td class="num">156</td><td class="num">4,79</td><td class="num">9</td><td class="num">57%</td><td class="num">22</td><td><span class="sit sit-low">Abaixo do piso</span></td></tr>
+          <tr><td>Camila Moura Lacerda</td><td>Master</td><td class="num">147</td><td class="muted">—</td><td class="num">195</td><td class="num">4,81</td><td class="num">8</td><td class="num">0%</td><td class="num">11</td><td><span class="sit sit-floor">No piso</span></td></tr>
+          <tr><td>Ana Paula Friedrich de Oliveira</td><td>Master</td><td class="num">166</td><td class="muted">Penha Spot: 68 imóveis, nota 4,76, 9 notas ≤3</td><td class="num">277</td><td class="num">4,81</td><td class="num">13</td><td class="num">0%</td><td class="num">12</td><td><span class="sit sit-floor">No piso</span></td></tr>
+          <tr><td>Andreia Real da Rosa</td><td>Grande</td><td class="num">61</td><td class="muted">—</td><td class="num">56</td><td class="num">4,57</td><td class="num">5</td><td class="num">0%</td><td class="num">78</td><td><span class="sit sit-low">Abaixo do piso</span></td></tr>
+          <tr><td>Neli Schuatz</td><td>Grande</td><td class="num">61</td><td class="muted">—</td><td class="num">109</td><td class="num">4,66</td><td class="num">10</td><td class="num">0%</td><td class="num">92</td><td><span class="sit sit-low">Abaixo do piso</span></td></tr>
+          <tr><td>Roberta de Freitas Costa</td><td>Grande</td><td class="num">86</td><td class="muted">—</td><td class="num">147</td><td class="num">4,76</td><td class="num">7</td><td class="num">8%</td><td class="num">48</td><td><span class="sit sit-low">Abaixo do piso</span></td></tr>
+          <tr><td>Wolnei Roberto Ramos</td><td>Grande</td><td class="num">71</td><td class="muted">—</td><td class="num">159</td><td class="num">4,77</td><td class="num">5</td><td class="num">0%</td><td class="num">47</td><td><span class="sit sit-low">Abaixo do piso</span></td></tr>
+          <tr><td>Ana Lúcia Gasparello Cruz</td><td>Grande</td><td class="num">72</td><td class="muted">—</td><td class="num">77</td><td class="num">4,81</td><td class="num">4</td><td class="num">51%</td><td class="num">7</td><td><span class="sit sit-floor">No piso</span></td></tr>
+          <tr><td>Agatha de Assis Souza Gloria</td><td>Grande</td><td class="num">89</td><td class="muted">—</td><td class="num">113</td><td class="num">4,89</td><td class="num">2</td><td class="num">7%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+          <tr><td>Silvia Regina Costa Silva</td><td>Spot</td><td class="num">40</td><td class="muted">Jurerê Spot e Spot 215: 31 imóveis, nota 4,89, 1 nota ≤3</td><td class="num">45</td><td class="num">4,82</td><td class="num">1</td><td class="num">0%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+          <tr><td>Sônia Maria Gervásio Sales</td><td>Spot</td><td class="num">41</td><td class="muted">Lagoa Spot: 18 imóveis, nota 4,84, 2 notas ≤3</td><td class="num">78</td><td class="num">4,87</td><td class="num">2</td><td class="num">1%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+          <tr><td>Jeferson Luis Fernandes</td><td>Spot</td><td class="num">50</td><td class="muted">Rosa Spot: 33 imóveis, nota 4,93, 1 nota ≤3</td><td class="num">52</td><td class="num">4,92</td><td class="num">1</td><td class="num">0%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+          <tr><td>Jhenyffer Paola Ramos da Silva</td><td>Spot</td><td class="num">38</td><td class="muted">Urubici Spot: 30 imóveis, nota 4,96, nenhuma nota ≤3</td><td class="num">38</td><td class="num">4,97</td><td class="num">0</td><td class="num">0%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+          <tr><td>Mariana de Godoy Umpierre</td><td>Spot</td><td class="num">9</td><td class="muted">Rosa Sul Spot: 9 imóveis, sem nota e sem avaliação</td><td class="num">0</td><td class="num">—</td><td class="num">0</td><td class="num">0%</td><td class="num">—</td><td><span class="sit sit-none">Sem avaliação</span></td></tr>
+          <tr><td>Vistas Gestão Rural</td><td>Vistas</td><td class="num">44</td><td class="muted">Vistas de Anitá: 44 imóveis, nota 4,91, nenhuma nota ≤3</td><td class="num">34</td><td class="num">4,91</td><td class="num">0</td><td class="num">11%</td><td class="num">—</td><td><span class="sit sit-ok">Na meta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>Critérios de leitura:</b> ordenação por faixa e, dentro dela, da menor para a maior nota. “Na meta” é 4,82 ou mais, “No piso” é 4,80 a 4,81 e “Abaixo do piso” é menor que 4,80.
+      “Notas 5 p/ 4,82” pressupõe uma sequência sem notas menores. <b>Nove das 15</b> registraram pedido de avaliação em menos de 1% dos check-outs:
+      Camila Moura Lacerda, Ana Paula Friedrich de Oliveira, Andreia Real da Rosa, Neli Schuatz, Wolnei Roberto Ramos, Silvia Regina Costa Silva,
+      Sônia Maria Gervásio Sales, Jeferson Luis Fernandes e Jhenyffer Paola Ramos da Silva.
+      Sônia divide a operação com Caroline Sorondo Vaghetti (50 imóveis, não premium) — só a carteira de Sônia, responsável pelo Lagoa Spot, entra.
+    </div>
+    <div class="note">
+      <b>Destaque operacional — Ana Paula Friedrich de Oliveira:</b> é a maior franquia da rede e administra o maior prédio listado.
+      O Penha Spot tem 68 imóveis e está abaixo do piso (nota 4,76, com 9 notas ≤3), enquanto a carteira está no piso (4,81) — e o pedido de avaliação em outubro foi zero.
+    </div>
+
+    <div class="obs-h">Operações Seazone fora da lista premium</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Operação</th><th class="num">Nota</th><th class="num">Avaliações</th><th class="num">Pedido de avaliação</th></tr></thead>
+        <tbody>
+          <tr><td>Jurerê Beach Village</td><td class="num">4,24</td><td class="num">87</td><td class="num">1 pedido em 816 check-outs, no conjunto Seazone</td></tr>
+          <tr><td>Il Campanário</td><td class="num">4,65</td><td class="num">49</td><td class="num">Incluído no total conjunto de 1 em 816</td></tr>
+          <tr><td>IAM Consultoria</td><td class="num">4,52</td><td class="num">104</td><td class="num">Incluído no total conjunto de 1 em 816</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      Il Campanário e Jurerê Beach Village somam <b>98 imóveis</b>. IAM Consultoria tem <b>70 imóveis</b> e seria Grande pelo porte, mas permanece como Seazone.
+      As três operações retiram aproximadamente <b>0,015</b> da nota geral do Airbnb.
+    </div>
+
+    <div class="obs-h">Meta 4,82 com piso 4,80 — 28/10 contra a proposta</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Indicador</th><th class="num">28/10</th><th class="num">Atual</th><th class="num">Proposta</th></tr></thead>
+        <tbody>
+          <tr><td>Nota geral do Airbnb no trimestre</td><td class="num">4,77</td><td class="num">4,78 <span class="muted">com a Franquia Seazone</span></td><td class="num">4,82 <span class="muted">meta</span></td></tr>
+          <tr><td>Premium de terceiros</td><td class="num">4,80</td><td class="num">4,80</td><td class="num">4,82 <span class="muted">meta</span></td></tr>
+          <tr><td>Piso interno</td><td class="num">4,80</td><td class="num">4,80</td><td class="num">4,80 <span class="muted">margem de 0,02</span></td></tr>
+          <tr><td>KPI 550 — nota do trimestre</td><td class="num">4,80</td><td class="num">4,80</td><td class="num">4,82 <span class="muted">após aprovação da Rayanne</span></td></tr>
+          <tr><td>KPI 549 — nota dos 7 dias</td><td class="num">4,75</td><td class="num">4,75</td><td class="num">decisão pendente da Rayanne</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="obs-h">Monitoramento — 5 regras de alerta</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>O que monitora</th><th>Gatilho</th><th>Frequência</th><th>Destino</th></tr></thead>
+        <tbody>
+          <tr><td>Nota baixa em franquia premium</td><td>Qualquer nota ≤3; até 4 nos prédios Spot/Vistas e na Seazone</td><td class="muted">Diária</td><td class="muted">Triagem do dia, com prioridade</td></tr>
+          <tr><td>Nota da franquia premium</td><td>Média trimestral abaixo de 4,80 ou queda de pelo menos 0,03 em relação à semana anterior</td><td class="muted">Semanal</td><td class="muted">Pauta da reunião ou contato com a franquia</td></tr>
+          <tr><td>Pedido de avaliação</td><td>Menos de 30% dos check-outs D−10 com pedido</td><td class="muted">Semanal, sexta</td><td class="muted">Mensagem à franquia, rascunhada pelo agente</td></tr>
+          <tr><td>Reincidência</td><td>Mesmo imóvel com 2 notas ≤3 sobre o mesmo tema em 30 dias</td><td class="muted">Semanal</td><td class="muted">Pauta mensal e, se houver falha da franquia, ocorrência</td></tr>
+          <tr><td>Card parado</td><td>Manutenção aberta há mais de 7 dias após comentário</td><td class="muted">Semanal, segunda</td><td class="muted">Cobrança da franquia</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      Os limites de <b>30%</b>, queda de <b>0,03</b> e card há <b>7 dias</b> são <b>propostas iniciais a validar</b>.
+      O parâmetro de 30% parte do cenário atual das premium, que é 11,1%.
+    </div>
+
+    <div class="obs-h">Ciclo operacional e construção sem nova ferramenta</div>
+    <div class="split">
+      <div class="split-col">
+        <h4>Ciclo de 6 passos</h4>
+        <ul>
+          <li><b>Captar:</b> avaliações diárias entram pela Nekt.</li>
+          <li><b>Priorizar:</b> o monitoramento identifica o que pertence às premium.</li>
+          <li><b>Triar:</b> `/triagem-comentarios-negativos` produz o parecer.</li>
+          <li><b>Agir:</b> manutenção, ocorrência, anúncio ou contestação.</li>
+          <li><b>Conferir:</b> verificar se o card foi concluído em até 7 dias.</li>
+          <li><b>Pautar:</b> reincidências vão para a reunião mensal da franquia.</li>
+        </ul>
+      </div>
+      <div class="split-col">
+        <h4>Construção sem nova ferramenta</h4>
+        <ul>
+          <li><b>Segunda-feira:</b> gerar pelo Sapron a lista de imóveis ativos por franquia e condomínio — isso também faz entrar automaticamente a franquia que cruzar 60 imóveis.</li>
+          <li><b>Notas:</b> usar a base existente de `/notas-avaliacao` na Nekt, filtrada pela lista premium.</li>
+          <li><b>Pedido de avaliação:</b> aproveitar a conta D−10 já existente em `/notas-avaliacao`, agrupada por franquia premium.</li>
+          <li><b>Resultado:</b> produzir uma página HTML semanal com alertas e a lista diária com a triagem.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="obs-h">Rotina</div>
+    <div class="table-wrap">
+      <table class="obs-table">
+        <thead><tr><th>Quando</th><th>Atividade</th><th>IA</th><th>Equipe</th></tr></thead>
+        <tbody>
+          <tr><td>Todo dia</td><td>Notas, triagem dos detratores com prioridade para premium, e contestações</td><td class="muted">Ler, cruzar, produzir parecer e enviar o aprovado</td><td class="muted">Aprovar o parecer</td></tr>
+          <tr><td>Segunda</td><td>Atualizar a lista premium e identificar cards parados há mais de 7 dias</td><td class="muted">Gerar a lista</td><td class="muted">Cobrar franquia ou área</td></tr>
+          <tr><td>Sexta</td><td>Pedido de avaliação por franquia premium e alertas semanais</td><td class="muted">Gerar página e rascunhar mensagens</td><td class="muted">Enviar as mensagens</td></tr>
+          <tr><td>1ª semana do mês</td><td>Painel de cada franquia premium e reunião mensal</td><td class="muted">Montar o painel</td><td class="muted">Conduzir a reunião e registrar acordos</td></tr>
+          <tr><td>Fim do mês</td><td>Fechamento da nota contra 4,82, avanços e reincidências</td><td class="muted">Consolidar números</td><td class="muted">Apresentar à Rayanne</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>Novembro é o mês da estruturação.</b> As cobranças por desempenho só começam quando o fluxo estiver funcionando: os processos e as ferramentas já existem,
+      mas estavam desconectados. Carol e Iara podem pedir resultados antes da estruturação — a resposta prevista é que em novembro o foco é unir os componentes;
+      depois disso, a cobrança passa a ser pela meta de 4,82.
+    </div>
+  </div>
+</section>
+
+<!-- ================= ITENS PARA VALIDAÇÃO ================= -->
+<section class="obs slate" id="obsValidacao">
+  <div class="obs-head">
+    Itens para validação com a Rayanne
+    <span class="obs-tag">8 itens · premium e planejamento</span>
+  </div>
+  <div class="obs-body">
+    <ol class="val-list">
+      <li><b>Confirmar a lista das 15 franquias premium</b> e a reunião mensal para todas — a lista de 03/11 tem 3 Master, 6 Grandes e 6 Spot/Vistas.</li>
+      <li><b>Definir o responsável pela Franquia Seazone dentro do PDA</b> — Jurerê Beach Village, Il Campanário e IAM Consultoria têm tratamento separado.</li>
+      <li><b>Confirmar se Spot 215 (Silvia Regina Costa Silva) e Rosa Sul Spot (Mariana de Godoy Umpierre) entram como prédios Spot.</b></li>
+      <li><b>Revisar os prédios não incluídos:</b> Barra Spot (Tiago dos Santos e Santos), Edifício Spot (Fábio Moreira Campos Monteiro) e D/Spot Smart Living (Jane Terezinha de Souza de Jesus).</li>
+      <li><b>Revisar os demais prédios não incluídos:</b> Spot One (Camila Bresolin Pereira) e um imóvel do Austin 179 marcado como Spot (Rael Michaelsen).</li>
+      <li><b>Confirmar a meta de 7 dias</b> — hoje está em 4,75 (KPI 549).</li>
+      <li><b>Validar os limites dos alertas:</b> pedido de avaliação 30%, queda semanal 0,03 e card parado 7 dias.</li>
+      <li><b>Confirmar a data final da estrutura completa do PDA</b> — aparece no cronograma como “data a confirmar”.</li>
+    </ol>
+  </div>
+</section>
+
+<div class="toolbar">
+  <button class="tab active" data-status="all">Todos<span class="count" id="countAll">0</span></button>
+  <button class="tab" data-status="todo">A fazer<span class="count" id="countTodo">0</span></button>
+  <button class="tab" data-status="doing">Em andamento<span class="count" id="countDoing">0</span></button>
+  <button class="tab" data-status="done">Concluído<span class="count" id="countDone">0</span></button>
+  <div class="search-wrap">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/></svg>
+    <input type="text" id="search" placeholder="Buscar ação, dono, franquia...">
+  </div>
+  <select id="phaseFilter">
+    <option value="all">Todas as fases</option>
+    <option value="1">Fase 1 (15d)</option>
+    <option value="2">Fase 2 (30d)</option>
+    <option value="3">Fase 3 (90d)</option>
+  </select>
+  <button class="btn btn-primary" id="applyFilter">Filtrar</button>
+</div>
+
+<main class="board">
+  <section class="column col-todo" data-status="todo">
+    <div class="col-header">
+      <span class="col-dot"></span>
+      <h2>A fazer</h2>
+      <span class="col-count" data-colcount="todo">0</span>
+    </div>
+    <div class="col-cards" id="col-todo"></div>
+    <button class="add-card-btn" data-add="todo">+ Adicionar card</button>
+    <div class="add-card-form" id="addForm" data-status="todo">
+      <input type="text" class="nc-title" placeholder="Título da ação">
+      <select class="nc-owner">
+        <option value="RO">Rayanne Oliveira</option>
+        <option value="VM">Victória Magri</option>
+        <option value="DA">David</option>
+        <option value="VS">Vinicius Satores</option>
+        <option value="HY">Henry Yudi</option>
+        <option value="CF">Coordenadores de franquia</option>
+        <option value="IM">Time de Implantação</option>
+        <option value="TA">Time de Anúncios</option>
+      </select>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-primary nc-save" style="flex:1">Criar card</button>
+        <button class="btn nc-cancel">Cancelar</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="column col-doing" data-status="doing">
+    <div class="col-header">
+      <span class="col-dot"></span>
+      <h2>Em andamento</h2>
+      <span class="col-count" data-colcount="doing">0</span>
+    </div>
+    <div class="col-cards" id="col-doing"></div>
+    <button class="add-card-btn" data-add="doing">+ Adicionar card</button>
+  </section>
+
+  <section class="column col-done" data-status="done">
+    <div class="col-header">
+      <span class="col-dot"></span>
+      <h2>Concluído</h2>
+      <span class="col-count" data-colcount="done">0</span>
+    </div>
+    <div class="col-cards" id="col-done"></div>
+    <button class="add-card-btn" data-add="done">+ Adicionar card</button>
+  </section>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+"use strict";
+
+/* ================= DADOS ================= */
+
+const PEOPLE = {
+  RO:{name:"Rayanne Oliveira", ini:"RO", color:"#EB615E"},
+  VM:{name:"Victória Magri",  ini:"VM", color:"#8B6FD8"},
+  DA:{name:"David",           ini:"DA", color:"#4C7FB8"},
+  VS:{name:"Vinicius Satores",ini:"VS", color:"#4CAF7D"},
+  HY:{name:"Henry Yudi",      ini:"HY", color:"#C98A3D"},
+  CF:{name:"Coordenadores de franquia", ini:"CF", color:"#5F8D9E"},
+  CE:{name:"Carol Espindola", ini:"CE", color:"#B85C8A"},
+  IM:{name:"Time de Implantação", ini:"IM", color:"#7A9E5F"},
+  TA:{name:"Time de Anúncios",ini:"TA", color:"#9E7A5F"}
+};
+
+const STATUS_LABEL = {todo:"A fazer", doing:"Em andamento", done:"Concluído"};
+const PHASE_LABEL  = {1:"Fase 1", 2:"Fase 2", 3:"Fase 3"};
+const D_START = "03/11/2026";
+const D_15 = "18/11/2026", D_30 = "03/12/2026", D_90 = "01/02/2027";
+
+/* Fonte 1: plano de 12 ações (task_plano_avaliacoes_airbnb.html)
+   Fonte 2: corte out/2026 por franquia (task_nota_airbnb_outubro_por_franquia.html)
+   Ações 1, 2, 4 e 9 da fonte 1 foram enriquecidas com dono/impacto/alvo da fonte 2.
+   Ação 14 (1.1.14): portfólios JBV e ILC (Jurerê) — plano de recuperação (nove/26-01/11/2026). */
+const INITIAL_CARDS = [
+  {
+    id:"1.1.1", num:1,
+    title:"SLA de resposta em 15 min no chat do Airbnb — responsabilidad da franquia (anfitrião)",
+    owners:["CF"], status:"todo", stars:3, phase:1, prazo:D_15,
+    area:"Comunicação",
+    impact:"+0,006",
+    impactNum:0.006,
+    franquia:"Blumenau (BLU-001-CEN) + Tiago dos Santos e Santos (SSA-006-BRR)",
+    desc:"O chat do Airbnb é do anfitrião: quem responde é a franchise, na pessoa do anfitrião. A Seazone não opera esse canal. Papel do BackOffice é definir o padrão e cobrar: uma pessoa responde cada mensagem; se não resolver em 2 h, escala para o coordenador da franquia; template de abertura padronizado; fim do repasse \"fale com outro anfitrião\". A Seazone padroniza e audita, a franquia executa.",
+    subs:[
+      {t:"Cada franquia nomear o responsável por mensagem no chat do Airbnb"},
+      {t:"Definir com as franquias a escala de sobreaviso: 2 h sem resolução escala ao coordenador da franquia"},
+      {t:"Criar o template de abertura padronizado"},
+      {t:"Acordar com a franquia o acesso da auditoria ao chat do Airbnb (quem responde e com que SLA)", dep:"Dependência: acesso ao chat"},
+      {t:"BackOffice audita mensalmente: avaliação ≤ 2 com comunicação ≤ 3"}
+    ]
+  },
+  {
+    id:"1.1.2", num:2,
+    title:"Verificar uso da vistoria de saída com foto e vídeo (6 itens críticos) — a execução é da franquia",
+    owners:["VM"], status:"todo", stars:3, phase:1, prazo:D_15,
+    area:"Check-in + Limpeza + Manutenção",
+    impact:"+0,005",
+    impactNum:0.005,
+    franquia:"IAM Consultoria (BSB-003-ASN)",
+    desc:"A vistoria de saída é execução da franchise — o BackOffice não opera check-in. O que cabe aqui é verificar se as franquias já estão usando: medir adesão antes de propor qualquer mudança. Itens de referência: chuveiro, tomada/teste de Wi-Fi, geladeira, ar-condicionado, fechadura e senha, kit de enxoval completo.",
+    subs:[
+      {t:"Levantar se a vistoria de saída já é usada: em que ferramenta, por quem e com que adesão", dep:"Dependência: dado de uso — antes de propor mudança"},
+      {t:"Aferir a adesão atual por franquia (quantas vistorias com foto e vídeo são registradas)"},
+      {t:"Testar o uso: amostra de franquias com verificação de registro, sem gerar obligation nova"},
+      {t:"Verificar o uso em IAM Consultoria (BSB-003-ASN), priorizando abaixo do piso"},
+      {t:"Revisar a cobrança de taxa no check-out (valor/taxa)"}
+    ]
+  },
+  {
+    id:"1.1.3", num:3,
+    title:"Recuperação ativa do stay ruim antes da avaliação",
+    owners:["RO","CF"], status:"todo", stars:5, phase:2, prazo:D_30,
+    area:"Geral (todas as dimensões)",
+    impact:"+0,018",
+    impactNum:0.0182,
+    franquia:null,
+    desc:"Monitorar toda review ≤ 3 em até 48 h, contatar o hóspede, resolver o problema e só depois pedir avaliação. Com o stay corrigido, parte das 1–2 estrelas vira 3–4.",
+    subs:[
+      {t:"Definir a regra de contato pós-hospedagem (LGPD/consentimento)", dep:"Dependência: regra de consentimento"},
+      {t:"Mapear o canal do hóspede"},
+      {t:"Monitorar toda review ≤ 3 em até 48 h"},
+      {t:"Contatar o hóspede e resolver o problema antes de pedir avaliação"},
+      {t:"Medir: nº de stays recuperados e média de avaliação ≤ 2 no mês"}
+    ]
+  },
+  {
+    id:"1.1.4", num:4,
+    title:"Escalar o app Nota Máxima para as 10 franquias-alvo — o pedido de avaliação é da franquia",
+    owners:["RO","CF"], status:"todo", stars:5, phase:2, prazo:D_30,
+    area:"Cobertura (denominador)",
+    impact:"+0,010 a +0,018",
+    impactNum:0.018,
+    franquia:"10 franquias de maior impacto (61% do gap)",
+    desc:"Priorizar as 10 franquias de maior impacto, que concentram 61% do gap. O pedido de avaliação é feito pela franchise, no app Nota Máxima: a Seazone dá a ferramenta e a régua, a franquia executa o pedido. Regra: pedir avaliação apenas a hóspedes com stay ≥ 4,8 — nunca a quem teve problema aberto. Escopo: este card cobre o pedido às FRANQUIAS; o pedido automático da operação própria (ILC e JBV) está no card 1.1.13, e o desbloqueio do fluxo na Tecnologia nos cards 2.1.7 e 2.1.11.",
+    subs:[
+      {t:"Definir a nota de stay que libera o pedido (≥ 4,8)", dep:"Dependência: definição da régua de stay"},
+      {t:"Definir com as franquias-alvo o fluxo do pedido (quem dispara, em que momento e com qual texto)", dep:"Dependência: acordo com as franquias"},
+      {t:"Capacitar as 10 franquias-alvo (hoje o app está em 1,1% das franquias)"},
+      {t:"Ativar o app nas 10 franquias com pedido filtrado"},
+      {t:"Bloquear pedido de avaliação a hóspede com problema aberto"},
+      {t:"Medir: franquias ativas, host contatado e taxa de conversão"}
+    ]
+  },
+  {
+    id:"1.1.5", num:5,
+    title:"Publicar taxa de limpeza e occupancy antes da reserva — o hóspede precisa ver o custo total",
+    owners:["DA"], status:"todo", stars:5, phase:2, prazo:D_30,
+    area:"Valor",
+    impact:"+0,017",
+    impactNum:0.0169,
+    franquia:null,
+    desc:"A nota de valor é a sub-nota mais fraca da rede (4,770 em out/26) e só 84,8% das avaliações dão 5 — é o primeiro lugar onde a nota se perde. O mecanismo: a taxa de limpeza e a regra de occupancy só aparecem no balcão ou na cobrança final, então o hóspede compara o preço do anúncio com o total pago e marca valor 1–2. Em out/26, 93 reviews deram valor ≤2 (nota geral 1,63) e 195 notes baixas foram valor ≤3 com nota geral ≤3. PUBLICAÇÃO ANTES DA RESERVA é a correção: mostrar taxa de limpeza e regra de occupancy no anúncio, não depois. Na mesma frente, alerta no espelho de anúncios para value_rating < 4,6, para o time de Anúncios saber onde o preço está desalinhado.",
+    subs:[
+      {t:"Definir a regra de markup de limpeza por cidade", dep:"Dependência: regra de markup"},
+      {t:"Mapear os 93 imóveis com valor ≤2 em out/26 e cruzar com a taxa de limpeza cobrada vs a exibida no anúncio"},
+      {t:"Alinhar com a Stays o que é exibido antes da reserva", dep:"Dependência: conversa com a Stays"},
+      {t:"Publicar taxa de limpeza e occupancy no anúncio"},
+      {t:"Criar alerta no espelho de anúncios para value_rating < 4,6"},
+      {t:"Medir: média de valor, % de 5 e % ≤ 3 nas reviews, por mês"}
+    ]
+  },
+  {
+    id:"1.1.6", num:6,
+    title:"Auditoria de qualidade nos 7 clusters e nos 18 piores imóveis",
+    owners:["VM","CF"], status:"todo", stars:3, phase:2, prazo:D_30,
+    area:"Geral (todas as dimensões)",
+    impact:"+0,007",
+    impactNum:0.0068,
+    franquia:null,
+    desc:"Florianópolis, Salvador, São Paulo, Penha, Itapema, BC e Maceió (volume) + Blumenau, Cabo Frio e Guarapari (taxa alta de nota baixa).",
+    subs:[
+      {t:"Fechar o mapeamento imóvel → franquia via Sapron", dep:"Dependência: mapeamento pendente"},
+      {t:"Montar a fila dos 7 clusters de volume (FLN, SSA, SP, Penha, Itapema, BC, MCZ)"},
+      {t:"Incluir Blumenau, Cabo Frio e Guarapari (taxa alta)"},
+      {t:"Executar auditoria nos 18 piores imóveis"},
+      {t:"Medir: reviews ≤ 2 por cidade"}
+    ]
+  },
+  {
+    id:"1.1.7", num:7,
+    title:"Revisão de fotos e descrição contra o estado real do imóvel",
+    owners:["TA","RO"], status:"todo", stars:2, phase:2, prazo:D_30,
+    area:"Localização/expectativa + Valor",
+    impact:"não quantificado",
+    impactNum:0,
+    franquia:null,
+    desc:"Prioridade aos quatro desvios que mais aparecem nos comentários: piscina em reforma, jacuzzi, comidinidade cobrada e microapartamento no título.",
+    subs:[
+      {t:"Confirmar o dono da publicação de anúncios", dep:"Dependência: dono a confirmar"},
+      {t:"Priorizar os 4 desvios: piscina em reforma, jacuzzi, comidinidade, microapartamento"},
+      {t:"Revisar fotos e descrição contra o estado real do imóvel"},
+      {t:"Corrigir os anúncios com desvio de informação"}
+    ]
+  },
+  {
+    id:"1.1.8", num:8,
+    title:"Anúncios recriados perdem as reviews antigas — 492 anúncios novos no espelho",
+    owners:["TA","VS"], status:"todo", stars:2, phase:2, prazo:D_30,
+    area:"Exibição (não a média canônica)",
+    impact:"+0,003",
+    impactNum:0.0027,
+    franquia:null,
+    desc:"O QUE É: quando a Seazone recria o anúncio de um imóvel (novo listing, por exemplo para corrigir fotos ou cadastro), o Airbnb zera a contagem de avaliações do anúncio NOVO. As reviews antigas continuam existindo e ficam no anúncio anterior, fora da exibição. O hóspede vê o anúncio novo sem histórico, ou com 1 review, e a nota exibida cai para a nota do anúncio antigo — ou o anúncio fica marcado como novo. No espelho atual: 3.682 anúncios, sendo 492 com is_new_listing e 525 com até 1 review; 561 exibindo nota < 4,5. Em jul–out/26, 74 imóveis tiveram review pertencente a anúncio não vigente. QUANTO PODE VALER: não move a média canônica — a nota exibida no Airbnb muda, mas a métrica que acompanhamos (reviews_airbnb_ajustada) continua a mesma. Por isso é baixa prioridade. O QUE FAZER: (a) não publicar anúncio novo com 1 review; (b) avaliar exibir a nota do anúncio anterior como argumento de reputação; (c) criar guard de recriação — avisar antes de recriar para o time de Anúncios.",
+    subs:[
+      {t:"Mapear os 492 anúncios com is_new_listing e os 525 com até 1 review"},
+      {t:"Não publicar anúncio novo com 1 review"},
+      {t:"Avaliar exibição da nota do anúncio anterior como reputação"},
+      {t:"Criar guard de recriação de anúncio (avisar antes de recriar e conferir as reviews que ficam órfãs)"}
+    ]
+  },
+  {
+    id:"1.1.9", num:9,
+    title:"Blindar check-in contra falha de acesso e portaria",
+    owners:["VM"], status:"todo", stars:2, phase:2, prazo:D_30,
+    area:"Check-in",
+    impact:"+0,003",
+    impactNum:0.003,
+    franquia:"MV ASSESSORIA & CONSULTORIA IMOBILIARIA (CMC-001-GRJ)",
+    desc:"Senha enviada com antecedência, falha de portaria com plano B, confirmação de chegada na véspera. 42 reviews de nota 1–2 têm check-in e comunicação ≤ 3.",
+    subs:[
+      {t:"Enviar a senha com antecedência ao hóspede"},
+      {t:"Definir plano B para falha de portaria"},
+      {t:"Confirmar a chegada do hóspede na véspera"},
+      {t:"Aplicar na MV ASSESSORIA (CMC-001-GRJ): chave no horário e acesso ao condomínio"},
+      {t:"Coordenar com síndicos e convenções dos condomínios", dep:"Dependência: interlocução com condomínios"}
+    ]
+  },
+  {
+    id:"1.1.10", num:10,
+    title:"Blindar cancelamento de última hora e relocação forçada",
+    owners:["RO","CF"], status:"todo", stars:3, phase:3, prazo:D_90,
+    area:"Geral",
+    impact:"+0,005 (est.)",
+    impactNum:0.005,
+    franquia:null,
+    desc:"Política de overbooking, oferta de troca de data/imóvel sem custo, compensação automática quando a Seazone cancela. 18 das 150 notas 1 citam cancelamento ou relocação.",
+    subs:[
+      {t:"Definir a política comercial de overbooking e compensação", dep:"Dependência: política comercial"},
+      {t:"Criar oferta de troca de data/imóvel sem custo"},
+      {t:"Criar compensação automática quando a Seazone cancela"},
+      {t:"Medir: tema cancelamento nas reviews e taxa de cancelamento"}
+    ]
+  },
+  {
+    id:"1.1.11", num:11,
+    title:"Publicar as duas métricas e padronizar a régua de contestação",
+    owners:["RO"], status:"todo", stars:2, phase:1, prazo:D_15,
+    area:"Medição",
+    impact:"não move a nota",
+    impactNum:0,
+    franquia:null,
+    desc:"Painel com bruto (4,77) e canônico (4,783) lado a lado, meta declarada sobre o canônico. Taxonomia fechada de motivo de contestação e revisão das 43 contestações com motivo vazio.",
+    subs:[
+      {t:"Decisão do comitê: qual é o número oficial", dep:"Dependência: decisão de política"},
+      {t:"Publicar painel com bruto (4,77) e canônico (4,783) lado a lado"},
+      {t:"Declarar a meta sobre o canônico"},
+      {t:"Categorizar o motivo de contestação em taxonomia fechada"},
+      {t:"Revisar as 43 contestações com motivo vazio"}
+    ]
+  },
+  {
+    id:"1.1.12", num:12,
+    title:"Plano de recuperação de nota nos portfólios JBV e ILC (Jurerê) — obras, estrutura fechada e anúncio",
+    owners:["VS","IM","TA"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Manutenção + Anúncios + Atendimento",
+    impact:"+0,012",
+    impactNum:0.012,
+    franquia:"Operação própria Seazone — portfólios JBV e ILC (Jurerê / Jurerê Internacional, Florianópolis)",
+    desc:"JBV: 325 reviews em 39 imóveis, nota 4,480, 39 notas ≤3 (25 delas ≤2) e 104,0 rev-pontos de gap — maior concentrador de nota baixa do recorte. ILC: 262 reviews em 49 imóveis, nota 4,695, 20 notas ≤3 e 27,6 rev-pontos. Juntos somam 131,6 rev-pontos de gap (≈41% do gap total de out/2026, de 316). A causa não é hóspede: 26 das 37 reviews de nota ≤2 nos dois portfólios são obra/reforma não avisada ou estrutura fechada (piscina, academia, restaurante em manutenção) — o anúncio vendeu comodidade que não existia na chegada. Nenhuma review contestada e nenhum anúncio recriado nos dois portfólios, então o problema é de execução de obra e de comunicação de indisponibilidade, não de medição. ABSORVE a auditoria de reputação da operação própria (card removido por duplicidade): mesmo alvo, medido aqui por portfólio — 88 imóveis com nota média 4,59, contra os 63 imóveis do recorte antigo.",
+    subs:[
+      {t:"Levantar a agenda de obras dos 88 imóveis dos dois portfólios (Jurerê e Jurerê Internacional)"},
+      {t:"Cruzar agenda de obras x estado das comodidades anunciadas (piscina, academia, restaurante, TV)"},
+      {t:"Publicar no anúncio as indisponibilidades ativas e atualizar fotos"},
+      {t:"Avisar hóspede com reserva confirmada quando a obra invade a estadia"},
+      {t:"Repor enxoval e cama pronta nos 8 imóveis com nota de limpeza por falta de camareira (JBV142)"},
+      {t:"Resolver os casos de estado do imóvel: mofo, banheiro e chuveiro (ILC3209, ILC2310, ILC2316)"},
+      {t:"Tratar pet friendly: confirmar e liberar entrada no check-in antes da chegada (ILC2310)"},
+      {t:"Acompanhar JBV464 (nota 3,875 em 8 reviews) e JBV328 (3,714) como casos prioritários"}
+    ]
+  },
+
+  /* ================= FRENTE OPERACIONAL — VICTÓRIA MAGRI (28/10/2026) =================
+     Fonte: pda-avaliacoes-airbnb (victoriamagri.github.io) — frente operacional e premium.
+     Prefixo 2.x.y = estrutura e monitoramento da Victória (não colide com 1.1.x, que é o plano de ação de nota). */
+
+  {
+    id:"1.1.13", num:13,
+    title:"Processo automático de pedido de avaliação — Gestão Digital (ILC e JBV)",
+    owners:["TA","IM"], status:"todo", stars:4, phase:1, prazo:D_15,
+    area:"Cobertura (denominador) · Gestão Digital",
+    impact:"+0,006",
+    impactNum:0.006,
+    franquia:"Gestão Digital — portfólios ILC e JBV (Jurerê / Jurerê Internacional, Florianópolis)",
+    desc:"Os portfólios ILC e JBV são operados pela Gestão Digital (Seazone própria), sem anfitrião-franquia que peça avaliação: hoje não há ninguém disparando o pedido. Automatizar o pedido direto no fluxo do hóspede, sem depender de ação manual. Base do recorte (jul–out/2026): 587 reviews em 88 imóveis com nota média 4,59 e 131,6 rev-pontos de gap (41% do gap da rede). A cobertura é o problema: 45.425 reservas Airbnb contra 20.517 reviews — 55% das estadias não deixam avaliação. Escopo: este card é o pedido automático da operação própria (sem anfitrião-franquia); o pedido às franchises segue no card 1.1.4 (app Nota Máxima) e o desbloqueio do fluxo na Tecnologia nos cards 2.1.7 e 2.1.11.",
+    subs:[
+      {t:"Mapear onde o pedido de avaliação é disparado hoje no fluxo do hóspede (Sapron / Host / jornada de mensagens)"},
+      {t:"Definir o gatilho automático: check-out concluído sem review após D+1"},
+      {t:"Disparar o pedido automático em nome da Gestão Digital, sem depender de o host pedir"},
+      {t:"Definir o texto do pedido e a regra de elegibilidade (não pedir a quem teve problema aberto)"},
+      {t:"Filtrar por stay: pedir avaliação só a quem ficou acima de 4,8"},
+      {t:"Medir: check-outs de ILC e JBV ÷ reviews publicadas, por mês"}
+    ]
+  },
+  {
+    id:"2.1.1", num:101,
+    title:"F1-01 · Captar as avaliações diárias na base",
+    owners:["VM"], status:"done", stars:3, phase:1, prazo:D_15,
+    area:"Triagem",
+    impact:"automação diária · Nekt gold",
+    impactNum:0,
+    impactUnit:"no processo",
+    franquia:null,
+    desc:"As avaliações diárias são inseridas na base automaticamente pelo Nekt gold. É o ponto de partida do ciclo de triagem e já está no ar — sustenta a leitura de volume, notas e detratores usada nos 8 KPIs do PDA.",
+    subs:[
+      {t:"Inserir as avaliações diárias na base pelo Nekt gold (automático)"},
+      {t:"Manter a base de comentários e de notas atualizada para os pareceres do agente"},
+      {t:"Acompanhar as métricas diárias: 7 dias, trimestre e detratores"}
+    ]
+  },
+  {
+    id:"2.1.2", num:102,
+    title:"F1-02 · Triar os comentários negativos com parecer do agente e aprovação da Victória",
+    owners:["VM"], status:"doing", stars:4, phase:1, prazo:"48 h",
+    area:"Triagem",
+    impact:"48 h para dar responsável e destinação",
+    impactNum:0,
+    impactUnit:"no ciclo",
+    franquia:null,
+    desc:"Regra geral: todo comentário com nota até 3,5 recebe responsável e destinação em até 48 horas, e a causa precisa estar resolvida antes da chegada do próximo hóspede. O agente produz o parecer via /triagem-comentarios-negativos, classificando em ocorrência, manutenção, anúncio, contestação ou sem ação, e a Victória aprova — nada vai à franquia sem aprovação humana. Hoje a triagem é manual e não acompanha a conclusão da correção.",
+    subs:[
+      {t:"Agente produz o parecer via /triagem-comentarios-negativos, classificando em ocorrência, manutenção, anúncio, contestação ou sem ação"},
+      {t:"Victória aprova o parecer — nenhuma comunicação à franquia sai sem validação humana"},
+      {t:"Manter as regras: anúncio ou comunicação da Seazone não é ocorrência; cobrança de dano, barulho e obra não gera registro; item faltante sem falha de atendimento fica como manutenção"}
+    ]
+  },
+  {
+    id:"2.1.3", num:103,
+    title:"F1-03 · Encaminhar o caso aprovado para manutenção, ocorrência ou anúncio",
+    owners:["VM"], status:"todo", stars:4, phase:1, prazo:D_15,
+    area:"Manutenção",
+    impact:"encaminhamento automático após a aprovação",
+    impactNum:0,
+    impactUnit:"no ciclo",
+    franquia:null,
+    desc:"Manutenção vai para o Sapron, ocorrência para o app e anúncio para o suporte de Anúncios. O agente envia somente os casos já aprovados na triagem, pelos botões do case-cheer e pelo Suporte Unificado.",
+    subs:[
+      {t:"Manutenção: abrir card no Sapron"},
+      {t:"Ocorrência: registrar no app de ocorrências"},
+      {t:"Anúncio: acionar o suporte de Anúncios"},
+      {t:"Enviar apenas os casos aprovados na triagem"}
+    ]
+  },
+  {
+    id:"2.1.4", num:104,
+    title:"F1-04 · Contestar as avaliações fora das regras do Airbnb",
+    owners:["VM"], status:"todo", stars:3, phase:1, prazo:D_15,
+    area:"Contestação",
+    impact:"0 de 33 aceitas na 2ª tentativa (19/10)",
+    impactNum:0,
+    impactUnit:"na 2ª tentativa",
+    franquia:null,
+    desc:"Avaliações fora das regras do Airbnb são contestadas pelo agente via /contestar-airbnb, com processamento diário e teto diário respeitado. A 2ª tentativa, em 19/10, teve 0 de 33 aceitas: contestação não substitui a correção da causa, então entra como apoio à Frente 1 e não como substituto do F1-02 e do F1-05.",
+    subs:[
+      {t:"Processar as contestações diariamente via /contestar-airbnb, respeitando o teto diário"},
+      {t:"Priorizar as avaliações que estão fora das regras do Airbnb"},
+      {t:"Registrar o resultado da contestação por tema, para cruzamento com a reincidência"}
+    ]
+  },
+  {
+    id:"2.1.5", num:105,
+    title:"F1-05 · Fechar o ciclo: conferir card concluído em 7 dias e cobrar",
+    owners:["VM","CF"], status:"todo", stars:4, phase:1, prazo:D_15,
+    area:"Fechamento de ciclo",
+    impact:"7 dias para concluir o card",
+    impactNum:0,
+    impactUnit:"no ciclo",
+    franquia:null,
+    desc:"Após 7 dias do comentário, o agente lista os cards de manutenção que não foram concluídos e o time cobra a franquia ou a área interna. Falta criar a leitura do card por item no Sapron — essa é a skill de fechamento de ciclo, a primeira das novas soluções de IA priorizadas, prevista para a semana de 17 a 21/11.",
+    subs:[
+      {t:"Criar a leitura de card aberto por comentário no Sapron"},
+      {t:"Listar os cards de manutenção abertos há mais de 7 dias"},
+      {t:"Cobrar a franquia ou a área interna responsável"},
+      {t:"Publicar no ar a skill de fechamento de ciclo (semana de 17 a 21/11)"}
+    ]
+  },
+  {
+    id:"2.1.6", num:106,
+    title:"F1-06 · Sinalizar reincidência: 2 detratores do mesmo tema em 30 dias",
+    owners:["VM"], status:"todo", stars:3, phase:1, prazo:D_15,
+    area:"Fechamento de ciclo",
+    impact:"2 detratores do mesmo tema em 30 dias",
+    impactNum:0,
+    impactUnit:"no gatilho",
+    franquia:null,
+    desc:"Imóvel com 2 detratores do mesmo tema em 30 dias entra na pauta mensal da franquia. O agente sinaliza a reincidência usando os monitores existentes; se houver falha da franquia, cabe abrir ocorrência. É também o gatilho semanal de reincidência do monitoramento premium.",
+    subs:[
+      {t:"Cruzar detratores por imóvel e por tema na janela de 30 dias"},
+      {t:"Levar o imóvel reincidente para a pauta mensal da franquia"},
+      {t:"Abrir ocorrência quando houver falha da franquia"}
+    ]
+  },
+  {
+    id:"2.1.7", num:107,
+    title:"F2-01 · Tecnologia/Host liberar o fluxo de pedido e os lembretes",
+    owners:["TA","VM"], status:"todo", stars:5, phase:2, prazo:D_30,
+    area:"Tecnologia",
+    impact:"desbloqueia o envio recorrente e eleva o volume",
+    impactNum:0,
+    impactUnit:"no volume",
+    franquia:null,
+    desc:"O pedido de avaliação trava depois do primeiro envio. Falta ligar o botão de feedback do card de check-out à tela Avaliações e permitir os lembretes — sem isso a jornada de mensagens de 07/10 não roda. Depende da Tecnologia e bloqueia o F2-05.",
+    subs:[
+      {t:"Ligar o botão de feedback do card de check-out à tela Avaliações", dep:"Dependência: Tecnologia"},
+      {t:"Permitir o envio de lembretes na tela Avaliações", dep:"Dependência: Tecnologia"},
+      {t:"Validar que o segundo envio não trava mais o pedido", dep:"Dependência: Tecnologia"},
+      {t:"Pedir à Tecnologia o lembrete na tela Avaliações (semana de 17 a 21/11)"}
+    ]
+  },
+  {
+    id:"2.1.8", num:108,
+    title:"F2-02 · Franquias usarem diariamente a tela Avaliações",
+    owners:["VM","CF"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Cobertura de avaliações",
+    impact:"23 de 111 franquias pediram em 18/10",
+    impactNum:0,
+    impactUnit:"na cobertura",
+    franquia:null,
+    desc:"A franquia que fica abaixo da meta de uso entra na pauta mensal. Em 18/10 foram 23 de 111 franquias pedindo, e entre 01 e 18/10 apenas 64 de 122 pediram ao menos uma vez — o uso diário da tela é o que sustenta o volume de avaliações.",
+    subs:[
+      {t:"Definir a meta de uso diário da tela Avaliações por franquia"},
+      {t:"Levar para a pauta mensal as franquias abaixo da meta de uso"},
+      {t:"Acompanhar quantas franquias pediram ao menos uma vez no mês"}
+    ]
+  },
+  {
+    id:"2.1.9", num:109,
+    title:"F2-03 · Executar Photo Tour e self check-in nos lotes mapeados",
+    owners:["TA"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Anúncios",
+    impact:"69 imóveis em risco sem Photo Tour e 75 sem self check-in",
+    impactNum:0,
+    impactUnit:"nos lotes",
+    franquia:null,
+    desc:"Executar Photo Tour e self check-in nos lotes mapeados: 69 imóveis em risco sem Photo Tour e 75 sem self check-in com queixa de acesso. Na base de 21/08 são 386 imóveis sem Photo Tour e 250 sem self check-in. A fila de alteração de anúncios precisa de responsável, prazo, conferência de execução e validação do status de concluído — o ownership pertence ao Time de Anúncios.",
+    subs:[
+      {t:"Executar o Photo Tour nos 69 imóveis em risco"},
+      {t:"Executar o self check-in nos 75 imóveis com queixa de acesso"},
+      {t:"Conferir a execução e validar o status de concluído na fila de alteração de anúncios", dep:"Dependência: Time de Anúncios"},
+      {t:"Reduzir a base de 386 imóveis sem Photo Tour e 250 sem self check-in"}
+    ]
+  },
+  {
+    id:"2.1.10", num:110,
+    title:"F2-04 · Manter o protocolo UTI para imóveis com menos de 6 avaliações",
+    owners:["VM","CF"], status:"todo", stars:3, phase:2, prazo:D_30,
+    area:"Cobertura de avaliações",
+    impact:"menos de 6 avaliações por imóvel",
+    impactNum:0,
+    impactUnit:"no critério",
+    franquia:null,
+    desc:"Imóvel com menos de 6 avaliações entra no protocolo UTI, conforme os casos do case-cheer. A entrada na UTI é decisão do time, com base no parecer do agente e na validação da Victória.",
+    subs:[
+      {t:"Listar os imóveis com menos de 6 avaliações"},
+      {t:"Aplicar o protocolo UTI conforme os casos do case-cheer"},
+      {t:"Validar com a Victória a entrada de cada imóvel na UTI"}
+    ]
+  },
+  {
+    id:"2.1.11", num:111,
+    title:"F2-05 · Implantar a jornada de mensagens de saída",
+    owners:["TA","VM"], status:"todo", stars:5, phase:2, prazo:D_30,
+    area:"Tecnologia",
+    impact:"13,04% de pedido hoje (1.284 de 9.841 check-outs)",
+    impactNum:0,
+    impactUnit:"no volume",
+    franquia:null,
+    desc:"A jornada desenhada em 07/10 ainda não foi implantada: véspera do check-out divulga a extensão da estadia pelo site (versão A sem vídeo, B com vídeo), dia do check-out só agradecimento, D+1 às 10h o pedido de avaliação, D+5 a D+7 lembretes e D+10 lembrete adicional. A medição é check-outs de D−10 × pedidos enviados no Sapron (review_requested_at), por franquia.",
+    subs:[
+      {t:"Véspera do check-out: mensagem nova divulga a extensão da estadia pelo site (versão A sem vídeo e versão B com vídeo)"},
+      {t:"Dia do check-out: enviar somente agradecimento"},
+      {t:"D+1 às 10h: enviar o pedido de avaliação"},
+      {t:"D+5 a D+7 e D+10: enviar os lembretes", dep:"Dependência: Tecnologia — o pedido trava depois do 1º envio"},
+      {t:"Medição: check-outs de D−10 × pedidos enviados (review_requested_at), por franquia"}
+    ]
+  },
+
+  /* ================= PREMIUM E PLANEJAMENTO (03/11/2026) ================= */
+
+  {
+    id:"2.2.1", num:112,
+    title:"Validar a lista das 15 premium, os limites dos alertas e a meta de 7 dias",
+    owners:["VM","RO"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Cobertura de avaliações",
+    impact:"5 de 15 abaixo de 4,80",
+    impactNum:0,
+    impactUnit:"na lista",
+    franquia:null,
+    desc:"05 a 07/11: confirmar a lista das 15 franquias premium com reunião mensal para todas, validar os limites dos alertas (pedido de avaliação 30%, queda semanal 0,03 e card parado 7 dias) e a meta dos últimos 7 dias, hoje 4,75. No mesmo período, abrir salas de dúvidas para as franquias não inscritas, alinhamento com Rose, e iniciar as ações urgentes. A lista de 03/11 tem 3 Master, 6 Grandes e 6 Spot/Vistas, com 5 de 15 abaixo do piso.",
+    subs:[
+      {t:"Confirmar a lista das 15 franquias premium e a reunião mensal para todas"},
+      {t:"Validar os limites dos alertas: 30% de pedido, queda de 0,03 e card parado em 7 dias"},
+      {t:"Confirmar a meta de 7 dias (hoje 4,75)"},
+      {t:"Abrir salas de dúvidas para as franquias não inscritas, alinhamento com Rose"},
+      {t:"Iniciar as ações urgentes da Franquia Seazone"}
+    ]
+  },
+  {
+    id:"2.2.2", num:113,
+    title:"Definir o responsável pela Franquia Seazone dentro do PDA",
+    owners:["RO","VM"], status:"todo", stars:4, phase:1, prazo:D_15,
+    area:"Cobertura de avaliações",
+    impact:"−0,015 na nota geral",
+    impactNum:-0.015,
+    impactUnit:"na nota geral",
+    franquia:"Jurerê Beach Village, Il Campanário e IAM Consultoria (operação própria Seazone)",
+    desc:"05 a 07/11. A Franquia Seazone tem tratamento separado — Jurerê Beach Village, Il Campanário e IAM Consultoria — e precisa de um dono nomeado dentro do PDA. Hoje as três operações somam 240 avaliações e apenas 1 pedido de avaliação em 816 check-outs.",
+    subs:[
+      {t:"Nomear o responsável pela Franquia Seazone no PDA"},
+      {t:"Definir se a Franquia Seazone entra ou não na lista premium"},
+      {t:"Incluir as três operações no painel e no fechamento mensal"}
+    ]
+  },
+  {
+    id:"2.2.3", num:114,
+    title:"Ações urgentes da Seazone: anúncio do JBV, ar parado no Il Campanário e check-in da IAM",
+    owners:["VS","IM","TA"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Manutenção + Anúncios + Check-in",
+    impact:"−0,015 na nota geral",
+    impactNum:-0.015,
+    impactUnit:"na nota geral",
+    franquia:"Jurerê Beach Village, Il Campanário e IAM Consultoria",
+    desc:"05 a 07/11. Três ações urgentes: o anúncio do Jurerê Beach Village, o ar parado no Il Campanário e o check-in com problema conhecido na IAM Consultoria. Jurerê Beach Village está em 4,24 com 87 avaliações, Il Campanário em 4,65 com 49 e IAM Consultoria em 4,52 com 104. As três somaram 1 pedido de avaliação em 816 check-outs e reduzem cerca de 0,015 na nota geral do Airbnb. PONTE: as causas-raiz e o plano de recuperação de nota do JBV/ILC estão no card 1.1.12; este card trata do prazo (05–07/11) e das três operações.",
+    subs:[
+      {t:"Corrigir o anúncio do Jurerê Beach Village (nota 4,24 em 87 avaliações)"},
+      {t:"Resolver o ar parado no Il Campanário (nota 4,65 em 49 avaliações)"},
+      {t:"Resolver o check-in com problema conhecido na IAM Consultoria (nota 4,52 em 104 avaliações e 70 imóveis)"},
+      {t:"Conferir o pedido de avaliação nas três operações: 1 em 816 check-outs"}
+    ]
+  },
+  {
+    id:"2.2.4", num:115,
+    title:"1ª reunião mensal com as 15 premium — perguntas fixas",
+    owners:["VM","CF"], status:"todo", stars:5, phase:1, prazo:D_15,
+    area:"Cobertura de avaliações",
+    impact:"15 franquias · 1.536 avaliações no trimestre",
+    impactNum:0,
+    impactUnit:"na base",
+    franquia:null,
+    desc:"10 a 14/11: primeira reunião mensal com as 15 franquias premium, com as perguntas fixas — o que mais trava a limpeza, o que mais trava o check-in, o que a Seazone precisa oferecer e o que não é usado do Host e por quê. As respostas formam a lista de problemáticas por franquia. No mesmo período, cadastrar os KPIs pendentes no kpi-system e trocar a meta do KPI 550 para 4,82 após aprovação da Rayanne.",
+    subs:[
+      {t:"Convidar as 15 franquias premium para a reunião mensal"},
+      {t:"Conduzir as perguntas fixas: limpeza, check-in, o que a Seazone precisa oferecer e o que não é usado do Host"},
+      {t:"Registrar as respostas como lista de problemáticas por franquia"},
+      {t:"Cadastrar os KPIs pendentes no kpi-system"},
+      {t:"Trocar a meta do KPI 550 para 4,82 após aprovação da Rayanne"}
+    ]
+  },
+  {
+    id:"2.2.5", num:116,
+    title:"Conferência dos cards em 7 dias e lembrete na tela Avaliações",
+    owners:["VM","VS"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Fechamento de ciclo",
+    impact:"7 dias é o limite de card parado",
+    impactNum:0,
+    impactUnit:"no gatilho",
+    franquia:null,
+    desc:"17 a 21/11: conferir a operação de cards em 7 dias — manutenção aberta há mais de 7 dias após comentário vira cobrança da franquia, na rotina de segunda — e solicitar à Tecnologia o lembrete na tela Avaliações, que hoje trava o pedido depois do primeiro envio. Na segunda, a rotina também atualiza a lista de premium a partir do Sapron.",
+    subs:[
+      {t:"Listar os cards de manutenção abertos há mais de 7 dias e cobrar a franquia (segunda)"},
+      {t:"Atualizar a lista de premium a partir do Sapron (segunda)"},
+      {t:"Solicitar à Tecnologia o lembrete na tela Avaliações", dep:"Dependência: Tecnologia"},
+      {t:"Fechar a semana com o pedido de avaliação por premium e os alertas (sexta)"}
+    ]
+  },
+  {
+    id:"2.2.6", num:117,
+    title:"Painel mensal automático por franquia premium",
+    owners:["VM"], status:"todo", stars:4, phase:2, prazo:D_30,
+    area:"Cobertura de avaliações",
+    impact:"HTML por franquia para a reunião mensal",
+    impactNum:0,
+    impactUnit:"na entrega",
+    franquia:null,
+    desc:"24 a 28/11: skill de painel mensal consolidando por franquia a nota (7 dias e trimestre, com comparação com o mês anterior), o volume (check-outs, pedidos enviados e percentual de uso da ferramenta), os detratores (quantidade, distribuição por tema e imóveis com recorrência), as pendências (manutenções abertas há mais de 7 dias e ocorrências do mês) e os combinados acordados. No mesmo período, o primeiro fechamento mensal para a Rayanne.",
+    subs:[
+      {t:"Consolidar a nota (7 dias e trimestre) com comparação com o mês anterior"},
+      {t:"Consolidar volume, detratores, pendências e combinados em HTML por franquia"},
+      {t:"Publicar no ar a skill de painel mensal (semana de 24 a 28/11)"},
+      {t:"Realizar o primeiro fechamento mensal para a Rayanne"}
+    ]
+  },
+  {
+    id:"2.2.7", num:118,
+    title:"Estrutura completa do PDA de avaliações",
+    owners:["VM","RO"], status:"todo", stars:3, phase:3, prazo:D_90,
+    area:"Cobertura de avaliações",
+    impact:"data pendente de confirmação",
+    impactNum:0,
+    impactUnit:"no cronograma",
+    franquia:null,
+    desc:"A data final está pendente de confirmação — no cronograma aparece como “data a confirmar”. O que já está datado: critério premium definido (03/11), monitoramento criado (04/11), validação com a Rayanne e ações urgentes (05 a 07/11), primeira reunião com as 15 premium e cadastro de KPIs (10 a 14/11), conferência de cards e pedido à Tecnologia (17 a 21/11), painel mensal e primeiro fechamento (24 a 28/11). A estrutura completa depende dessa data ser fechada.",
+    subs:[
+      {t:"Confirmar com a Rayanne a data final da estrutura completa do PDA"},
+      {t:"Consolidar o que já está no ar: monitoramento, painel mensal, fechamento de ciclo e rotina"},
+      {t:"Registrar a data no cronograma do PDA"}
+    ]
+  },
+
+];;
+
+/* ================= ESTADO / LOCALSTORAGE ================= */
+
+const LS_KEY = "pda_avaliacoes_v1";
+
+function defaultState(){
+  const cards = {};
+  INITIAL_CARDS.forEach(c => {
+    cards[c.id] = {status:c.status, stars:c.stars, subs:{}, comments:[]};
+  });
+  return {cards, created:[]};
+}
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return defaultState();
+    const s = JSON.parse(raw);
+    if(!s || !s.cards || !Array.isArray(s.created)) return defaultState();
+    return s;
+  }catch(e){ return defaultState(); }
+}
+
+let state = loadState();
+
+function save(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* Garante que cards novos do modelo entrem mesmo com estado antigo salvo */
+INITIAL_CARDS.forEach(c => {
+  if(!state.cards[c.id]){
+    state.cards[c.id] = {status:c.status, stars:c.stars, subs:{}, comments:[]};
+  }
+});
+
+/* ================= OBS: TOGGLE CONTESTADAS ================= */
+(function(){
+  const btn = document.getElementById("obsToggle");
+  const box = document.getElementById("obsMore");
+  if(!btn || !box) return;
+  btn.addEventListener("click", function(){
+    const open = box.classList.toggle("open");
+    btn.textContent = open ? "Recolher detalhamento" : "Ver detalhamento por mês";
+  });
+})();
+
+/* ================= HELPERS ================= */
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+function starHTML(n, interactive){
+  let out = "";
+  for(let i=1;i<=5;i++){
+    const cls = i <= n ? "" : "off";
+    const attr = interactive ? ' data-star="'+i+'" style="cursor:pointer"' : "";
+    out += '<span class="'+cls+'"'+attr+'>★</span>';
+  }
+  return out;
+}
+
+function avatarHTML(key){
+  const p = PEOPLE[key];
+  if(!p) return "";
+  return '<span class="avatar" title="'+esc(p.name)+'" style="background:'+p.color+'">'+p.ini+'</span>';
+}
+
+function avatarsHTML(keys){
+  return '<span class="avatars">' + keys.map(avatarHTML).join("") + '</span>';
+}
+
+function cardState(id){
+  return state.cards[id] || {status:"todo", stars:1, subs:{}, comments:[]};
+}
+
+function subProgress(card, st){
+  const total = card.subs.length;
+  let done = 0;
+  card.subs.forEach((_,i) => { if(st.subs && st.subs[i]) done++; });
+  return {done, total};
+}
+
+/* ================= FILTROS ================= */
+
+let currentTab = "all";
+let currentSearch = "";
+let currentPhase = "all";
+
+function matches(card, st){
+  if(currentTab !== "all" && st.status !== currentTab) return false;
+  if(currentPhase !== "all" && String(card.phase) !== currentPhase) return false;
+  if(currentSearch){
+    const q = currentSearch.toLowerCase();
+    const hay = [
+      card.id, card.title, card.area, card.franquia || "",
+      PHASE_LABEL[card.phase], STATUS_LABEL[st.status], card.impact
+    ].concat(card.owners.map(k => PEOPLE[k].name)).join(" ").toLowerCase();
+    if(hay.indexOf(q) === -1) return false;
+  }
+  return true;
+}
+
+/* ================= RENDER ================= */
+
+function allCards(){
+  const base = INITIAL_CARDS.map(c => ({card:c, st:cardState(c.id), created:false}));
+  const created = state.created.map(c => ({card:c, st:cardState(c.id), created:true}));
+  return base.concat(created);
+}
+
+function render(){
+  const items = allCards();
+  let counts = {todo:0, doing:0, done:0};
+  items.forEach(it => { counts[it.st.status] = (counts[it.st.status]||0) + 1; });
+
+  document.getElementById("countAll").textContent = items.length;
+  document.getElementById("countTodo").textContent = counts.todo || 0;
+  document.getElementById("countDoing").textContent = counts.doing || 0;
+  document.getElementById("countDone").textContent = counts.done || 0;
+  document.querySelectorAll("[data-colcount]").forEach(el => {
+    el.textContent = counts[el.getAttribute("data-colcount")] || 0;
+  });
+
+  ["todo","doing","done"].forEach(status => {
+    const col = document.getElementById("col-" + status);
+    col.innerHTML = "";
+    const visible = items.filter(it => it.st.status === status && matches(it.card, it.st));
+    if(visible.length === 0){
+      col.innerHTML = '<div class="col-empty">Nenhum card nesta coluna.</div>';
+      return;
+    }
+    visible.forEach(it => col.appendChild(renderCard(it.card, it.st)));
+  });
+}
+
+function renderCard(card, st){
+  const p = subProgress(card, st);
+  const el = document.createElement("div");
+  el.className = "kcard";
+  el.dataset.id = card.id;
+  const pct = p.total ? Math.round(p.done/p.total*100) : 0;
+  el.innerHTML =
+    '<div class="kcard-top">' +
+      '<span class="kcard-id">'+esc(card.id)+'</span>' +
+      '<span class="kcard-stars">'+starHTML(st.stars, false)+'</span>' +
+    '</div>' +
+    '<div class="kcard-title">'+esc(card.title)+'</div>' +
+    '<div class="kcard-meta">' +
+      '<span class="pill pill-'+st.status+'">'+STATUS_LABEL[st.status]+'</span>' +
+      '<span class="pill pill-phase">'+PHASE_LABEL[card.phase]+'</span>' +
+    '</div>' +
+    '<div class="kcard-foot">' +
+      '<span class="kcard-progress"><span class="bar"><i style="width:'+pct+'%"></i></span>'+p.done+'/'+p.total+'</span>' +
+      avatarsHTML(card.owners) +
+    '</div>';
+  el.addEventListener("click", () => openModal(card.id));
+  return el;
+}
+
+/* ================= MODAL ================= */
+
+let modalCardId = null;
+
+function openModal(id){
+  modalCardId = id;
+  const item = allCards().find(it => it.card.id === id);
+  if(!item){ closeModal(); return; }
+  const card = item.card;
+  const st = item.st;
+  const p = subProgress(card, st);
+  const pct = p.total ? Math.round(p.done/p.total*100) : 0;
+
+  const ownerNames = card.owners.map(k => PEOPLE[k].name).join(" + ");
+  const impactUnit = card.impactUnit || (card.impactNum > 0 ? "na nota geral" : "");
+  const impactCls = card.impactNum < 0 ? "impact-value neg" : "impact-value";
+
+  let html = "";
+  html += '<div class="modal-head">' +
+    '<div>' +
+      '<div class="modal-id">'+esc(card.id)+' · criado em '+D_START+'</div>' +
+      '<div class="modal-title" id="modalTitle" contenteditable="true" spellcheck="false">'+esc(card.title)+'</div>' +
+    '</div>' +
+    '<button class="modal-close" id="modalClose" title="Fechar">&times;</button>' +
+  '</div>';
+
+  html += '<div class="modal-grid">' +
+    '<div class="field"><div class="flabel">Status</div><div class="fvalue">' +
+      '<select class="status-select" id="modalStatus">' +
+        '<option value="todo"'+(st.status==="todo"?" selected":"")+'>A fazer</option>' +
+        '<option value="doing"'+(st.status==="doing"?" selected":"")+'>Em andamento</option>' +
+        '<option value="done"'+(st.status==="done"?" selected":"")+'>Concluído</option>' +
+      '</select>' +
+    '</div></div>' +
+    '<div class="field"><div class="flabel">Prioridade</div><div class="fvalue"><span class="modal-stars" id="modalStars">'+starHTML(st.stars, true)+'</span></div></div>' +
+    '<div class="field"><div class="flabel">Responsável</div><div class="fvalue">'+avatarsHTML(card.owners)+'<span>'+esc(ownerNames)+'</span></div></div>' +
+    '<div class="field"><div class="flabel">Prazo</div><div class="fvalue">'+esc(card.prazo)+'</div></div>' +
+    '<div class="field"><div class="flabel">Fase</div><div class="fvalue"><span class="pill pill-phase">'+PHASE_LABEL[card.phase]+'</span></div></div>' +
+    '<div class="field"><div class="flabel">Data de início</div><div class="fvalue">'+D_START+'</div></div>' +
+    '<div class="field"><div class="flabel">Área / Cliente</div><div class="fvalue">'+esc(card.area)+'</div></div>' +
+    '<div class="field"><div class="flabel">Impacto estimado</div><div class="fvalue"><span class="'+impactCls+'">'+esc(card.impact)+'</span>'+(impactUnit ? '<span style="color:var(--muted);font-size:12px">'+esc(impactUnit)+'</span>' : '')+'</div></div>' +
+  '</div>';
+
+  if(card.franquia){
+    html += '<div class="franquia-box"><div class="flabel">Franquia-alvo</div><div class="fvalue">'+esc(card.franquia)+'</div></div>';
+  }
+
+  if(card.desc){
+    html += '<p style="font-size:13px;color:var(--muted);margin:16px 0 0;line-height:1.5">'+esc(card.desc)+'</p>';
+  }
+
+  html += '<div class="subs-section" style="margin-top:20px">' +
+    '<div class="subs-head"><h3 style="margin:0">Sub-tarefas</h3><span class="subs-count" id="subsCount">'+p.done+'/'+p.total+' concluídas</span></div>' +
+    '<div class="subs-bar"><i id="subsBar" style="width:'+pct+'%"></i></div>' +
+    '<div id="subsList">';
+
+  card.subs.forEach((s,i) => {
+    const doneCls = st.subs && st.subs[i] ? " done" : "";
+    html += '<div class="sub-item'+doneCls+'" data-sub="'+i+'">' +
+      '<span class="sub-check"><svg viewBox="0 0 24 24"><polyline points="4 13 10 19 20 7"/></svg></span>' +
+      '<span class="sub-text">'+esc(s.t)+(s.dep ? '<span class="sub-dep">'+esc(s.dep)+'</span>' : '')+'</span>' +
+    '</div>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="comments-section"><h3>Comentários</h3><div id="commentsList">';
+  (st.comments || []).forEach(c => {
+    html += '<div class="comment"><div class="cdate">'+esc(c.date)+'</div><div class="ctext">'+esc(c.text)+'</div></div>';
+  });
+  html += '</div>' +
+    '<div class="comment-form">' +
+      '<input type="text" id="commentInput" placeholder="Adicionar comentário...">' +
+      '<button class="btn btn-primary" id="commentAdd">Comentar</button>' +
+    '</div>' +
+  '</div>';
+
+  document.getElementById("modal").innerHTML = html;
+  document.getElementById("overlay").classList.add("open");
+
+  document.getElementById("modalClose").addEventListener("click", closeModal);
+  document.getElementById("modalStatus").addEventListener("change", e => {
+    const it = allCards().find(x => x.card.id === modalCardId);
+    if(!it) return;
+    state.cards[modalCardId].status = e.target.value;
+    save(); render();
+  });
+
+  document.getElementById("modalStars").addEventListener("click", e => {
+    const s = parseInt(e.target.getAttribute("data-star"), 10);
+    if(!s) return;
+    state.cards[modalCardId].stars = s;
+    save();
+    document.getElementById("modalStars").innerHTML = starHTML(s, true);
+    render();
+  });
+
+  document.querySelectorAll(".sub-item").forEach(el => {
+    el.addEventListener("click", () => {
+      const i = parseInt(el.getAttribute("data-sub"), 10);
+      const stt = state.cards[modalCardId];
+      stt.subs = stt.subs || {};
+      stt.subs[i] = !stt.subs[i];
+      save();
+      el.classList.toggle("done", !!stt.subs[i]);
+      const it = allCards().find(x => x.card.id === modalCardId);
+      const pr = subProgress(it.card, stt);
+      const pct2 = pr.total ? Math.round(pr.done/pr.total*100) : 0;
+      document.getElementById("subsCount").textContent = pr.done + "/" + pr.total + " concluídas";
+      document.getElementById("subsBar").style.width = pct2 + "%";
+      render();
+    });
+  });
+
+  const addComment = () => {
+    const input = document.getElementById("commentInput");
+    const txt = input.value.trim();
+    if(!txt) return;
+    const stt = state.cards[modalCardId];
+    stt.comments = stt.comments || [];
+    stt.comments.push({date: todayBR(), text: txt});
+    save();
+    const list = document.getElementById("commentsList");
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerHTML = '<div class="cdate">'+esc(todayBR())+'</div><div class="ctext">'+esc(txt)+'</div>';
+    list.appendChild(div);
+    input.value = "";
+  };
+  document.getElementById("commentAdd").addEventListener("click", addComment);
+  document.getElementById("commentInput").addEventListener("keydown", e => {
+    if(e.key === "Enter") addComment();
+  });
+}
+
+function todayBR(){
+  const d = new Date();
+  const dd = String(d.getDate()).padStart(2,"0");
+  const mm = String(d.getMonth()+1).padStart(2,"0");
+  return dd + "/" + mm + "/" + d.getFullYear();
+}
+
+function closeModal(){
+  modalCardId = null;
+  document.getElementById("overlay").classList.remove("open");
+}
+
+document.getElementById("overlay").addEventListener("click", e => {
+  if(e.target === document.getElementById("overlay")) closeModal();
+});
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape") closeModal();
+});
+
+/* ================= TABS / BUSCA / FILTRO ================= */
+
+document.querySelectorAll(".tab").forEach(tab => {
+  tab.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    currentTab = tab.getAttribute("data-status");
+    render();
+  });
+});
+
+document.getElementById("search").addEventListener("input", e => {
+  currentSearch = e.target.value.trim();
+  render();
+});
+
+document.getElementById("phaseFilter").addEventListener("change", e => {
+  currentPhase = e.target.value;
+  render();
+});
+
+document.getElementById("applyFilter").addEventListener("click", () => {
+  currentSearch = document.getElementById("search").value.trim();
+  currentPhase = document.getElementById("phaseFilter").value;
+  render();
+});
+
+/* ================= ADICIONAR CARD ================= */
+
+document.querySelectorAll("[data-add]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const status = btn.getAttribute("data-add");
+    const form = document.getElementById("addForm");
+    form.setAttribute("data-status", status);
+    btn.parentNode.insertBefore(form, btn.nextSibling);
+    form.classList.add("open");
+    form.querySelector(".nc-title").focus();
+  });
+});
+
+document.querySelector(".nc-cancel").addEventListener("click", e => {
+  e.preventDefault();
+  document.getElementById("addForm").classList.remove("open");
+});
+
+document.querySelector(".nc-save").addEventListener("click", () => {
+  const form = document.getElementById("addForm");
+  const status = form.getAttribute("data-status") || "todo";
+  const title = form.querySelector(".nc-title").value.trim();
+  const owner = form.querySelector(".nc-owner").value;
+  if(!title) return;
+
+  const existingNums = Object.keys(state.cards)
+    .filter(k => /^1\.1\.\d+$/.test(k))
+    .map(k => parseInt(k.split(".")[2], 10));
+  const next = Math.max(13, existingNums.length ? Math.max.apply(null, existingNums) : 0) + 1;
+
+  const id = "1.1." + next;
+  const card = {
+    id, num:next,
+    title, owners:[owner], status, stars:1,
+    phase:1,
+    prazo:D_30,
+    area:"A definir",
+    impact:"a estimar",
+    impactNum:0,
+    franquia:null,
+    desc:"",
+    subs:[{t:"Definir escopo da ação"}]
+  };
+  state.created.push(card);
+  state.cards[id] = {status, stars:1, subs:{}, comments:[]};
+  save();
+  form.querySelector(".nc-title").value = "";
+  form.classList.remove("open");
+  render();
+});
+
+/* ================= INIT ================= */
+
+render();
+</script>
+</body>
+</html>
